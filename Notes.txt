@@ -1,0 +1,4 @@
+Alex - CS 222 CA
+"one fair warning is the same course can change their crn every semester so u prob dont want to aggregate ur data on CRN (one mistake i made :/)"
+
+Can run the React app by changing into the gpa_disparity_ts folder and running "npm start".  This will open the webpage in a browser.
