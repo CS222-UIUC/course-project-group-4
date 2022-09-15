@@ -1,4 +1,4 @@
-"""_summary_
+"""
 This module is for network quests
 """
 
@@ -11,30 +11,19 @@ This module is for network quests
 
 # https://courses.illinois.edu/cisapp/
 
-import pandas as pd
-
-from bs4 import BeautifulSoup
-
-import beautifulsoup_parsers
 import data_sources
-import requests
 
+def github_link_builder (owner:str, repo:str, path:str) -> str:
+    """given owner, repo, path, returns a string for github API GET requests
 
-def get_soup(url: str) -> BeautifulSoup:
-    """_summary_
-    takes in a url and returns a soup to be parsed by BeautifulSoup
-    Args:
-        url (str):  url to the address to read
+    Args: (direct from https://docs.github.com/en/rest/repos/contents)
+        owner (str): The account owner of the repository. The name is not case sensitive.
+        repo (str): The name of the repository. The name is not case sensitive.
+        path (str): path parameter
+
+    Returns:
+        str: URL
     """
-    #https://www.crummy.com/software/BeautifulSoup/bs4/doc/#making-the-soup
-    #https://www.dataquest.io/blog/web-scraping-python-using-beautiful-soup/
+    return "https://api.github.com/repos/%s/%s/contents/%s" %(owner, repo, path)
 
-    page = requests.get(url)
-
-    assert page.status_code == 200
-
-    soup = BeautifulSoup(page.content, beautifulsoup_parsers.html)
-    print("soup:\n" + soup.prettify())
-    return soup
-
-get_soup(data_sources.gpa_url)
+print(github_link_builder(**data_sources.gpa))
