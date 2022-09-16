@@ -1,26 +1,11 @@
-"""
-This module is for network quests
-"""
-
-# https://stackoverflow.com/questions/23464138/downloading-and-accessing-data-from-github-python
-
-# Parsing XML
-# https://www.geeksforgeeks.org/xml-parsing-python/
-# Can also use Beautiful Soup
-# Pandas can also parse XML
-
-# https://courses.illinois.edu/cisapp/
+"""Utilities related to network requests    """
 
 from http import HTTPStatus
-from typing import List
 from os.path import exists
 from pathlib import Path
-
-import json
 import requests
 import hashlib
 
-import data_sources
 
 CACHE_PATH = "./gpa_disparity_py/network/cache/"
 DOWNLOAD_PATH = "./gpa_disparity_py/network/downloads/"
@@ -38,6 +23,7 @@ def github_link_builder (owner:str, repo:str, path:str) -> str:
     """
     return "https://api.github.com/repos/%s/%s/contents/%s" %(owner, repo, path)
 
+
 def get_filename(string: str):
     """Given a string (url), generate a unique filename for the URL (used for caching)
 
@@ -45,7 +31,7 @@ def get_filename(string: str):
         string (str): string input of data source (generally a URL)
 
     Returns:
-        _type_: _description_
+        _type_: filename as a string
     """
     #https://cryptomarketpool.com/convert-a-string-to-sha256-in-python/
     filename_hash = hashlib.sha256(string.encode())
@@ -103,27 +89,7 @@ def get_web_page_content(url:str) -> bytes:
 
     return data.content
 
-
-def get_raw_github_links(url:str) -> List:
-    """ Given a URL, retruns a list of download urls for each project in a git repo
-
-    Args:
-        url (str): the url of the github repo
-
-    Returns:
-        List: list of downloadl links
-    """
-    url = github_link_builder(**data_sources.GPA)
-
-    webpage_content = get_web_page_content(url)
-
-    url_list = []
-    github_json = json.loads(webpage_content)
-    for each in github_json:
-        url_list.append(each["download_url"])
-    return url_list
-
-# We might want to set this to direct to different output folders based on file type
+    # We might want to set this to direct to different output folders based on file type
 # example: csv folder, json folder, etc.
 def download_http_file(url:str):
     """Given an http file location
@@ -142,9 +108,3 @@ def download_http_file(url:str):
 
     with open(DOWNLOAD_PATH+file_name, "wb") as file:
         file.write(content)
-
-
-# raw_links = get_raw_github_links("https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw")
-# print(raw_links)
-
-download_http_file("https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2010.csv")
