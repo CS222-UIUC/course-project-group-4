@@ -2,4 +2,4 @@ gpa_disparity_py/network/cache/
 gpa_disparity_py/network/downloads/
 gpa_disparity_py/network/defunct/
 
-/__pycache__/
+__pycache__
