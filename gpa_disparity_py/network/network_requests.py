@@ -24,6 +24,7 @@ import hashlib
 import data_sources
 
 CACHE_PATH = "./gpa_disparity_py/network/cache/"
+DOWNLOAD_PATH = "./gpa_disparity_py/network/downloads/"
 
 def github_link_builder (owner:str, repo:str, path:str) -> str:
     """given owner, repo, path, returns a string for github API GET requests
@@ -39,7 +40,7 @@ def github_link_builder (owner:str, repo:str, path:str) -> str:
     return "https://api.github.com/repos/%s/%s/contents/%s" %(owner, repo, path)
 
 def get_filename(string: str):
-    """Given a string (url), generate a filename
+    """Given a string (url), generate a unique filename for the URL (used for caching)
 
     Args:
         string (str): string input of data source (generally a URL)
@@ -51,20 +52,22 @@ def get_filename(string: str):
     filename_hash = hashlib.sha256(string.encode())
     return str(filename_hash.hexdigest())
 
+def ensure_directory(directory: str):
+    Path(directory).mkdir(parents=True, exist_ok=True)
 
 
 def write_to_cache(url:str, input_bytes: bytes):
     """given a URL and input bytes, write the bytes to file.
-    filename is determined by hashing text input
+    filename is determined by hashing url input
 
     Args:
-        url (str): the text to be hashed for use as filename
+        url (str): the url to be hashed for use as filename
         input_bytes (bytes): the bytes to write to file
     """
     file_name = get_filename(url)
 
     #https://stackoverflow.com/questions/273192/how-can-i-safely-create-a-nested-directory
-    Path(CACHE_PATH).mkdir(parents=True, exist_ok=True)
+    ensure_directory(CACHE_PATH)
 
     # https://www.geeksforgeeks.org/python-write-bytes-to-file/
     with open(CACHE_PATH + file_name, "wb") as binary_file:
@@ -72,13 +75,13 @@ def write_to_cache(url:str, input_bytes: bytes):
 
 
 def get_web_page_content(url:str) -> bytes:
-    """checks the local cache
+    """ Gets the content of a webpage.  Will create and maintian local cache of requested webpages.
 
     Args:
-        url (str): _description_
+        url (str): url of webpage to get
 
     Returns:
-        bytes: _description_
+        bytes: bytes of webpage response (string representation?)
     """
 
     file_name = get_filename(url)
@@ -86,8 +89,11 @@ def get_web_page_content(url:str) -> bytes:
     #https://www.pythontutorial.net/python-basics/python-check-if-file-exists/
     if exists(CACHE_PATH + file_name):
         file_obj = open(CACHE_PATH + file_name, "rb")
-        return file_obj.read() #changes data from BufferedReader (from open) to bytes
+        output = file_obj.read()
+        file_obj.close()
+        return output #changes data from BufferedReader (from open) to bytes
 
+    #could use requests.json, but would be harder to cache other types of webpage
     data = requests.get(
         url,
         headers={'Accept':'application/vnd.github+json'} #ensure json response
@@ -118,6 +124,28 @@ def get_raw_github_links(url:str) -> List:
         url_list.append(each["download_url"])
     return url_list
 
-links = get_raw_github_links("https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw")
-print(links)
+# We might want to set this to direct to different output folders based on file type
+# example: csv folder, json folder, etc.
+def download_http_file(url:str):
+    """Given an http file location
+    (ex. https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2010.csv)
+    download the file and save it into the  DOWNLOAD_PATH
 
+    Args:
+        url (str): url to the file
+    """
+    content = get_web_page_content(url)
+
+    ensure_directory(DOWNLOAD_PATH)
+
+    file_name = url[url.rfind("/")+1:] #filename = everything after last '/' character
+    print("file_name: " + file_name)
+
+    with open(DOWNLOAD_PATH+file_name, "wb") as file:
+        file.write(content)
+
+
+# raw_links = get_raw_github_links("https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw")
+# print(raw_links)
+
+download_http_file("https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2010.csv")
