@@ -20,8 +20,11 @@ import data_sources
 from network_utility import github_link_builder, get_web_page_content
 
 
-def get_raw_github_links(url:str) -> List:
-    """ Given a URL, retruns a list of download urls for each project in a git repo
+def get_raw_github_links(url: str) -> List:
+    """
+    Given a Github API repo url, retruns a list of "download_url" for each project in the repo.
+    Use github_link_builder in network_utility.py to generate links
+    example url generation: github_link_builder(**data_sources.GPA)
 
     Args:
         url (str): the url of the github repo
@@ -29,7 +32,6 @@ def get_raw_github_links(url:str) -> List:
     Returns:
         List: list of download links
     """
-    url = github_link_builder(**data_sources.GPA)
 
     webpage_content = get_web_page_content(url)
 
@@ -38,4 +40,3 @@ def get_raw_github_links(url:str) -> List:
     for each in github_json:
         url_list.append(each["download_url"])
     return url_list
-

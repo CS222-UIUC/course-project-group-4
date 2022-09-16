@@ -1,3 +1,5 @@
+"""Tests functions of github_requests.py"""
+
 from github_requests import get_raw_github_links
 
 def test_get_raw_github_links():

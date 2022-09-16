@@ -3,8 +3,9 @@
 from http import HTTPStatus
 from os.path import exists
 from pathlib import Path
-import requests
+
 import hashlib
+import requests
 
 
 CACHE_PATH = "./gpa_disparity_py/network/cache/"
