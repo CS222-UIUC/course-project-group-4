@@ -27,7 +27,7 @@ def get_raw_github_links(url:str) -> List:
         url (str): the url of the github repo
 
     Returns:
-        List: list of downloadl links
+        List: list of download links
     """
     url = github_link_builder(**data_sources.GPA)
 
@@ -38,3 +38,4 @@ def get_raw_github_links(url:str) -> List:
     for each in github_json:
         url_list.append(each["download_url"])
     return url_list
+
