@@ -12,7 +12,6 @@ This module is for network quests
 # https://courses.illinois.edu/cisapp/
 
 from http import HTTPStatus
-from tabnanny import filename_only
 from typing import List
 from os.path import exists
 from pathlib import Path
