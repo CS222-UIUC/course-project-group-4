@@ -13,11 +13,26 @@ This module is for network quests
 
 
 import json
-
 from typing import List
 
-import data_sources
-from network_utility import github_link_builder, get_web_page_content
+import os
+from network_utility import get_web_page_content
+
+
+def get_github_headers() -> dict[str, str]:
+    """Generates headers for Github json request
+
+    Returns:
+        _type_: dictionary of headers to use as request parameter
+    """
+    # ensure json response
+    github_header = {'Accept': 'application/vnd.github+json'}
+
+    if os.environ.get('GITHUB_PAT'):
+        github_header['Authorization'] = str(
+            'token ' + os.environ.get('GITHUB_PAT'))
+
+    return github_header
 
 
 def get_raw_github_links(url: str) -> List:

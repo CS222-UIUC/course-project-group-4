@@ -21,6 +21,7 @@ https://github.com/wadefagen/datasets/tree/master/gpa
 Git limits users to 60 API requests per hour if not authenticated.  5000 / hr if authenticated.
 Check number of git requests remaining (uses a git request):
 curl -I https://api.github.com/users/octocat/orgs
+curl -I --header "Authorization: token $GITHUB_PAT" https://api.github.com/users/octocat/orgs
 
 To generate pydocs, navigate to folder and run:
 pydoc -w ./*
