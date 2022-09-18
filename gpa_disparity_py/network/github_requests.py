@@ -18,6 +18,26 @@ from typing import List
 import os
 from network_utility import get_web_page_content
 
+GPA = {
+    'owner': 'wadefagen',
+    'repo': 'datasets',
+    'path': 'gpa/raw'
+}
+
+
+def build_github_link(owner: str, repo: str, path: str) -> str:
+    """given owner, repo, path, returns a string for github API GET requests
+
+    Args: (direct from https://docs.github.com/en/rest/repos/contents)
+        owner (str): The account owner of the repository. The name is not case sensitive.
+        repo (str): The name of the repository. The name is not case sensitive.
+        path (str): path parameter
+
+    Returns:
+        str: URL
+    """
+    return "https://api.github.com/repos/%s/%s/contents/%s" % (owner, repo, path)
+
 
 def get_github_headers() -> dict[str, str]:
     """Generates headers for Github json request

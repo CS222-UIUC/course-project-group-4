@@ -1,16 +1,14 @@
 """tests functiosn of network_requests.py """
-from network_utility import github_link_builder, get_filename
+from network_utility import get_filename
 
 GPA = {
-'owner': 'wadefagen',
-'repo': 'datasets',
-'path': 'gpa/raw'
+    'owner': 'wadefagen',
+    'repo': 'datasets',
+    'path': 'gpa/raw'
 }
 
-def test_github_link_builder():
-    """ tests that github_link_builder returns the expected url"""
-    assert github_link_builder(
-        **GPA)== r"https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw"
+
+
 
 def test_get_filename():
     """ tests that get_filename is using sha256 and returns properly) """
