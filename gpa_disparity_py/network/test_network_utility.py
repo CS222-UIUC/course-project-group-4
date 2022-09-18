@@ -8,8 +8,6 @@ GPA = {
 }
 
 
-
-
 def test_get_filename():
     """ tests that get_filename is using sha256 and returns properly) """
     assert get_filename(

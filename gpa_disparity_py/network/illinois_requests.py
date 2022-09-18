@@ -3,6 +3,8 @@ from urllib.parse import urlencode
 
 
 class ApiPathConfig:
+    """Class used for configuring API request path fields"""
+
     def __init__(self, year=None, semester=None, subject_code=None, course_number=None, crn=None):
         self.year = year
         self.semester = semester
@@ -12,10 +14,26 @@ class ApiPathConfig:
 
 
 def set_mode_to_links(query_params: dict):
+    """changes the mode of the API query parameter to "links"
+
+    Args:
+        query_params (dict): the query parameters dictionary to be passed to
+                             http://courses.illinois.edu/cisapp/explorer
+    """
     query_params["mode"] = "links"
 
 
 def build_illinois_link(api_path_config: ApiPathConfig, query_params: dict) -> str:
+    """ Build API links for http://courses.illinois.edu/cisapp/explorer.
+        Can poll schedule / course info.
+        See documentation https://courses.illinois.edu/cisdocs/explorer
+    Args:
+        api_path_config (ApiPathConfig): class used to configure the API request
+        query_params (dict): the query parameters dictionary ()
+
+    Returns:
+        str: URL for the API requests
+    """
     base_url = "http://courses.illinois.edu/cisapp/explorer/schedule"
     # year=None, semester=None, subject_code=None, course_number=None, crn=None
 
@@ -45,6 +63,8 @@ def build_illinois_link(api_path_config: ApiPathConfig, query_params: dict) -> s
 
 
 def send_api_request():
+    """_summary_
+    """
     example_config = ApiPathConfig(
         year=2021, semester='fall', subject_code='cs', course_number='225')
     query_params = {}

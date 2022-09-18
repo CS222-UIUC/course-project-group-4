@@ -25,3 +25,11 @@ curl -I --header "Authorization: token $GITHUB_PAT" https://api.github.com/users
 
 To generate pydocs, navigate to folder and run:
 pydoc -w ./*
+
+Chron job to schedule pull updates via Github / API.
+
+Python test coverage
+https://pypi.org/project/diff-cover/
+
+Rather than me merging to main, can clone my branch if needed.
+Have stuff ready by wednesday
