@@ -33,3 +33,8 @@ https://pypi.org/project/diff-cover/
 
 Rather than me merging to main, can clone my branch if needed.
 Have stuff ready by wednesday
+
+Using pytest & coverage.
+$ pytest
+$ coverage run
+$ coverage html
