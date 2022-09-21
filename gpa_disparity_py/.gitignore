@@ -1,1 +1,5 @@
+.coverage
 *.html
+/htmlcov/
+/.pytes_cache/
+*/cache/*
