@@ -17,8 +17,8 @@ class TestGithubRequests(unittest.TestCase):
 
     def test_build_github_link(self):
         """ tests that github_link_builder returns the expected url"""
-        self.assertEqual(build_github_link(
-            **GPA), r"https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw")
+        assert build_github_link(
+            **GPA) == r"https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw"
 
     def test_get_github_headers_json(self):
         """tests that github generates the proper headers"""
