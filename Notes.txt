@@ -36,5 +36,5 @@ Have stuff ready by wednesday
 
 Using pytest & coverage.
 $ pytest
-$ coverage run
+$ coverage run -m pytest
 $ coverage html
