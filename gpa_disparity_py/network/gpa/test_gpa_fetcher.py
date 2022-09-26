@@ -3,7 +3,7 @@
 import os
 import unittest
 
-from github_requests import get_raw_github_links, build_github_link, GPA, get_github_headers
+from gpa_disparity_py.network.github_fetcher.github_requests import get_raw_github_links, build_github_link, GPA, get_github_headers
 
 
 class TestGithubRequests(unittest.TestCase):

@@ -3,3 +3,4 @@
 /htmlcov/
 /.pytes_cache/
 */cache/*
+/venv/
