@@ -84,19 +84,42 @@ class GpaFetcher:
 
         return github_header
 
-    def _get_gpa_info_from_url(url: str, header: dict):
+    def _get_webpage(url: str, header: dict):
+        """Fetches webpage and formats for use in _class_csv_to_json function
+
+        Args:
+            url (str): url to webpage
+                ex. https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2010.csv
+            header (dict): json dictionary
+
+        Returns:
+            _type_: _description_
+        """
         web_request = request.Request(url, headers=header)
         resource = request.urlopen(web_request)
-        res_string = resource.read().decode("utf-8-sig")
 
-        return res_string.splitlines()
+        return resource
 
-    def _class_csv_to_json(resource):
+    def _format_webpage(resource):
+        # processes resource for use in _class_csv_to_json
+        resource = resource.read().decode("utf-8-sig")
+        resource = resource.splitlines()
+        return resource
+
+    def _class_csv_to_json(data_source):
+        """Converts csv input to json
+
+        Args:
+            resource (_type_): file pointer or formatted webpage
+
+        Returns:
+            _type_: _description_
+        """
         data = {}
 
         # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
         # splitlines() was absolutely necessary
-        csvReader = csv.DictReader(resource)
+        csvReader = csv.DictReader(data_source)
 
         # Convert each row into a dictionary
         # and add it to data
@@ -123,7 +146,8 @@ class GpaFetcher:
         url = self._get_github_link(semester_text, year, **self._GPA)
         headers = self._get_github_headers_json()
 
-        resource = GpaFetcher._get_gpa_info_from_url(url, headers)
+        resource = GpaFetcher._get_webpage(url, headers)
+        formatted_resource = GpaFetcher._format_webpage(resource)
 
-        data = GpaFetcher._class_csv_to_json(resource)
+        data = GpaFetcher._class_csv_to_json(formatted_resource)
         return data
