@@ -34,6 +34,21 @@ class GpaFetcher:
     def __init__(self):  # constructor
         pass
 
+    def _fix_year_winter_semester(year) -> str:
+        """Wade has an odd way of specifying semester.
+        If UIUC's API (source of truth) lists it winter 2021,
+        Wade lists it as wi2020-2021
+
+        Args:
+            year (_type_): _description_
+
+        Returns:
+            str: _description_
+        """
+        if type(year) != type(int):
+            year = int(year)
+        return f"{year-1}_{year}"
+
     def _get_github_link(
         semester: str, year: str, owner: str, repo: str, path: str
     ) -> str:
@@ -47,9 +62,13 @@ class GpaFetcher:
         Returns:
             str: URL
         """
+
+        if year == GpaFetcher.Semester.WINTER.value:
+            year = GpaFetcher._fix_year_winter_semester(year)
+
         return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{semester}{year}.csv"
 
-    def _get_github_headers() -> dict[str, str]:
+    def _get_github_headers_json() -> dict[str, str]:
         """Generates headers for Github json request
 
         Returns:
@@ -65,35 +84,14 @@ class GpaFetcher:
 
         return github_header
 
-    # returns pydantic object
-    @classmethod
-    def get_gpas_pandas(self, semester: Semester, year: int):
-        if semester == "wi":
-            pass  # fix year issue with winter semesters
-        url_to_csv = self._build_github_link(semester, str(year), **GpaFetcher._GPA)
-        hdr = self._get_github_headers()
+    def _get_resource(url: str, header: dict):
+        web_request = web_request.Request(url, header)
+        resource = web_request.urlopen(web_request)
+        return resource
 
-        # https://stackoverflow.com/questions/16283799/how-to-read-a-csv-file-from-a-url-with-python/62614979#62614979
-        # https://datatofish.com/csv-to-json-string-python/
-        data = pd.read_csv(url_to_csv)
-        json_data = data.to_json()  # "./network/cache/fa2014.json"
-
-        json_object = json.loads(json_data)
-        json_string = json.dumps(json_object, indent=4)
-
-        with open("./network/cache/temp.json", "w") as fp:
-            fp.write(json_string)
-
-    @classmethod
-    def get_gpas_geek(self, semester, year):
+    def _class_csv_to_json(resource):
         data = {}
-        hdr = self._get_github_headers()
-        url = self._get_github_link(semester, year, **self._GPA)
-
-        req = request.Request(url, headers=hdr)
-        res = request.urlopen(req)
-
-        res_string = res.read().decode("utf-8")
+        res_string = resource.read().decode("utf-8-sig")
 
         # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
         # splitlines() was absolutely necessary
@@ -106,12 +104,35 @@ class GpaFetcher:
             key = rows["CRN"]
             data[key] = rows
 
-        print(json.dumps(data, indent=4))
+        return data
+
+    def dev_testing(self, semester, year):
+        return self._get_github_link(semester, year)
+
+    @classmethod
+    def get_gpas(self, semester, year):
+        """Given a semester and year, return information about classes for the year
+
+        Args:
+            semester (GpaFetcher.Semester): semester
+            year (int): year of semester
+
+        Returns:
+            _type_: json of classes
+        """
+        semester_text = semester.value
+
+        headers = self._get_github_headers_json()
+        url = self._get_github_link(semester_text, year, **self._GPA)
+
+        resource = GpaFetcher._get_resource(url, headers)
+
+        data = GpaFetcher._class_csv_to_json(resource)
+        return data
 
 
-# csvFilePath = r"./network/cache/fa2014.csv"
-# jsonFilePath = r"./network/cache/fa2014.json"
-# GpaFetcher.geeks_for_geeks(csvFilePath, jsonFilePath)
+# GpaFetcher.get_gpas_geek("wi", 2017)
+print(GpaFetcher._get_github_link("fa", "2020", **GpaFetcher._GPA))
 
-
-GpaFetcher.get_gpas_geek("fa", 2014)
+# https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/Semester.WINTER2017.csv
+print(type(GpaFetcher.Semester.FALL))

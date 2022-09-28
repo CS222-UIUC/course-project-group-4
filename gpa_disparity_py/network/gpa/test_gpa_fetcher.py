@@ -1,34 +1,44 @@
 """Tests functions of github_requests.py"""
 
-import os
 import unittest
 
-from gpa_disparity_py.network.github_fetcher.github_requests import get_raw_github_links, build_github_link, GPA, get_github_headers
+from network.gpa.gpa_fetcher import GpaFetcher
 
 
-class TestGithubRequests(unittest.TestCase):
+# class TestGpaFetcher(unittest.TestCase):
+# if using class, each  test should have (self) as a parameter
+# ex: def test_semester(self):
 
-    def test_get_raw_github_links(self):
-        """tests that the list returned by get_raw_github_links is not empty
-        There's a limit of 60 requests per hour if not authenticated, else 5000"""
-        links = get_raw_github_links(
-            "https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw")
-        assert links  # asserts that the list is not empty
 
-    def test_build_github_link(self):
-        """ tests that github_link_builder returns the expected url"""
-        assert build_github_link(
-            **GPA) == r"https://api.github.com/repos/wadefagen/datasets/contents/gpa/raw"
+def test_semester():
+    """Tests that the semester enum outputs are as expected"""
+    assert GpaFetcher.Semester.SPRING.value == "sp"
+    assert GpaFetcher.Semester.SUMMER.value == "su"
+    assert GpaFetcher.Semester.FALL.value == "fa"
+    assert GpaFetcher.Semester.WINTER.value == "wi"
 
-    def test_get_github_headers_json(self):
-        """tests that github generates the proper headers"""
-        header = get_github_headers()
-        assert header['Accept'] == 'application/vnd.github+json'
 
-    def test_get_github_headers_authoriztaion(self):
-        """tests that function includes github authorization if available"""
-        header = get_github_headers()
-        if os.environ.get('GITHUB_PAT'):
-            assert header["Authorization"] == "token " + \
-                os.environ.get('GITHUB_PAT')
-        assert True
+def test_gpa_source():
+    """tests that the data source has not been altered"""
+    assert GpaFetcher._GPA["owner"] == "wadefagen"
+    assert GpaFetcher._GPA["repo"] == "datasets"
+    assert GpaFetcher._GPA["path"] == "gpa/raw"
+
+
+def test_fix_year_winter_semester():
+    """Tests function that converts UIUC Semester year into Wade's semester format"""
+    assert GpaFetcher._fix_year_winter_semester(2020) == "2019_2020"
+
+
+def test_get_github_link():
+    """Tests that Github links are properly generated"""
+    assert (
+        GpaFetcher._get_github_link("fa", "2020", "wadefagen", "datasets", "gpa/raw")
+        == "https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2020.csv"
+    )
+
+
+def test_get_github_headers_json():
+    """Tests that github json request header is properly retruned"""
+    header = GpaFetcher._get_github_headers_json()
+    assert header["Accept"] == "application/vnd.github+json"
