@@ -5,3 +5,4 @@ gpa_disparity_py/network/defunct/
 __pycache__
 .vscode
 .pytest_cache/
+*.github/
