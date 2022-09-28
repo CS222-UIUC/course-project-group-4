@@ -63,7 +63,7 @@ class GpaFetcher:
             str: URL
         """
 
-        if year == GpaFetcher.Semester.WINTER.value:
+        if semester == GpaFetcher.Semester.WINTER.value:
             year = GpaFetcher._fix_year_winter_semester(year)
 
         return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{semester}{year}.csv"
@@ -87,16 +87,16 @@ class GpaFetcher:
     def _get_gpa_info_from_url(url: str, header: dict):
         web_request = request.Request(url, headers=header)
         resource = request.urlopen(web_request)
+        res_string = resource.read().decode("utf-8-sig")
 
-        return resource
+        return res_string.splitlines()
 
     def _class_csv_to_json(resource):
         data = {}
-        res_string = resource.read().decode("utf-8-sig")
 
         # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
         # splitlines() was absolutely necessary
-        csvReader = csv.DictReader(res_string.splitlines())
+        csvReader = csv.DictReader(resource)
 
         # Convert each row into a dictionary
         # and add it to data
@@ -127,6 +127,3 @@ class GpaFetcher:
 
         data = GpaFetcher._class_csv_to_json(resource)
         return data
-
-
-print(GpaFetcher.get_gpas(GpaFetcher.Semester.FALL, 2014))
