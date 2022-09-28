@@ -1,3 +1,6 @@
+To run pytest:
+python -m pytest
+
 To generate pydocs, navigate to folder and run:
 pydoc -w ./*
 

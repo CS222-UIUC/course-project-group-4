@@ -36,6 +36,10 @@ def test_get_github_link():
         GpaFetcher._get_github_link("fa", "2020", "wadefagen", "datasets", "gpa/raw")
         == "https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2020.csv"
     )
+    assert (
+        GpaFetcher._get_github_link("wi", "2020", "wadefagen", "datasets", "gpa/raw")
+        == "https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/wi2019_2020.csv"
+    )
 
 
 def test_get_github_headers_json():

@@ -31,8 +31,8 @@ class GpaFetcher:
 
     _GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
 
-    def __init__(self):  # constructor
-        pass
+    # def __init__(self):  # constructor
+    #     pass
 
     def _fix_year_winter_semester(year) -> str:
         """Wade has an odd way of specifying semester.
@@ -84,9 +84,10 @@ class GpaFetcher:
 
         return github_header
 
-    def _get_resource(url: str, header: dict):
-        web_request = web_request.Request(url, header)
-        resource = web_request.urlopen(web_request)
+    def _get_gpa_info_from_url(url: str, header: dict):
+        web_request = request.Request(url, headers=header)
+        resource = request.urlopen(web_request)
+
         return resource
 
     def _class_csv_to_json(resource):
@@ -106,9 +107,6 @@ class GpaFetcher:
 
         return data
 
-    def dev_testing(self, semester, year):
-        return self._get_github_link(semester, year)
-
     @classmethod
     def get_gpas(self, semester, year):
         """Given a semester and year, return information about classes for the year
@@ -122,17 +120,13 @@ class GpaFetcher:
         """
         semester_text = semester.value
 
-        headers = self._get_github_headers_json()
         url = self._get_github_link(semester_text, year, **self._GPA)
+        headers = self._get_github_headers_json()
 
-        resource = GpaFetcher._get_resource(url, headers)
+        resource = GpaFetcher._get_gpa_info_from_url(url, headers)
 
         data = GpaFetcher._class_csv_to_json(resource)
         return data
 
 
-# GpaFetcher.get_gpas_geek("wi", 2017)
-print(GpaFetcher._get_github_link("fa", "2020", **GpaFetcher._GPA))
-
-# https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/Semester.WINTER2017.csv
-print(type(GpaFetcher.Semester.FALL))
+print(GpaFetcher.get_gpas(GpaFetcher.Semester.FALL, 2014))
