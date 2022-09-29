@@ -12,29 +12,29 @@ from urllib import request
 
 # https://stackoverflow.com/questions/23464138/downloading-and-accessing-data-from-github-python
 
-# Parsing XML
 # https://www.geeksforgeeks.org/xml-parsing-python/
-# Can also use Beautiful Soup
 # Pandas can also parse XML
 
 # https://courses.illinois.edu/cisapp/
 
 
+class Semester(Enum):
+    SPRING = "sp"
+    SUMMER = "su"
+    FALL = "fa"
+    WINTER = "wi"
+
+
+_GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
+
+
 class GpaFetcher:
     """Class used to fetch GPA information"""
-
-    class Semester(Enum):
-        SPRING = "sp"
-        SUMMER = "su"
-        FALL = "fa"
-        WINTER = "wi"
-
-    _GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
 
     # def __init__(self):  # constructor
     #     pass
 
-    def _fix_year_winter_semester(year) -> str:
+    def _fix_year_winter_semester(self, year) -> str:
         """Wade has an odd way of specifying semester.
         If UIUC's API (source of truth) lists it winter 2021,
         Wade lists it as wi2020-2021
@@ -50,7 +50,7 @@ class GpaFetcher:
         return f"{year-1}_{year}"
 
     def _get_github_link(
-        semester: str, year: str, owner: str, repo: str, path: str
+        self, semester: str, year: str, owner: str, repo: str, path: str
     ) -> str:
         """given owner, repo, path, returns a string for github API GET requests
 
@@ -63,12 +63,12 @@ class GpaFetcher:
             str: URL
         """
 
-        if semester == GpaFetcher.Semester.WINTER.value:
-            year = GpaFetcher._fix_year_winter_semester(year)
+        if semester == Semester.WINTER.value:
+            year = self._fix_year_winter_semester(year)
 
         return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{semester}{year}.csv"
 
-    def _get_github_headers_json() -> dict[str, str]:
+    def _get_github_headers_json(self) -> dict[str, str]:
         """Generates headers for Github json request
 
         Returns:
@@ -84,13 +84,12 @@ class GpaFetcher:
 
         return github_header
 
-    def _get_webpage(url: str, header: dict):
-        """Fetches webpage and formats for use in _class_csv_to_json function
+    def _get_webpage(self, url: str, header: dict):
+        """Fetches webpage
 
         Args:
             url (str): url to webpage
-                ex. https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/fa2010.csv
-            header (dict): json dictionary
+            header (dict): header for url request
 
         Returns:
             _type_: _description_
@@ -100,14 +99,14 @@ class GpaFetcher:
 
         return resource
 
-    def _format_webpage(resource):
-        # processes resource for use in _class_csv_to_json
+    def _format_webpage(self, resource):
+        # processes resource for use in _class_csv_to_dict
         resource = resource.read().decode("utf-8-sig")
         resource = resource.splitlines()
         return resource
 
-    def _class_csv_to_json(data_source):
-        """Converts csv input to json
+    def _class_csv_to_dict(self, data_source):
+        """Converts csv input to dictionary
 
         Args:
             resource (_type_): file pointer or formatted webpage
@@ -124,30 +123,34 @@ class GpaFetcher:
         # Convert each row into a dictionary
         # and add it to data
         for rows in csvReader:
-            # set primary key
-            key = rows["CRN"]
+            key = rows["CRN"]  # primary key (group by)
             data[key] = rows
 
         return data
 
-    @classmethod
-    def get_gpas(self, semester, year):
+    def validate_input(self, semester, year):
+        self.Semester(semester)
+
+    def get_gpas(self, year, semester):
         """Given a semester and year, return information about classes for the year
 
         Args:
-            semester (GpaFetcher.Semester): semester
+            semester (Semester): semester
             year (int): year of semester
 
         Returns:
             _type_: json of classes
         """
+
+        self.validate_input(semester, year)
+
         semester_text = semester.value
 
         url = self._get_github_link(semester_text, year, **self._GPA)
         headers = self._get_github_headers_json()
 
-        resource = GpaFetcher._get_webpage(url, headers)
-        formatted_resource = GpaFetcher._format_webpage(resource)
+        resource = self._get_webpage(url, headers)
+        formatted_resource = self._format_webpage(resource)
 
-        data = GpaFetcher._class_csv_to_json(formatted_resource)
+        data = self._class_csv_to_dict(formatted_resource)
         return data

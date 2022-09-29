@@ -4,3 +4,4 @@
 /.pytes_cache/
 */cache/*
 /venv/
+/env/
