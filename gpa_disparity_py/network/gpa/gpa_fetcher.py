@@ -128,8 +128,8 @@ class GpaFetcher:
 
         return data
 
-    def validate_input(self, semester, year):
-        self.Semester(semester)
+    # def validate_input(self, semester, year):
+    #     self.Semester(semester)
 
     def get_gpas(self, year, semester):
         """Given a semester and year, return information about classes for the year
@@ -142,7 +142,7 @@ class GpaFetcher:
             _type_: json of classes
         """
 
-        self.validate_input(semester, year)
+        # self.validate_input(semester, year)
 
         semester_text = semester.value
 
