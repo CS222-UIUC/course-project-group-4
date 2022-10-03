@@ -1,0 +1,7 @@
+.coverage
+*.html
+/htmlcov/
+/.pytes_cache/
+*/cache/*
+/venv/
+/env/
