@@ -1,6 +1,3 @@
-// // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// import React from "react";
-
 export default class DataFetcher {
   async fetchGpaInformation() {
     const url = "https://github.com/wadefagen/datasets/tree/master/gpa";
@@ -9,6 +6,8 @@ export default class DataFetcher {
   }
 }
 
+// example commandline usage(?):
 // npx ts-node -O '{"module":"commonjs"}' ./src/network/DataFetcher.ts
+
 // const df = new DataFetcher();
 // df.fetchGpaInformation().then(console.log);
