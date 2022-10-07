@@ -4,7 +4,6 @@ import BubbleChart from "./BubbleChart";
 function App() {
   return (
     <div className="App">
-      GPA Information
       <BubbleChart />
     </div>
   );
