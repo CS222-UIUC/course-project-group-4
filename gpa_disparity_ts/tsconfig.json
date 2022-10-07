@@ -14,16 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "types": ["reflect-metadata", "jest"],
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "jsx": "react-jsx"
   },
-  "exclude": ["node_modules", "**/*.spec.ts"], // "**/*.test.ts"
-  "include": [
-    "src",
-    "./src/**/*.tsx",
-    "./src/**/*.ts",
-    "__tests__/DataFetcher.test.ts",
-    "__tests__/App.test.tsx"
-  ]
+  "include": ["src", "__tests__/gitignore/App.test.tsx", "__tests__/gitignore/DataFetcher.test.ts"]
 }
