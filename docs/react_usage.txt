@@ -1,3 +1,6 @@
 Run the React - will open the webpage in a browser:
 cd into the gpa_disparity_ts folder
 $ npm start
+
+Run react tests:
+$ npx jest ./__tests__/DataFetcher.test.ts
