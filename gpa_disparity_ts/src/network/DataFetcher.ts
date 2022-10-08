@@ -6,9 +6,6 @@ export default class DataFetcher {
   }
 }
 
-// example commandline usage(?):
-// npx ts-node -O '{"module":"commonjs"}' ./src/network/DataFetcher.ts
-
-// uncomment below if using above commands to test from commandline
-// const df = new DataFetcher();
-// df.fetchGpaInformation().then(console.log);
+// allows viewing response when run from commandline
+const df = new DataFetcher();
+df.fetchGpaInformation().then(console.log);

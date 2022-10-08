@@ -11,22 +11,9 @@ import { Bubble } from "react-chartjs-2";
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
 
-/* Data needed for component:
-// - class subject & title: ECE 125
-// - % of students that received 4.0 - X axis
-// - Average GPA - used for color - Y axis and color
-// - Number of students per year - used for size
-*/
 
-// Colors similar to Wade's (via colorpicker, alpha channel may varry)
-// 	Moderate Blue (good): 75, 161, 200
-//  Moderate Pink (bad): 204, 99, 173
-
-// TODO
-// -custom HTML legend - https://www.chartjs.org/docs/3.3.2/samples/legend/html.html
-// -change bullet point text information to make more obvious what the data points mean (GPA, %3.0, class size)
-// -probably want a function to determine either a linear or log scale for class size (reasonable outputs in range of 5 to 20),
-//      will know better once we get aggregates from DB as to what reasonable scale factor will be
+const MODERATE_BLUE_GOOD_GRADE = { r: 75, g: 161, b: 200 };
+const MODERATE_PINK_BAD_GRADE = { r: 204, g: 99, b: 173 };
 
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 
