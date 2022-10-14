@@ -2,7 +2,7 @@ import json
 import unittest
 from definitions import TEST_FILE_PATH
 from network.course.course_schedule_fetcher import (
-    ApiPathConfig,
+    CourseScheduleParameterConfig,
     CourseScheduleFetcher,
     DetailMode,
 )
@@ -39,7 +39,7 @@ class TestGpaFetcher(unittest.TestCase):
         csf = CourseScheduleFetcher()
         actual = csf._build_illinois_link(
             "http://courses.illinois.edu/cisapp/explorer/schedule",
-            ApiPathConfig(2014, "fall", "CS", 125, 35876),
+            CourseScheduleParameterConfig(2014, "fall", "CS", 125, 35876),
             DetailMode.CASCADE,
         )
         expected = "http://courses.illinois.edu/cisapp/explorer/schedule/2014/fall/CS/125/35876.xml"

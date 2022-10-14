@@ -41,7 +41,7 @@ class BaseUrl(Enum):
     CATALOG = "https://courses.illinois.edu/cisapp/explorer/catalog"
 
 
-class ApiPathConfig:
+class CourseScheduleParameterConfig:
     """Class used for configuring API request path fields"""
 
     def __init__(
@@ -80,7 +80,10 @@ class CourseScheduleFetcher:
         return query_params
 
     def _build_illinois_link(
-        self, base_url: BaseUrl, api_path_config: ApiPathConfig, query_params: dict
+        self,
+        base_url: BaseUrl,
+        api_path_config: CourseScheduleParameterConfig,
+        query_params: dict,
     ) -> str:
         """Build API links for http://courses.illinois.edu/cisapp/explorer.
             Can poll schedule / course info.
@@ -154,7 +157,10 @@ class CourseScheduleFetcher:
         return data_dict
 
     def get_course_schedule(
-        self, base_url: BaseUrl, api_path_config: ApiPathConfig, query_params: dict
+        self,
+        base_url: BaseUrl,
+        api_path_config: CourseScheduleParameterConfig,
+        query_params: dict,
     ):
         url = self._build_illinois_link(base_url, api_path_config, query_params)
         webpage = self._get_webpage(url)
