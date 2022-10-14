@@ -6,6 +6,8 @@ from main import app
 
 client = TestClient(app)
 
+# can mock database functions within testing environment to reduce external dependencies in future weeks.
+
 
 def test_read_all_subjects():
     response = client.get("/all-subjects")
