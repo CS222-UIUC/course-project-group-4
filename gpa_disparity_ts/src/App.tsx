@@ -1,26 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import CourseInformation from "./CourseInformation";
+import CourseInfo from "./CourseInfo"
+
+// Assume Existing Function
+// RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
+// mocked for this example
+const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
+  const sample_class: CourseInfo = {
+    calendarYear: 2022,
+    term: "Fall",
+    subject: "CS",
+    courseID: 222,
+    title: "Software Design Lab",
+    creditHours: 1,
+    description: "Design and implementation of novel software solutions. Problem identification and definition idea generation and evaluation; and software implementation, testing, and deployment. Emphasizes software development best practices—including framework selection, code review, documentation, appropriate library usage, project management, continuous integration and testing, and teamwork. Prerequisite: CS 128; credit or concurrent registration in CS 225. Restricted to majors in Computer Science undergraduate curricula only."
+  };
+  return sample_class;
+};
 
 function App() {
+  // Year & CRN are set by a dropdown component (implemented elsewhere)
+  // Year & CRN are read by GpaInformationDisplay
+  const [subject, setSubject] = useState("CS");
+  const [crn, setCRN] = useState(0);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <BubbleChart /> */}
+      <CourseInformation
+        subject={subject}
+        crn={crn}
+        requestCourseInfo={RequestGPAInformationFromPythonAPI}
+      />
     </div>
   );
 }
-
 export default App;
