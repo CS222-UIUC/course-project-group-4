@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 interface GpaInformationDisplayProps {
   crn: number;
   year: number;
-  request_gpa_info: any; // FIXME
+  request_gpa_info: (crn: number, year: number) => GpaInformation;
 }
 
-/* This interface should be in its own file (GpaInformation.tsx) as
+/* The below interface should be in its own file (GpaInformation.tsx) as
 it will also be used by database / data management
 Also good practice to keep data separate from code
 It's only in this file for easier viewing as sample code.
@@ -30,9 +30,8 @@ const GpaInformationDisplay = (props: GpaInformationDisplayProps) => {
   return (
     <div className="gpa-information-display">
       <p>
-        <b> subject: </b> {gpa_info.subject}
-        {/* linebreak using <br /> tag*/}
-        <br />
+        <b> subject: </b> {gpa_info.subject} {"\n"}
+        <br /> {/* linebreak using <br /> tag*/}
         <b> course: </b> {gpa_info.course_number}
         <br />
         <b> course_title: </b> {gpa_info.course_title}
