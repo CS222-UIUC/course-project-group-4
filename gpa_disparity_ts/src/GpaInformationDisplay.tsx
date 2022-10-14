@@ -6,7 +6,7 @@ interface GpaInformationDisplayProps {
   request_gpa_info: (crn: number, year: number) => GpaInformation;
 }
 
-/* The below interface should be in its own file (GpaInformation.tsx) as
+/* The below interface should be in its own file (GpaInformation.ts) as
 it will also be used by database / data management
 Also good practice to keep data separate from code
 It's only in this file for easier viewing as sample code.
