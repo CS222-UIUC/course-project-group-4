@@ -6,7 +6,7 @@ import CourseInfo from "./CourseInfo"
 
 // Assume Existing Function
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
-// mocked for this example
+// need to make it passable rather than set
 const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
   const sample_class: CourseInfo = {
     calendarYear: 2022,

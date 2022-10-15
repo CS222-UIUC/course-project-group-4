@@ -6,21 +6,6 @@ interface CourseInfoDisplayProps {
   requestCourseInfo: (crn: number, subject: string) => CourseInfo;
 }
 
-/* The below interface should be in its own file (GpaInformation.tsx) as
-it will also be used by database / data management
-Also good practice to keep data separate from code
-It's only in this file for easier viewing as sample code.
-*/
-// export interface CourseInfo {
-//     calendarYear: number
-//     term: string
-//     subject: string
-//     courseID: number
-//     title: string
-//     creditHours: number
-//     description: string
-// }
-
 const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
   const [course_info, setCourseInfo] = useState({} as CourseInfo);
 
@@ -49,3 +34,21 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
 };
 
 export default CourseInfoDisplay;
+
+/* The below interface should be in its own file (GpaInformation.tsx) as
+it will also be used by database / data management
+Also good practice to keep data separate from code
+It's only in this file for easier viewing as sample code.
+*/
+// export interface CourseInfo {
+//     calendarYear: number
+//     term: string
+//     subject: string
+//     courseID: number
+//     title: string
+//     creditHours: number
+//     description: string
+// }
+
+
+
