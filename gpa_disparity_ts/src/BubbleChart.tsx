@@ -11,11 +11,17 @@ import { Bubble } from "react-chartjs-2";
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
 
-
 const MODERATE_BLUE_GOOD_GRADE = { r: 75, g: 161, b: 200 };
 const MODERATE_PINK_BAD_GRADE = { r: 204, g: 99, b: 173 };
 
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
+
+/* 4 things to fix:
+-axis names for graph
+-name of variables (y,x, r) changed to be (averageGpa, percent_four_point_zero)
+-hover-over points list actual properties before values (Percent 4.0, GPA: 94, class size: 108)
+-custom html legend for the chart - needed?
+*/
 
 export const options = {
   scales: {
@@ -41,7 +47,7 @@ export const mock_data = {
       label: "CS 125",
       data: [
         {
-          x: 95,
+          x: 95, // Percent 4.0 GPA: 94
           y: 3.7,
           r: 20,
         },
