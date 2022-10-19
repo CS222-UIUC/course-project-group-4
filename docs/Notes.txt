@@ -3,5 +3,3 @@ Alex - CS 222 CA
 
 
 Chron job to schedule pull updates via Github / API.
-
-This week I'm adding back button and course info display.
