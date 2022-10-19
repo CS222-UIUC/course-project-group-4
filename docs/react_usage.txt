@@ -1,3 +1,12 @@
 Run the React - will open the webpage in a browser:
 cd into the gpa_disparity_ts folder
 $ npm start
+
+Run react tests:
+$ npx jest ./__tests__/DataFetcher.test.ts
+
+To init a typescript react for testiing purposes
+$ npx create-react-app my-app --template typescript
+
+How to run ts file from from commandline:
+npx ts-node -O '{"module":"commonjs"}' ./src/network/DataFetcher.ts
