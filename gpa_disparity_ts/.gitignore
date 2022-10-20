@@ -24,3 +24,4 @@ yarn-error.log*
 
 __tests__/App.test.tsx
 gitignore
+package-lock.json
