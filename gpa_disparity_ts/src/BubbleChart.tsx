@@ -14,6 +14,7 @@ import { Bubble } from "react-chartjs-2";
 const MODERATE_BLUE_GOOD_GRADE = { r: 75, g: 161, b: 200 };
 const MODERATE_PINK_BAD_GRADE = { r: 204, g: 99, b: 173 };
 
+//for the hover-over feature?
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 
 /* 4 things to fix:
@@ -24,11 +25,21 @@ ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 */
 
 export const options = {
+  
   scales: {
     y: {
+      title: {
+        display: true,
+        text: 'Percentage of 4.0 GPAs'
+      }
+      //title: 'Percentage of 4.0 GPAs'
       //   beginAtZero: true,
     },
     x: {
+      title: {
+        display: true,
+        text: 'GPA'
+      }
       //   beginAtZero: true,
     },
   },
@@ -36,7 +47,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: "GPA information",
+      text: "GPA Information",
     },
   },
 };
@@ -47,8 +58,8 @@ export const mock_data = {
       label: "CS 125",
       data: [
         {
-          x: 95, // Percent 4.0 GPA: 94
-          y: 3.7,
+          y: 95, // Percent 4.0 GPA: 94
+          x: 3.7,
           r: 20,
         },
       ],
@@ -58,8 +69,8 @@ export const mock_data = {
       label: "CS 225",
       data: [
         {
-          x: 80,
-          y: 2.5,
+          y: 80,
+          x: 2.5,
           r: 15,
         },
       ],
@@ -67,6 +78,11 @@ export const mock_data = {
     },
   ],
 };
+
+interface BubbleChartProps {
+  subject: {}
+  //function_call_from_db as a callback
+}
 
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
 const BubbleChart = (props: any) => (

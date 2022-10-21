@@ -1,6 +1,6 @@
 import CourseInformation from "./CourseInformation";
 import CourseInfo from "./CourseInfo";
-import BubbleChart from "./BubbleChart";
+import BubbleChart, { mock_data } from "./BubbleChart";
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <BubbleChart /> */}
+      <BubbleChart />
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
