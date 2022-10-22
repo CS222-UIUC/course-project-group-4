@@ -35,7 +35,11 @@ function App() {
 
   return (
     <div className="App">
-      <BubbleChart />
+      <BubbleChart 
+        subject = {subject}
+        //unsure
+        retrieveFromDatabase={retrieveSubjectsFromDB}
+      />
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
