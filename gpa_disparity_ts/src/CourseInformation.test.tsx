@@ -7,7 +7,10 @@ import CourseInformation from "./CourseInformation";
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
 // need to make it passable rather than set
 
-const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
+const RequestGPAInformationFromPythonAPI = (
+  subject: string,
+  course_number: number
+) => {
   const sample_class: CourseInfo = {
     calendarYear: 2022,
     term: "Fall",
@@ -23,12 +26,12 @@ const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
 
 test("renders subject label", () => {
   const subject_dropdown_value = "";
-  const crn = 0;
+  const course_number = 222;
 
   render(
     <CourseInformation
       subject={subject_dropdown_value}
-      crn={crn}
+      course_number={course_number}
       requestCourseInfo={RequestGPAInformationFromPythonAPI}
     />
   );

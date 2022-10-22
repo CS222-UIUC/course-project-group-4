@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import CourseInfo from "./CourseInfo";
 interface CourseInfoDisplayProps {
-  crn: number;
   subject: string;
-  requestCourseInfo: (crn: number, subject: string) => CourseInfo;
+  course_number: number;
+  requestCourseInfo: (subject: string, course_number: number) => CourseInfo;
 }
 
 const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
   const [course_info, setCourseInfo] = useState({} as CourseInfo);
 
   useEffect(() => {
-    setCourseInfo(props.requestCourseInfo(props.crn, props.subject));
-  }, [props.crn, props.subject, props]);
-
-  console.log(course_info);
+    setCourseInfo(props.requestCourseInfo(props.subject, props.course_number));
+  }, [props.course_number, props.subject, props]);
 
   return (
     <div className="course-information-display">
