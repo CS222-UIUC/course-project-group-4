@@ -14,3 +14,8 @@ test that it builds
 git merge --continue
 
 git log will show that the remotes/origin/main has merged into current branch
+
+When creating a new branch each week:
+git checkout main
+git pull
+git checkout -b _new_branch_name_
