@@ -15,6 +15,8 @@ import { GpaInformation } from "./network/GpaInformation";
 const MODERATE_BLUE_GOOD_GRADE = { r: 75, g: 161, b: 200 };
 const MODERATE_PINK_BAD_GRADE = { r: 204, g: 99, b: 173 };
 
+const kLabelPercent = "Percent: ";
+
 //hover-over feature?
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 
@@ -58,13 +60,53 @@ export const options = {
   },
 };
 
-const mock_data2 = parseGpas();
+interface Dataset {
+  label: string;
+  data: {
+    y: number;
+    x: number;
+    r: number;
+    percent: string;
+  }[];
+  backgroundColor: string;
+}
+
+interface BubbleChartData {
+  datasets: Dataset[];
+}
+
+const processGpaInformation = (
+  gpaInformationList: GpaInformation[]
+): BubbleChartData => {
+  const data: Dataset[] = [] as Dataset[];
+  for (const gpaInfo of gpaInformationList) {
+    const dataset: Dataset = {
+      label: gpaInfo.subject + " " + gpaInfo.course_number,
+      data: [
+        {
+          y: gpaInfo.percent_four_point_zero,
+          x: gpaInfo.average_gpa,
+          r: 20, // FIXME should call function to calculate
+          percent: kLabelPercent,
+        },
+      ],
+      backgroundColor: "rgba(75, 161, 200, 0.8)", // FIXME should call function to calculate
+    };
+
+    data.push(dataset);
+  }
+  return { datasets: data };
+};
+
 const mock_data = {
   datasets: [
     {
       label: "CS 125",
       data: [
+        //datapoints
+
         {
+          //datapoint
           y: 95, // Percent 4.0
           x: 3.7, // Average GPA
           r: 20,
@@ -95,8 +137,9 @@ interface BubbleChartProps {
 
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
 const BubbleChart = (props: BubbleChartProps) => {
-  const [gpaInformationList, setGpaInformationList] =
-    useState<GpaInformation[]>();
+  const [gpaInformationList, setGpaInformationList] = useState<
+    GpaInformation[]
+  >([] as GpaInformation[]);
 
   setGpaInformationList(props.retrieveGpasFromDb(props.subject));
 
