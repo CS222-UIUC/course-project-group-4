@@ -75,7 +75,7 @@ interface BubbleChartData {
   datasets: Dataset[];
 }
 
-const processGpaInformation = (
+const Added  = (
   gpaInformationList: GpaInformation[]
 ): BubbleChartData => {
   const data: Dataset[] = [] as Dataset[];
