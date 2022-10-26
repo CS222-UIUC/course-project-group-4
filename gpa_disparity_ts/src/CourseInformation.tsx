@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import CourseInfo from './CourseInfo'
+import CourseInfo from "./CourseInfo";
 interface CourseInfoDisplayProps {
-  crn: number;
   subject: string;
-  requestCourseInfo: (crn: number, subject: string) => CourseInfo;
+  course_number: number;
+  requestCourseInfo: (subject: string, course_number: number) => CourseInfo;
 }
 
 const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
   const [course_info, setCourseInfo] = useState({} as CourseInfo);
 
   useEffect(() => {
-    setCourseInfo(props.requestCourseInfo(props.crn, props.subject));
-  }, [props.crn, props.subject, props]); // will update when the crn or year changes
-
-  console.log(course_info);
+    setCourseInfo(props.requestCourseInfo(props.subject, props.course_number));
+  }, [props.course_number, props.subject, props]);
 
   return (
     <div className="course-information-display">
       <p>
         <b> Subject: </b> {course_info.subject} {course_info.courseID}
-        <br /> 
+        <br />
         <b> Title: </b> {course_info.title}
         <br />
         <b> Credit Hours: </b> {course_info.creditHours}
@@ -34,21 +32,3 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
 };
 
 export default CourseInfoDisplay;
-
-/* The below interface should be in its own file (GpaInformation.tsx) as
-it will also be used by database / data management
-Also good practice to keep data separate from code
-It's only in this file for easier viewing as sample code.
-*/
-// export interface CourseInfo {
-//     calendarYear: number
-//     term: string
-//     subject: string
-//     courseID: number
-//     title: string
-//     creditHours: number
-//     description: string
-// }
-
-
-
