@@ -10,3 +10,7 @@ git merge remotes/origin/main
 git add _changed_file_
 
 test that it builds
+(git add _changed_file_ again if need after fixing)
+git merge --continue
+
+git log will show that the remotes/origin/main has merged into current branch
