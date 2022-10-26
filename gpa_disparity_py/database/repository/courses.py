@@ -24,7 +24,7 @@ class CoursesRepository:
         response = table.put_item(Item=course)
         return response
 
-    def update_recipe(self, course: dict):
+    def update_course(self, course: dict):
         table = self.__db.Table(COURSE_TABLE_NAME)
         response = table.update_item(        
             Key={'CRN': course.get('crn'), 'semester': course.get('semester')},
