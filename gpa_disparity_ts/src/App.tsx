@@ -1,3 +1,6 @@
+import { Navigate } from "react-router-dom";
+import "./App.css";
+import BackButton from "./BackButton";
 import CourseInformation from "./CourseInformation";
 import CourseInfo from "./CourseInfo";
 import BubbleChart from "./BubbleChart";
@@ -44,6 +47,7 @@ function App() {
         setValue={setSubject}
         label="Subject"
       />
+      <BackButton onClick={Navigate()}></BackButton>
       <CourseInformation
         subject={subject as string}
         course_number={course_number}
@@ -52,4 +56,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
