@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -7,7 +7,7 @@ import {
   Title,
 } from "chart.js";
 import { Bubble } from "react-chartjs-2";
-import Context from "@mui/base/TabsUnstyled/TabsContext";
+import { GpaInformation } from "./network/GpaInformation";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
@@ -30,16 +30,16 @@ export const options = {
     y: {
       title: {
         display: true,
-        text: 'Percentage of 4.0 GPAs'
-      }
+        text: "Percentage of 4.0 GPAs",
+      },
       //title: 'Percentage of 4.0 GPAs'
       //   beginAtZero: true,
     },
     x: {
       title: {
         display: true,
-        text: 'GPA'
-      }
+        text: "GPA",
+      },
       //   beginAtZero: true,
     },
   },
@@ -53,21 +53,22 @@ export const options = {
       callbacks: {
         //specific labels for hover-over here, yet to be implemented
         //context throwing error for some reason
-      }
-    }
+      },
+    },
   },
 };
 
-export const mock_data = {
+const mock_data2 = parseGpas();
+const mock_data = {
   datasets: [
     {
       label: "CS 125",
       data: [
         {
-          y: 95, // Percent 4.0 GPA: 94
-          x: 3.7,
+          y: 95, // Percent 4.0
+          x: 3.7, // Average GPA
           r: 20,
-          percent: "Percent: "
+          percent: "Percent: ",
         },
       ],
       backgroundColor: "rgba(75, 161, 200, 0.8)",
@@ -79,7 +80,7 @@ export const mock_data = {
           y: 80,
           x: 2.5,
           r: 15,
-          percent: "Percent: "
+          percent: "Percent: ",
         },
       ],
       backgroundColor: "rgba(204, 99, 173, 0.8)",
@@ -88,18 +89,24 @@ export const mock_data = {
 };
 
 interface BubbleChartProps {
-  subject: {}
-  //function_call_from_db as a callback
-  //unsure
-  retrieveFromDatabase: () => string[]
+  subject: string;
+  retrieveGpasFromDb: (subject: string) => GpaInformation[];
 }
 
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
-const BubbleChart = (props: BubbleChartProps) => (
-  //useEffect in here
-  <div className="chart-wrapper">
-    <Bubble options={options} data={mock_data} />
-  </div>
-);
+const BubbleChart = (props: BubbleChartProps) => {
+  const [gpaInformationList, setGpaInformationList] =
+    useState<GpaInformation[]>();
+
+  setGpaInformationList(props.retrieveGpasFromDb(props.subject));
+
+  processGpaInformation(gpaInformationList);
+
+  return (
+    <div className="chart-wrapper">
+      <Bubble options={options} data={mock_data} />
+    </div>
+  );
+};
 
 export default BubbleChart;

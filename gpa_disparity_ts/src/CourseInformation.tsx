@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
-import CourseInfo from './CourseInfo'
+import { useState } from "react";
+import CourseInfo from "./CourseInfo";
 interface CourseInfoDisplayProps {
   crn: number;
   subject: string;
-  requestCourseInfo: (crn: number, subject: string) => CourseInfo;
+  retrieveCourseInfo: (crn: number, subject: string) => CourseInfo;
 }
 
 const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
   const [course_info, setCourseInfo] = useState({} as CourseInfo);
 
-  useEffect(() => {
-    setCourseInfo(props.requestCourseInfo(props.crn, props.subject));
-  }, [props.crn, props.subject, props]); // will update when the crn or year changes
+  setCourseInfo(props.retrieveCourseInfo(props.crn, props.subject));
 
   console.log(course_info);
 
@@ -19,7 +17,7 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
     <div className="course-information-display">
       <p>
         <b> Subject: </b> {course_info.subject} {course_info.courseID}
-        <br /> 
+        <br />
         <b> Title: </b> {course_info.title}
         <br />
         <b> Credit Hours: </b> {course_info.creditHours}
@@ -49,6 +47,3 @@ It's only in this file for easier viewing as sample code.
 //     creditHours: number
 //     description: string
 // }
-
-
-

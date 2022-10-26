@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import DropDown from "./dropdown";
+import { GpaInformation } from "./network/GpaInformation";
 
 function retrieveSubjectsFromDB() {
   return ["CS", "ECE", "ME", "MEB"];
@@ -27,6 +28,24 @@ const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
   return sample_class;
 };
 
+const retrieveGpasFromDb = (): GpaInformation[] => {
+  const cs125: GpaInformation = {
+    subject: "CS",
+    course_number: 125,
+    percent_four_point_zero: 95,
+    class_size: 1000,
+    average_gpa: 3.7,
+  };
+  const cs225: GpaInformation = {
+    subject: "CS",
+    course_number: 225,
+    percent_four_point_zero: 80,
+    class_size: 100,
+    average_gpa: 2.5,
+  };
+  return [cs125, cs225];
+};
+
 function App() {
   // Year & CRN are set by a dropdown component (implemented elsewhere)
   // Year & CRN are read by GpaInformationDisplay
@@ -35,10 +54,9 @@ function App() {
 
   return (
     <div className="App">
-      <BubbleChart 
-        subject = {subject}
-        //unsure
-        retrieveFromDatabase={retrieveSubjectsFromDB}
+      <BubbleChart
+        subject={subject as string}
+        retrieveGpasFromDb={retrieveGpasFromDb}
       />
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
@@ -49,7 +67,7 @@ function App() {
       <CourseInformation
         subject={subject as string}
         crn={crn}
-        requestCourseInfo={RequestGPAInformationFromPythonAPI}
+        retrieveCourseInfo={RequestGPAInformationFromPythonAPI}
       />
     </div>
   );
