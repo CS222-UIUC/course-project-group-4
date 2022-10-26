@@ -2,7 +2,6 @@ import CourseInformation from "./CourseInformation";
 import CourseInfo from "./CourseInfo";
 import BubbleChart from "./BubbleChart";
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import DropDown from "./dropdown";
 
@@ -13,7 +12,10 @@ function retrieveSubjectsFromDB() {
 // Assume Existing Function
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
 // need to make it passable rather than set
-const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
+const RequestGPAInformationFromPythonAPI = (
+  subject: string,
+  course_number: number
+) => {
   const sample_class: CourseInfo = {
     calendarYear: 2022,
     term: "Fall",
@@ -31,11 +33,11 @@ function App() {
   // Year & CRN are set by a dropdown component (implemented elsewhere)
   // Year & CRN are read by GpaInformationDisplay
   const [subject, setSubject] = useState<string | number>("CS");
-  const [crn, setCRN] = useState(0);
+  const [course_number, setCourseNubmer] = useState(0);
 
   return (
     <div className="App">
-      {/* <BubbleChart /> */}
+      <BubbleChart />
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
@@ -44,7 +46,7 @@ function App() {
       />
       <CourseInformation
         subject={subject as string}
-        crn={crn}
+        course_number={course_number}
         requestCourseInfo={RequestGPAInformationFromPythonAPI}
       />
     </div>
