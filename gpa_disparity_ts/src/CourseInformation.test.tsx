@@ -15,7 +15,7 @@ const RequestGPAInformationFromPythonAPI = (
     calendarYear: 2022,
     term: "Fall",
     subject: "CS",
-    courseID: 222,
+    courseNumber: 222,
     title: "Software Design Lab",
     creditHours: 1,
     description:

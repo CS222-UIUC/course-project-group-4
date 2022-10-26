@@ -16,7 +16,7 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
   return (
     <div className="course-information-display">
       <p>
-        <b> Subject: </b> {course_info.subject} {course_info.courseID}
+        <b> Subject: </b> {course_info.subject} {course_info.courseNumber}
         <br />
         <b> Title: </b> {course_info.title}
         <br />

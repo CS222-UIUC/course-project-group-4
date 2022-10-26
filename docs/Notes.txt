@@ -1,5 +1,16 @@
 Alex - CS 222 CA
 "one fair warning is the same course can change their crn every semester so u prob dont want to aggregate ur data on CRN (one mistake i made :/)"
 
-
 Chron job to schedule pull updates via Github / API.
+
+Merge main into current branch
+git remote update
+git merge remotes/origin/main
+
+git add _changed_file_
+
+test that it builds
+(git add _changed_file_ again if need after fixing)
+git merge --continue
+
+git log will show that the remotes/origin/main has merged into current branch

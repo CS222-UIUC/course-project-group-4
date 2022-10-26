@@ -7,12 +7,46 @@ import {
   Title,
 } from "chart.js";
 import { Bubble } from "react-chartjs-2";
+import { GpaInformation, GpaInformationChart } from "./GpaInformation";
+import { GpaColor } from "./GpaColor";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
 
-const MODERATE_BLUE_GOOD_GRADE = { r: 75, g: 161, b: 200 };
-const MODERATE_PINK_BAD_GRADE = { r: 204, g: 99, b: 173 };
+const min_point_radius = 5;
+const max_point_radius = 20;
+
+// https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
+const PrepareGpaInformationForChart = (
+  gpas: GpaInformation[]
+): GpaInformationChart[] => {
+  const gpa_with_min_class_size = gpas.reduce((prev, curr) =>
+    prev.class_size < curr.class_size ? prev : curr
+  );
+  const min_class_size = gpa_with_min_class_size.class_size;
+
+  const gpa_with_max_class_size = gpas.reduce((prev, curr) =>
+    prev.class_size > curr.class_size ? prev : curr
+  );
+  const max_class_size = gpa_with_max_class_size.class_size;
+
+  return gpas.map((gpa): GpaInformationChart => {
+    const scalable_part_of_radius = max_point_radius - min_point_radius;
+    const scaled_class_size =
+      (gpa.class_size - min_class_size) / (max_class_size - min_class_size);
+
+    const class_size_radius = Math.round(
+      min_point_radius + scaled_class_size * scalable_part_of_radius
+    );
+
+    const class_gpa_color = new GpaColor(gpa.average_gpa);
+    return {
+      ...gpa,
+      class_size_radius: class_size_radius,
+      gpa_color: class_gpa_color,
+    };
+  });
+};
 
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 
