@@ -4,6 +4,9 @@ import BubbleChart from "./BubbleChart";
 import React, { useState } from "react";
 import "./App.css";
 import DropDown from "./dropdown";
+import { Navigate } from "react-router-dom";
+import "./App.css";
+import BackButton from "./BackButton";
 
 function retrieveSubjectsFromDB() {
   return ["CS", "ECE", "ME", "MEB"];
@@ -38,6 +41,7 @@ function App() {
   return (
     <div className="App">
       <BubbleChart />
+      <BackButton onClick={Navigate()}></BackButton>
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
@@ -52,4 +56,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
