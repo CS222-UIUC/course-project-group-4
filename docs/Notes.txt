@@ -6,6 +6,7 @@ Chron job to schedule pull updates via Github / API.
 Merge main into current branch
 git remote update
 git merge remotes/origin/main
+git status
 
 git add _changed_file_
 
