@@ -1,5 +1,6 @@
-import { Stack, Button} from '@mui/material';
+import {Stack, Button} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {Routes, Route} from 'react-router-dom';
 
 interface ButtonProps {
   // figure out later what type should be
@@ -15,7 +16,13 @@ function BackButton(props: ButtonProps) {
         <Button onClick = {props.onClick} class = 'contained' startIcon = {<ArrowBackIcon/>}
       color = 'primary' size = 'medium'> <ArrowBackIcon/> </Button>
       </Stack>
-      
+
+      <Routes>
+        {/* root path */}
+        <Route path="/" />
+        {/* spefic course path */}
+        <Route path="courseinfo/:subject/:course_number" />
+      </Routes>
     </div>
   );
 };
