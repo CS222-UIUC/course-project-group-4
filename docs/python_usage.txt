@@ -20,3 +20,7 @@ Then try the following web addresses in the web browser.
 http://127.0.0.1:8000/all-subjects/
 http://127.0.0.1:8000/course-information/?subject=ECE&coursenumber=125&crn=12345
 http://127.0.0.1:8000/schedule-information/?year=2012&semester=fall&subject=ECE&coursenumber=125&crn=12345
+
+Generate reqirements.txt:
+pip install pipreqs
+pipreqs /path/to/project

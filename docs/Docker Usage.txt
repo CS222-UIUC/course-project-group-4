@@ -1,0 +1,7 @@
+Can use postman to get / send requests
+https://www.postman.com/downloads/postman-agent/
+
+Navigate to the py folder
+docker build -t gpa_disparity_py .
+docker run --rm -it -p 8080:8080 --name gpa_disparity_py gpa_disparity_py
+

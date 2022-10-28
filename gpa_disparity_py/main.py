@@ -14,7 +14,6 @@ async def read_root():
 @app.get("/course-information/")
 async def read_course_information(subject: str, coursenumber: int):
     return {"subject": subject, "coursenumber": coursenumber}
-    http://127.0.0.1:8000/course-information/?subject=cs&coursenumber=125
 
 
 @app.get("/schedule-information/")
