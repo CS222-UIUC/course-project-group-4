@@ -9,7 +9,7 @@ import { GpaInformation } from "./network/GpaInformation";
 import "./App.css";
 import BackButton from "./BackButton";
 
-function retrieveSubjectsFromDB() {
+async function retrieveSubjectsFromDB() {
   return ["CS", "ECE", "ME", "MEB"];
 }
 

@@ -6,7 +6,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface dropdownProps {
-  retrieveMenuItems: () => string[] | number[];
+  retrieveMenuItems: () => Promise<string[] | number[]>;
   value: string | number;
   setValue: Dispatch<SetStateAction<string | number>>;
   label: string;
@@ -14,26 +14,29 @@ interface dropdownProps {
 
 //if props is of type any, then we lose type safety
 export default function DropDown(props: dropdownProps) {
+  const { retrieveMenuItems, value, setValue, label } = props;
   const [valueList, setValueList] = useState<string[] | number[]>(
     [] as string[]
   );
 
   useEffect(() => {
-    setValueList(props.retrieveMenuItems());
-  }, [props]);
+    retrieveMenuItems().then((menuItems: string[] | number[]) => {
+      setValueList(menuItems);
+    });
+  }, [retrieveMenuItems]);
 
   const handleChange = (event: SelectChangeEvent) => {
-    props.setValue(event.target.value);
+    setValue(event.target.value);
   };
   return (
     <Box sx={{ minWidth: 120, maxWidth: 1 / 10, bgcolor: "white" }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">{props.label}</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          // value={props.value}
-          label={props.label}
+          // value={value}
+          label={label}
           onChange={handleChange}
         >
           {
