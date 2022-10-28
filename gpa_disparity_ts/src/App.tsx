@@ -9,14 +9,17 @@ import { GpaInformation } from "./network/GpaInformation";
 import "./App.css";
 import BackButton from "./BackButton";
 
-async function retrieveSubjectsFromDB() {
-  return ["CS", "ECE", "ME", "MEB"];
-}
+const retrieveSubjectsFromApi = async (): Promise<string[]> => [
+  "CS",
+  "ECE",
+  "ME",
+  "MEB",
+];
 
 // Assume Existing Function
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
 // need to make it passable rather than set
-const RequestGPAInformationFromPythonAPI = (
+const RequestGPAInformationFromPythonAPI = async (
   subject: string,
   course_number: number
 ) => {
@@ -33,7 +36,9 @@ const RequestGPAInformationFromPythonAPI = (
   return sample_class;
 };
 
-const retrieveGpasFromDb = (subject: string): GpaInformation[] => {
+const retrieveGpasFromApi = async (
+  subject: string
+): Promise<GpaInformation[]> => {
   const cs125: GpaInformation = {
     subject: "CS",
     course_number: 125,
@@ -60,17 +65,20 @@ function App() {
 
   return (
     <div className="App">
-      <BubbleChart
-        subject={subject as string}
-        retrieveGpasFromDb={retrieveGpasFromDb}
-      />
-      <BackButton onClick={navigate()}></BackButton>
+      {/* "/" rootpage */}
       <DropDown
-        retrieveMenuItems={retrieveSubjectsFromDB}
+        retrieveMenuItems={retrieveSubjectsFromApi}
         value={subject}
         setValue={setSubject}
         label="Subject"
       />
+      <BubbleChart
+        subject={subject as string}
+        retrieveGpasFromDb={retrieveGpasFromApi}
+      />
+
+      {/* "/courseinfo" <courseinfopage>*/}
+      <BackButton onClick={navigate()}></BackButton>
       <CourseInformation
         subject={subject as string}
         course_number={course_number}

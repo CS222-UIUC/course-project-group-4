@@ -14,6 +14,7 @@ interface dropdownProps {
 
 //if props is of type any, then we lose type safety
 export default function DropDown(props: dropdownProps) {
+  // unpack props
   const { retrieveMenuItems, value, setValue, label } = props;
   const [valueList, setValueList] = useState<string[] | number[]>(
     [] as string[]

@@ -166,18 +166,22 @@ const mock_data = {
 
 interface BubbleChartProps {
   subject: string;
-  retrieveGpasFromDb: (subject: string) => GpaInformation[];
+  retrieveGpasFromDb: (subject: string) => Promise<GpaInformation[]>;
 }
 
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
 const BubbleChart = (props: BubbleChartProps) => {
+  const { subject, retrieveGpasFromDb } = props;
+
   const [gpaInformationList, setGpaInformationList] = useState<
     GpaInformation[]
   >([] as GpaInformation[]);
 
   useEffect(() => {
-    setGpaInformationList(props.retrieveGpasFromDb(props.subject));
-  }, [props]);
+    retrieveGpasFromDb(subject).then((gpas: GpaInformation[]) => {
+      setGpaInformationList(gpas);
+    });
+  }, [subject, retrieveGpasFromDb]);
 
   processGpaInformation(gpaInformationList);
 
