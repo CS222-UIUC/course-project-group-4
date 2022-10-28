@@ -1,11 +1,13 @@
 import CourseInformation from "./CourseInformation";
 import CourseInfo from "./CourseInfo";
-import BubbleChart, { mock_data } from "./BubbleChart";
+import BubbleChart from "./BubbleChart";
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import DropDown from "./dropdown";
 import { GpaInformation } from "./network/GpaInformation";
+import { Navigate } from "react-router-dom";
+import "./App.css";
+import BackButton from "./BackButton";
 
 function retrieveSubjectsFromDB() {
   return ["CS", "ECE", "ME", "MEB"];
@@ -14,12 +16,15 @@ function retrieveSubjectsFromDB() {
 // Assume Existing Function
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
 // need to make it passable rather than set
-const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
+const RequestGPAInformationFromPythonAPI = (
+  subject: string,
+  course_number: number
+) => {
   const sample_class: CourseInfo = {
     calendarYear: 2022,
     term: "Fall",
     subject: "CS",
-    courseID: 222,
+    courseNumber: 222,
     title: "Software Design Lab",
     creditHours: 1,
     description:
@@ -28,7 +33,7 @@ const RequestGPAInformationFromPythonAPI = (crn: number, subject: string) => {
   return sample_class;
 };
 
-const retrieveGpasFromDb = (): GpaInformation[] => {
+const retrieveGpasFromDb = (subject: string): GpaInformation[] => {
   const cs125: GpaInformation = {
     subject: "CS",
     course_number: 125,
@@ -50,7 +55,7 @@ function App() {
   // Year & CRN are set by a dropdown component (implemented elsewhere)
   // Year & CRN are read by GpaInformationDisplay
   const [subject, setSubject] = useState<string | number>("CS");
-  const [crn, setCRN] = useState(0);
+  const [course_number, setCourseNubmer] = useState(0);
 
   return (
     <div className="App">
@@ -58,6 +63,7 @@ function App() {
         subject={subject as string}
         retrieveGpasFromDb={retrieveGpasFromDb}
       />
+      <BackButton onClick={Navigate()}></BackButton>
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
@@ -66,10 +72,11 @@ function App() {
       />
       <CourseInformation
         subject={subject as string}
-        crn={crn}
-        retrieveCourseInfo={RequestGPAInformationFromPythonAPI}
+        course_number={course_number}
+        requestCourseInfo={RequestGPAInformationFromPythonAPI}
       />
     </div>
   );
 }
+
 export default App;
