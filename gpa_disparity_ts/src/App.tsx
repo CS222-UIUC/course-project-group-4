@@ -1,10 +1,10 @@
 import CourseInformation from "./CourseInformation";
 import CourseInfo from "./CourseInfo";
 import BubbleChart from "./BubbleChart";
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import DropDown from "./dropdown";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import "./App.css";
 import BackButton from "./BackButton";
 
@@ -32,6 +32,8 @@ const RequestGPAInformationFromPythonAPI = (
   return sample_class;
 };
 
+const navigate = () => {};
+
 function App() {
   // Year & CRN are set by a dropdown component (implemented elsewhere)
   // Year & CRN are read by GpaInformationDisplay
@@ -41,7 +43,7 @@ function App() {
   return (
     <div className="App">
       <BubbleChart />
-      <BackButton onClick={Navigate()}></BackButton>
+      <BackButton onClick={navigate()}></BackButton>
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}
