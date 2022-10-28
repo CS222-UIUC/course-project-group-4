@@ -11,7 +11,7 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
 
   useEffect(() => {
     setCourseInfo(props.requestCourseInfo(props.subject, props.course_number));
-  }, [props.course_number, props.subject, props]);
+  }, [props]);
 
   return (
     <div className="course-information-display">

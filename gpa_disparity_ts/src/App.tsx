@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import "./App.css";
 import DropDown from "./dropdown";
 import { GpaInformation } from "./network/GpaInformation";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import "./App.css";
 import BackButton from "./BackButton";
 
@@ -50,6 +50,7 @@ const retrieveGpasFromDb = (subject: string): GpaInformation[] => {
   };
   return [cs125, cs225];
 };
+const navigate = () => {};
 
 function App() {
   // Year & CRN are set by a dropdown component (implemented elsewhere)
@@ -63,7 +64,7 @@ function App() {
         subject={subject as string}
         retrieveGpasFromDb={retrieveGpasFromDb}
       />
-      <BackButton onClick={Navigate()}></BackButton>
+      <BackButton onClick={navigate()}></BackButton>
       <DropDown
         retrieveMenuItems={retrieveSubjectsFromDB}
         value={subject}

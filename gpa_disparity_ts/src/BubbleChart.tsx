@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -175,7 +175,9 @@ const BubbleChart = (props: BubbleChartProps) => {
     GpaInformation[]
   >([] as GpaInformation[]);
 
-  setGpaInformationList(props.retrieveGpasFromDb(props.subject));
+  useEffect(() => {
+    setGpaInformationList(props.retrieveGpasFromDb(props.subject));
+  }, [props]);
 
   processGpaInformation(gpaInformationList);
 

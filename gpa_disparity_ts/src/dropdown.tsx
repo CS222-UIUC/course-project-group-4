@@ -3,7 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface dropdownProps {
   retrieveMenuItems: () => string[] | number[];
@@ -18,7 +18,10 @@ export default function DropDown(props: dropdownProps) {
     [] as string[]
   );
 
-  setValueList(props.retrieveMenuItems());
+  useEffect(() => {
+    setValueList(props.retrieveMenuItems());
+  }, [props]);
+
   const handleChange = (event: SelectChangeEvent) => {
     props.setValue(event.target.value);
   };
