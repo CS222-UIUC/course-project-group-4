@@ -8,7 +8,7 @@ from typing import List, Optional
 
 from repository.courses import CoursesRepository
 
-def pivot_dict(self, course: dict) -> dict:
+def pivot_dict(course: dict) -> dict:
         return {         # values defined in here will get injected to update expression
                     'CRN':course.get('CRN'),
                     'semester': course.get('semester'),
@@ -39,31 +39,31 @@ def pivot_dict(self, course: dict) -> dict:
             }
 
 class CoursesModel(BaseModel):
-    CRN: str = Field(...)
-    semester: str = Field(...)
-    subject: str = Field(...)
-    number: str = Field(...)
-    title: str = Field(...)
-    section: str = Field(...)
-    schedule_type: str = Field(...)
-    term: str = Field(...)
-    primary_instructor: str = Field(...)
-    a_plus: str = Field(...)
-    a: str = Field(...)
-    a_minus: str = Field(...)
-    b_plus: str = Field(...)
-    b_minus: str = Field(...)
-    c_plus: str = Field(...)
-    c: str = Field(...)
-    c_minus: str = Field(...)
-    d_plus: str = Field(...)
-    d: str = Field(...)
-    d_minus: str = Field(...)
-    f: str = Field(...)
-    w: str = Field(...)
-    avg: str = Field(...)
-    std: str = Field(...)
-    percent_4: str = Field(...) 
+    CRN: Optional[str] = Field(...)
+    semester: Optional[str] = Field(...)
+    subject: Optional[str] = Field(...)
+    number: Optional[str] = Field(...)
+    title: Optional[str] = Field(...)
+    section: Optional[str] = Field(...)
+    schedule_type: Optional[str] = Field(...)
+    term: Optional[str] = Field(...)
+    primary_instructor: Optional[str] = Field(...)
+    a_plus: Optional[str] = Field(...)
+    a: Optional[str] = Field(...)
+    a_minus: Optional[str] = Field(...)
+    b_plus: Optional[str] = Field(...)
+    b_minus: Optional[str] = Field(...)
+    c_plus: Optional[str] = Field(...)
+    c: Optional[str] = Field(...)
+    c_minus: Optional[str] = Field(...)
+    d_plus: Optional[str] = Field(...)
+    d: Optional[str] = Field(...)
+    d_minus: Optional[str] = Field(...)
+    f: Optional[str] = Field(...)
+    w: Optional[str] = Field(...)
+    avg: Optional[str] = Field(...)
+    std: Optional[str] = Field(...)
+    percent_4: Optional[str] = Field(...) 
 
 
 class CoursesDomain():
@@ -85,5 +85,9 @@ class CoursesDomain():
     def update_course(self, course: CoursesModel):
         return self.__repository.update_recipe(course.dict())
 
-    def delete_recipe(self, crn: str, semester: str):
-        return self.__repository.delete_recipe(crn, semester)
+    def delete_course(self, crn: str, semester: str):
+        return self.__repository.delete_course(crn, semester)
+
+    def get_all_majors(self):
+        items = self.get_all()
+        return set([d.get("subject", None) for d in items])
