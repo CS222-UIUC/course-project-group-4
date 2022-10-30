@@ -1,15 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import CourseInfoPage from "./routes/CourseInfoPage";
+import Root from "./routes/Root";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+function PageNotFound() {
+  return (
+    <div>
+      <h2>404 Page not found</h2>
+    </div>
+  );
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+  },
+
+  {
+    path: "courseinfo/:subject/:course_number",
+    element: <CourseInfoPage />,
+  },
+
+  {
+    path: "*",
+    element: <PageNotFound />,
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

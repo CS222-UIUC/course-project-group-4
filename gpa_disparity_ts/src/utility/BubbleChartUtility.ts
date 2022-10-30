@@ -1,5 +1,5 @@
 import { GpaColor } from "../GpaColor";
-import { GpaInformation, GpaInformationChart } from "../network/GpaInformation";
+import { GpaInformation, GpaInformationChart } from "../interfaces/GpaInformation";
 
 const min_point_radius = 5;
 const max_point_radius = 20;

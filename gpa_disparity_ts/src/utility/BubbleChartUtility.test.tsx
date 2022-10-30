@@ -1,4 +1,4 @@
-import { GpaInformation } from "../network/GpaInformation";
+import { GpaInformation } from "../interfaces/GpaInformation";
 import {
   PrepareGpaInformationForChart,
   processGpaInformation,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CourseInfo from "./CourseInfo";
+import CourseInfo from "../interfaces/CourseInfo";
 interface CourseInfoDisplayProps {
   subject: string;
   course_number: number;

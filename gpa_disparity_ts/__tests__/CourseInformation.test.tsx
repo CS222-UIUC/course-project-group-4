@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import CourseInfo from "./CourseInfo";
-import CourseInformation from "./CourseInformation";
+import CourseInfo from "../src/interfaces/CourseInfo";
+import CourseInformation from "../src/components/CourseInformation";
 
 // Assume Existing Function
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
