@@ -44,22 +44,3 @@ export const retrieveGpasFromApi = async (
   };
   return [cs125, cs225];
 };
-
-/* <DropDown
-retrieveMenuItems={retrieveSubjectsFromApi}
-value={subject}
-setValue={setSubject}
-label="Subject"
-/>
-<BubbleChart
-subject={subject as string}
-retrieveGpasFromDb={retrieveGpasFromApi}
-/>
-
-<BackButton onClick={navigate()}></BackButton>
-<CourseInformation
-subject={subject as string}
-course_number={course_number}
-requestCourseInfo={RequestGPAInformationFromPythonAPI}
-/>
- */
