@@ -6,37 +6,39 @@ from pydantic import BaseModel
 from pydantic.types import UUID4
 from typing import List, Optional
 
-from repository.courses import CoursesRepository
+from database.repository.courses import CoursesRepository
+
 
 def pivot_dict(course: dict) -> dict:
-        return {         # values defined in here will get injected to update expression
-                    'CRN':course.get('CRN'),
-                    'semester': course.get('semester'),
-                    'subject':course.get('Course Subject'),
-                    'number':course.get('Course Number'),
-                    'title':course.get('Course Title'),
-                    'section':course.get('Course Section'),
-                    'schedule_type':course.get('Sched Type'),
-                    'term':course.get('Term'),
-                    'primary_instructor':course.get('Primary Instructor'),
-                    'a_plus':course.get('A+'),
-                    'a':course.get('A'),
-                    'a_minus':course.get('A-'),
-                    'b_plus':course.get('B+'),
-                    'b':course.get('B'),
-                    'b_minus':course.get('B-'),
-                    'c_plus':course.get('C+'),
-                    'c':course.get('C'),
-                    'c_minus':course.get('C-'),
-                    'd_plus':course.get('D+'),
-                    'd':course.get('D'),
-                    'd_minus':course.get('D-'),
-                    'f':course.get('F'),
-                    'w':course.get('W'),
-                    'avg':course.get('Average Grade'),
-                    'std':course.get('Standard Deviation'),
-                    'percent_4':course.get('% 4.0\'s')
-            }
+    return {  # values defined in here will get injected to update expression
+        "CRN": course.get("CRN"),
+        "semester": course.get("semester"),
+        "subject": course.get("Course Subject"),
+        "number": course.get("Course Number"),
+        "title": course.get("Course Title"),
+        "section": course.get("Course Section"),
+        "schedule_type": course.get("Sched Type"),
+        "term": course.get("Term"),
+        "primary_instructor": course.get("Primary Instructor"),
+        "a_plus": course.get("A+"),
+        "a": course.get("A"),
+        "a_minus": course.get("A-"),
+        "b_plus": course.get("B+"),
+        "b": course.get("B"),
+        "b_minus": course.get("B-"),
+        "c_plus": course.get("C+"),
+        "c": course.get("C"),
+        "c_minus": course.get("C-"),
+        "d_plus": course.get("D+"),
+        "d": course.get("D"),
+        "d_minus": course.get("D-"),
+        "f": course.get("F"),
+        "w": course.get("W"),
+        "avg": course.get("Average Grade"),
+        "std": course.get("Standard Deviation"),
+        "percent_4": course.get("% 4.0's"),
+    }
+
 
 class CoursesModel(BaseModel):
     CRN: Optional[str] = Field(...)
@@ -63,10 +65,10 @@ class CoursesModel(BaseModel):
     w: Optional[str] = Field(...)
     avg: Optional[str] = Field(...)
     std: Optional[str] = Field(...)
-    percent_4: Optional[str] = Field(...) 
+    percent_4: Optional[str] = Field(...)
 
 
-class CoursesDomain():
+class CoursesDomain:
     def __init__(self, repository: CoursesRepository) -> None:
         self.__repository = repository
 
