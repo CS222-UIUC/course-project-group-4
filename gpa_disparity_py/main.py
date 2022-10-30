@@ -1,20 +1,19 @@
 from typing import Union
 from network.course.course_schedule_fetcher import CourseScheduleParameterConfig
 from fastapi import FastAPI
+from courses import get_all_majors
 
 app = FastAPI()
 
 
-@app.get("/all-subjects")
+@app.get(get_all_majors())
 async def read_root():
-    subjects = ["ECE"]  # fetch subject list from DB
-    return subjects
+    return get_all_majors()
 
 
 @app.get("/course-information/")
 async def read_course_information(subject: str, coursenumber: int):
     return {"subject": subject, "coursenumber": coursenumber}
-    http://127.0.0.1:8000/course-information/?subject=cs&coursenumber=125
 
 
 @app.get("/schedule-information/")
