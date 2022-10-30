@@ -5,5 +5,8 @@
 */cache/*
 /venv/
 /env/
+/network/cache/
+/network/downloads/
+/network/defunct/
 
 .git
