@@ -6,7 +6,7 @@ from courses import get_all_majors
 app = FastAPI()
 
 
-@app.get(get_all_majors())
+@app.get("/all-subjects/")
 async def read_root():
     return get_all_majors()
 
