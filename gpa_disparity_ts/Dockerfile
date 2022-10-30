@@ -6,7 +6,8 @@ ADD package.json /src/package.json
 RUN npm install
 
 ADD . /src
+RUN npm run build
 
 ENV PORT=8080
 
-ENTRYPOINT npm install -g serve;  npm run build;  npx serve -s build;
+ENTRYPOINT   npx serve -l $PORT -s build
