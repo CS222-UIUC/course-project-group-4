@@ -1,12 +1,18 @@
 import { Stack, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
 interface ButtonProps {
   // figure out later what type should be
-  onClick: any;
+  onClick?: () => void;
 }
 
 function BackButton(props: ButtonProps) {
+  const navigate = useNavigate();
+  const default_onClick = () => {
+    navigate(-1);
+  };
+  const { onClick = default_onClick } = props;
   return (
     <div className="back-button">
       {/* using stack just to adjust the position of button,
@@ -18,7 +24,7 @@ function BackButton(props: ButtonProps) {
         spacing={1}
       >
         <Button
-          onClick={props.onClick}
+          onClick={onClick}
           variant="contained"
           startIcon={<ArrowBackIcon />}
           color="primary"

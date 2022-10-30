@@ -18,7 +18,11 @@ function CourseInfoPage() {
   return (
     <div className="course-info-page">
       {/* Holds our page component*/}
-      <BackButton onClick={navigate(-1)}></BackButton>
+      <BackButton
+        onClick={() => {
+          navigate(-1);
+        }}
+      />
       <CourseInformation
         subject={subject as string}
         course_number={course_number}
