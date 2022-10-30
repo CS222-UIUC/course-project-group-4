@@ -1,14 +1,19 @@
 from typing import Union
+from database.db import initialize_db
+from database.repository.courses import CoursesRepository
 from network.course.course_schedule_fetcher import CourseScheduleParameterConfig
 from fastapi import FastAPI
-from courses import get_all_majors
+from database.domain.courses import CoursesDomain
 
 app = FastAPI()
 
+resource = initialize_db()
+course_domain = CoursesDomain(CoursesRepository(resource))
 
-@app.get(get_all_majors())
+
+@app.get("/all-subjects")
 async def read_root():
-    return get_all_majors()
+    return course_domain.get_all_majors()
 
 
 @app.get("/course-information/")
