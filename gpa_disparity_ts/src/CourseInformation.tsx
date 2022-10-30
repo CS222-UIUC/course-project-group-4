@@ -3,15 +3,21 @@ import CourseInfo from "./CourseInfo";
 interface CourseInfoDisplayProps {
   subject: string;
   course_number: number;
-  requestCourseInfo: (subject: string, course_number: number) => CourseInfo;
+  requestCourseInfo: (
+    subject: string,
+    course_number: number
+  ) => Promise<CourseInfo>;
 }
 
 const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
+  const { subject, course_number, requestCourseInfo } = props;
   const [course_info, setCourseInfo] = useState({} as CourseInfo);
 
   useEffect(() => {
-    setCourseInfo(props.requestCourseInfo(props.subject, props.course_number));
-  }, [props.course_number, props.subject, props]);
+    requestCourseInfo(subject, course_number).then((course_info_from_api) => {
+      setCourseInfo(course_info_from_api);
+    });
+  }, [course_number, requestCourseInfo, subject]);
 
   return (
     <div className="course-information-display">
