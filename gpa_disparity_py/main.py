@@ -15,6 +15,7 @@ async def read_root():
 async def read_course_information(subject: str, coursenumber: int):
     return {"subject": subject, "coursenumber": coursenumber}
 
+
 @app.get("/schedule-information/")
 async def read_schedule_information(
     year: Union[int, None],
@@ -27,4 +28,3 @@ async def read_schedule_information(
         year, semester, subject, coursenumber, crn
     )
     return input_values
-

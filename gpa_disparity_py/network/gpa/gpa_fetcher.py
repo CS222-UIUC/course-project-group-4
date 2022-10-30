@@ -5,6 +5,7 @@ import pandas as pd
 import json
 import csv
 from urllib import request
+from config import config
 
 # TODO look into tomorrow
 # https://thekevinwang.com/2021/04/11/csv-to-dynamodb/
@@ -77,10 +78,8 @@ class GpaFetcher:
         # ensure json response
         github_header = {"Accept": "application/vnd.github+json"}
 
-        if os.environ.get("GITHUB_PAT"):
-            github_header["Authorization"] = str(
-                "token " + os.environ.get("GITHUB_PAT")
-            )
+        if config.github_access_token:
+            github_header["Authorization"] = str("token " + config.github_access_token)
 
         return github_header
 

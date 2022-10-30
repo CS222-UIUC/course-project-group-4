@@ -5,4 +5,5 @@
 */cache/*
 /venv/
 /env/
-.env
+
+.git
