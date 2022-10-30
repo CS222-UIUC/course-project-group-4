@@ -7,7 +7,7 @@ import CourseInformation from "./CourseInformation";
 // RequestGPAInformationFromPythonAPI(Year, CRN) -> Object containing Course information
 // need to make it passable rather than set
 
-const RequestGPAInformationFromPythonAPI = (
+const RequestGPAInformationFromPythonAPI = async (
   subject: string,
   course_number: number
 ) => {
