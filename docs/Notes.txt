@@ -20,3 +20,5 @@ When creating a new branch each week:
 git checkout main
 git pull
 git checkout -b _new_branch_name_
+
+I finally looked at Wade's scraping script.  Now that I think about it, though his data was a couple years out of date, possibly could have just ran his scraper locally.
