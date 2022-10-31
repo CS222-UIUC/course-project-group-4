@@ -5,8 +5,12 @@
 */cache/*
 /venv/
 /env/
+<<<<<<< Updated upstream
 /network/cache/
 /network/downloads/
 /network/defunct/
+=======
+.env
+>>>>>>> Stashed changes
 
 .git
