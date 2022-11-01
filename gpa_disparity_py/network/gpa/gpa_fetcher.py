@@ -123,7 +123,9 @@ class GpaFetcher:
 
         semester_text = semester.value
 
-        url = self._get_github_link(semester_text, year, **(self._GPA))
+        url = self._get_github_link(
+            semester=semester_text, year=year, *self._GPA.values()
+        )
         headers = self._get_github_headers_json()
 
         response = requests.get(url, headers=headers)
