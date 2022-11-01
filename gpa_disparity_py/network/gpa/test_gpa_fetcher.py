@@ -40,6 +40,6 @@ class TestGpaFetcher(unittest.TestCase):
         json_file = open(f"{TEST_FILE_PATH}/fa2014.json")
         expected = json.load(json_file)
         with open(f"{TEST_FILE_PATH}/fa2014.csv", "r") as test_file:
-            actual = gpa_fetcher._class_csv_to_dict(test_file)
+            actual = gpa_fetcher._class_csv_to_dict(test_file.read())
             self.assertEqual(expected, actual)
         json_file.close
