@@ -8,3 +8,4 @@
 /network/cache/
 /network/downloads/
 /network/defunct/
+*/__pycache__/*
