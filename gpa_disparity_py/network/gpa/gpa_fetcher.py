@@ -99,16 +99,17 @@ class GpaFetcher:
 
         # Convert each row into a dictionary
         # and add it to data
-        for rows in csvReader:
-            key = rows["CRN"]  # primary key (group by)
-            data[key] = rows
+        for row in csvReader:
+            key = row["CRN"]  # primary key (group by)
+            row["year"]=
+            data[key] = row
 
         return data
 
     # def validate_input(self, semester, year):
     #     self.Semester(semester)
 
-    def get_gpas(self, year, semester):
+    def get_gpas(self, year, semester: Semester):
         """Given a semester and year, return information about classes for the year
 
         Args:
@@ -124,11 +125,15 @@ class GpaFetcher:
         semester_text = semester.value
 
         url = self._get_github_link(
-            semester=semester_text, year=year, *self._GPA.values()
+            semester=semester_text,
+            year=year,
+            owner=self._GPA["owner"],
+            repo=self._GPA["repo"],
+            path=self._GPA["path"],
         )
         headers = self._get_github_headers_json()
 
         response = requests.get(url, headers=headers)
 
-        data = self._class_csv_to_dict(response.text)
+        data = self._class_csv_to_dict(year, semester, response.text)
         return data
