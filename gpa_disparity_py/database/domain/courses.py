@@ -11,15 +11,12 @@ from database.repository.courses import CoursesRepository
 
 def pivot_dict(course: dict) -> dict:
     return {  # values defined in here will get injected to update expression
-        "CRN": course.get("CRN"),
-        "semester": course.get("semester"),
+        "year": course.get("year"),
+        "term": course.get("Term"),
         "subject": course.get("Course Subject"),
         "number": course.get("Course Number"),
         "title": course.get("Course Title"),
-        "section": course.get("Course Section"),
         "schedule_type": course.get("Sched Type"),
-        "term": course.get("Term"),
-        "primary_instructor": course.get("Primary Instructor"),
         "a_plus": course.get("A+"),
         "a": course.get("A"),
         "a_minus": course.get("A-"),
@@ -34,22 +31,18 @@ def pivot_dict(course: dict) -> dict:
         "d_minus": course.get("D-"),
         "f": course.get("F"),
         "w": course.get("W"),
-        "avg": course.get("Average Grade"),
-        "std": course.get("Standard Deviation"),
-        "percent_4": course.get("% 4.0's"),
+        "primary_instructor": course.get("Primary Instructor"),
     }
 
 
 class CoursesModel(BaseModel):
-    CRN: Optional[str] = Field(...)
-    semester: Optional[str] = Field(...)
+    year: Optional[str] = Field(...)
+    term: Optional[str] = Field(...)
     subject: Optional[str] = Field(...)
     number: Optional[str] = Field(...)
     title: Optional[str] = Field(...)
     section: Optional[str] = Field(...)
     schedule_type: Optional[str] = Field(...)
-    term: Optional[str] = Field(...)
-    primary_instructor: Optional[str] = Field(...)
     a_plus: Optional[str] = Field(...)
     a: Optional[str] = Field(...)
     a_minus: Optional[str] = Field(...)
@@ -63,9 +56,7 @@ class CoursesModel(BaseModel):
     d_minus: Optional[str] = Field(...)
     f: Optional[str] = Field(...)
     w: Optional[str] = Field(...)
-    avg: Optional[str] = Field(...)
-    std: Optional[str] = Field(...)
-    percent_4: Optional[str] = Field(...)
+    primary_instructor: Optional[str] = Field(...)
 
 
 class CoursesDomain:
@@ -75,8 +66,8 @@ class CoursesDomain:
     def get_all(self):
         return self.__repository.get_all()
 
-    def get_course(self, crn: str, semester: str):
-        return self.__repository.get_course(crn, semester)
+    def get_course(self, subject: str, year: str):
+        return self.__repository.get_course(subject, year)
 
     def create_course_json(self, course):
         return self.__repository.create_course(pivot_dict(course))
@@ -87,8 +78,8 @@ class CoursesDomain:
     def update_course(self, course: CoursesModel):
         return self.__repository.update_recipe(course.dict())
 
-    def delete_course(self, crn: str, semester: str):
-        return self.__repository.delete_course(crn, semester)
+    def delete_course(self, subject: str, year: str):
+        return self.__repository.delete_course(subject, year)
 
     def get_all_majors(self):
         items = self.get_all()
