@@ -11,7 +11,7 @@ resource = initialize_db()
 course_domain = CoursesDomain(CoursesRepository(resource))
 
 
-@app.get("/all-subjects")
+@app.get("/all-subjects/")
 async def read_root():
     return course_domain.get_all_majors()
 
