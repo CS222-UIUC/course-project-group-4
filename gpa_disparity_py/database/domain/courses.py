@@ -11,10 +11,10 @@ from database.repository.courses import CoursesRepository
 
 def pivot_dict(course: dict) -> dict:
     return {  # values defined in here will get injected to update expression
-        "year": course.get("year"),
+        "year": course.get("Year"),
         "term": course.get("Term"),
-        "subject": course.get("Course Subject"),
-        "number": course.get("Course Number"),
+        "subject": course.get("Subject"),
+        "number": course.get("Number"),
         "title": course.get("Course Title"),
         "schedule_type": course.get("Sched Type"),
         "a_plus": course.get("A+"),
