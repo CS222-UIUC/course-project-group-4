@@ -1,3 +1,4 @@
+import io
 import os
 from enum import Enum
 from textwrap import indent
@@ -6,6 +7,7 @@ import json
 import csv
 from urllib import request
 from config import config
+import requests
 
 # TODO look into tomorrow
 # https://thekevinwang.com/2021/04/11/csv-to-dynamodb/
@@ -26,14 +28,11 @@ class Semester(Enum):
     WINTER = "wi"
 
 
-_GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
-
-
 class GpaFetcher:
     """Class used to fetch GPA information"""
 
-    # def __init__(self):  # constructor
-    #     pass
+    def __init__(self):
+        self._GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
 
     def _fix_year_winter_semester(self, year) -> str:
         """Wade has an odd way of specifying semester.
@@ -83,28 +82,7 @@ class GpaFetcher:
 
         return github_header
 
-    def _get_webpage(self, url: str, header: dict):
-        """Fetches webpage
-
-        Args:
-            url (str): url to webpage
-            header (dict): header for url request
-
-        Returns:
-            _type_: _description_
-        """
-        web_request = request.Request(url, headers=header)
-        resource = request.urlopen(web_request)
-
-        return resource
-
-    def _format_webpage(self, resource):
-        # processes resource for use in _class_csv_to_dict
-        resource = resource.read().decode("utf-8-sig")
-        resource = resource.splitlines()
-        return resource
-
-    def _class_csv_to_dict(self, data_source):
+    def _class_csv_to_dict(self, data_source: str):
         """Converts csv input to dictionary
 
         Args:
@@ -117,7 +95,7 @@ class GpaFetcher:
 
         # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
         # splitlines() was absolutely necessary
-        csvReader = csv.DictReader(data_source)
+        csvReader = csv.DictReader(data_source.splitlines())
 
         # Convert each row into a dictionary
         # and add it to data
@@ -145,11 +123,12 @@ class GpaFetcher:
 
         semester_text = semester.value
 
-        url = self._get_github_link(semester_text, year, **self._GPA)
+        url = self._get_github_link(
+            semester=semester_text, year=year, *self._GPA.values()
+        )
         headers = self._get_github_headers_json()
 
-        resource = self._get_webpage(url, headers)
-        formatted_resource = self._format_webpage(resource)
+        response = requests.get(url, headers=headers)
 
-        data = self._class_csv_to_dict(formatted_resource)
+        data = self._class_csv_to_dict(response.text)
         return data
