@@ -8,3 +8,7 @@
 /network/cache/
 /network/downloads/
 /network/defunct/
+
+*/__pycache__/*
+
+.env
