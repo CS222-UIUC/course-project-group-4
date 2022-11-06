@@ -9,6 +9,6 @@
 /network/downloads/
 /network/defunct/
 
-*/__pycache__/*
+__pycache__
 
 .env
