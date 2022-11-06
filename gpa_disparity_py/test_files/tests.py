@@ -2,6 +2,8 @@ import data_processing
 
 #Test file sample data - https://github.com/wadefagen/datasets/blob/master/gpa/raw/wi2021_2022.csvhttps://github.com/wadefagen/datasets/blob/master/gpa/raw/wi2021_2022.csv using this link
 # would like to figure out how to process csv so can use it for easy testing
+
+# would this be more troublesome in comparison to manually inputting data for tests?
 # dataset = pd.read_csv(https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/raw/wi2021_2022.csv)
 # just test each row
 # subset of data that we want (subset of rows followed by columns) -- subset = dataset.iloc[1:34, 6:18]
