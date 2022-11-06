@@ -5,9 +5,9 @@ from domain.courses import CoursesModel
 from repository.courses import CoursesRepository
 import pandas as pd
 
-
 class TestCourses(unittest.TestCase):
     def test_set_mode_to_links(self):
+        
         df = pd.read_csv("test_files/fa2014.csv", dtype=str)
         resource = initialize_db()
         course_domain = CoursesDomain(CoursesRepository(resource))

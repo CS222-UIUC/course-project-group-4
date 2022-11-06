@@ -91,5 +91,5 @@ class CoursesDomain:
         return self.__repository.delete_course(crn, semester)
 
     def get_all_majors(self):
-        items = self.get_all()
-        return set([d.get("subject", None) for d in items])
+        items = self.__repository.get_majors()
+        return [d.get("Major", None) for d in items]

@@ -15,12 +15,14 @@ class CoursesRepository:
         try:
             table = self.__db.Table(COURSE_TABLE_NAME)     
             response = table.get_item(Key={'CRN': crn, 'semester': semester})
-            return response['Item']       
+            return response.get('Items', []) 
         except ClientError as e:
             raise ValueError(e.response['Error']['Message'])
 
     def create_course(self, course: dict):
         table = self.__db.Table(COURSE_TABLE_NAME)
+        major_table = self.__db.Table("Majors")
+        major_table.put_item(Item = {"Major": course.get("subject")})
         response = table.put_item(Item=course)
         return response
 
@@ -91,3 +93,8 @@ class CoursesRepository:
             Key={'CRN': crn, 'semester': semester}
         )
         return response
+
+    def get_majors(self):
+        major_table = self.__db.Table("Majors")
+        response = major_table.scan()             
+        return response.get('Items', [])  
