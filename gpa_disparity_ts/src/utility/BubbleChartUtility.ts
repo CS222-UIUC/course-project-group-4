@@ -111,7 +111,15 @@ export const processGpaInformation = (
 export const options = {
   scales: {
     y: {
+      ticks: {
+        font: {
+          size: 15
+        }
+      },
       title: {
+        font: {
+          size: 20
+        },
         display: true,
         text: "Percentage of 4.0 GPAs",
       },
@@ -119,7 +127,15 @@ export const options = {
       //   beginAtZero: true,
     },
     x: {
+      ticks: {
+        font: {
+          size: 15
+        }
+      },
       title: {
+        font: {
+          size: 20
+        },
         display: true,
         text: "GPA",
       },
@@ -129,8 +145,12 @@ export const options = {
   responsive: true,
   plugins: {
     title: {
+      font: {
+        size: 30
+      },
       display: true,
       text: "GPA Information",
+      size: 30,
     },
     tooltip: {
       callbacks: {
