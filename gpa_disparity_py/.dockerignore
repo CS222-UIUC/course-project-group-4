@@ -10,6 +10,10 @@
 /network/downloads/
 /network/defunct/
 
+__pycache__
+tmp
+filewriter.py
+
 .env
 
 .git

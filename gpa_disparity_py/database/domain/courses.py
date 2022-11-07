@@ -11,10 +11,11 @@ from database.repository.courses import CoursesRepository
 
 def pivot_dict(course: dict) -> dict:
     return {  # values defined in here will get injected to update expression
-        "CRN": course.get("CRN"),
-        "semester": course.get("semester"),
-        "subject": course.get("Course Subject"),
-        "number": course.get("Course Number"),
+        "id": course.get("ID"),
+        "year": course.get("Year"),
+        "term": course.get("Term"),
+        "subject": course.get("Subject"),
+        "number": course.get("Number"),
         "title": course.get("Course Title"),
         "section": course.get("Course Section"),
         "schedule_type": course.get("Sched Type"),
@@ -41,8 +42,9 @@ def pivot_dict(course: dict) -> dict:
 
 
 class CoursesModel(BaseModel):
-    CRN: Optional[str] = Field(...)
-    semester: Optional[str] = Field(...)
+    id: Optional[str] = Field(...)
+    year: Optional[str] = Field(...)
+    term: Optional[str] = Field(...)
     subject: Optional[str] = Field(...)
     number: Optional[str] = Field(...)
     title: Optional[str] = Field(...)
@@ -75,8 +77,8 @@ class CoursesDomain:
     def get_all(self):
         return self.__repository.get_all()
 
-    def get_course(self, crn: str, semester: str):
-        return self.__repository.get_course(crn, semester)
+    def get_course(self, id: str, subject: str):
+        return self.__repository.get_course(id, subject)
 
     def create_course_json(self, course):
         return self.__repository.create_course(pivot_dict(course))
@@ -87,9 +89,9 @@ class CoursesDomain:
     def update_course(self, course: CoursesModel):
         return self.__repository.update_recipe(course.dict())
 
-    def delete_course(self, crn: str, semester: str):
-        return self.__repository.delete_course(crn, semester)
+    def delete_course(self, id: str, subject: str):
+        return self.__repository.delete_course(id, subject)
 
     def get_all_majors(self):
-        items = self.__repository.get_majors()
-        return [d.get("Major", None) for d in items]
+        items = self.get_all()  # FIXME not efficient - scans entire table
+        return set([d.get("subject", None) for d in items])
