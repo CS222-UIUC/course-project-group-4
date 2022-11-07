@@ -21,21 +21,17 @@ class GpaService(AbstractService):
         self.fetcher = fetcher
         self.dyn_res = dyn_res
 
-    def query_gpa_information(self, subject):
+    def query_gpa_information(self, subject: str):
         parti_wrapper = PartiQLWrapper(self.dyn_res)
+        write_to_file(subject)
+        query_results = parti_wrapper.run_partiql(
+            f"SELECT * FROM testcourse WHERE subject =?", [subject.upper()]
+        )
+        return query_results["Items"]
 
+    def term_to_db(self, year: int, semester: Semester):
         course_domain = CoursesDomain(CoursesRepository(self.dyn_res))
-        # for year in (GpaService.FIRST_YEAR_TO_FETCH, date.today().year):
-        #     for sem in Semester:
-        #         gpa_info = self.fetcher.get_gpas(year, sem)
-
-        gpa_info = self.fetcher.get_gpas(2019, Semester.FALL)
-        count = 0
+        gpa_info = self.fetcher.get_gpas(year, semester)
         for each in gpa_info:
-            if count < 5:
-                course_domain.create_course_json(each)
-                count += 1
-
-        # query_results = parti_wrapper.run_partiql(
-        #     f"SELECT * FROM Courses WHERE line_number=? AND subject=?", ["0", "AAS"]
-        # )
+            course_domain.create_course_json(each)
+            count += 1

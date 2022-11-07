@@ -9,19 +9,6 @@ from urllib import request
 from config import config
 import requests
 
-from filewriter import write_to_file
-
-# TODO look into tomorrow
-# https://thekevinwang.com/2021/04/11/csv-to-dynamodb/
-
-
-# https://stackoverflow.com/questions/23464138/downloading-and-accessing-data-from-github-python
-
-# https://www.geeksforgeeks.org/xml-parsing-python/
-# Pandas can also parse XML
-
-# https://courses.illinois.edu/cisapp/
-
 
 class Semester(Enum):
     SPRING = "sp"
@@ -131,9 +118,9 @@ class GpaFetcher:
         # and add it to data
         for row in csvReader:
             if str(year) == row["Year"]:
-                row["ID"] = self._build_id(row)
-                data.append(row)
-                write_to_file(row)
+                if row["Subject"] == "CS":
+                    row["ID"] = self._build_id(row)
+                    data.append(row)
         return data
 
     # def validate_input(self, semester, year):
