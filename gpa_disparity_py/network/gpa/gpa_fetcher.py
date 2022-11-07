@@ -9,6 +9,8 @@ from urllib import request
 from config import config
 import requests
 
+from filewriter import write_to_file
+
 # TODO look into tomorrow
 # https://thekevinwang.com/2021/04/11/csv-to-dynamodb/
 
@@ -33,6 +35,7 @@ class GpaFetcher:
 
     def __init__(self):
         self._GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
+        self.url_cleaned_data = "https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/uiuc-gpa-dataset.csv"
 
     def _fix_year_winter_semester(self, year) -> str:
         """Wade has an odd way of specifying semester.
@@ -82,7 +85,34 @@ class GpaFetcher:
 
         return github_header
 
-    def _class_csv_to_dict(self, data_source: str):
+    def _build_id(self, row) -> str:
+        properties = [
+            "Year",
+            "Term",
+            "Subject",
+            "Number",
+            "A+",
+            "A",
+            "A-",
+            "B+",
+            "B",
+            "B-",
+            "C+",
+            "C",
+            "C-",
+            "D+",
+            "D",
+            "D-",
+            "F",
+            "W",
+        ]
+        id = str()
+        for property in properties:
+            id += str(row[property])
+
+        return id
+
+    def _class_csv_to_dict(self, year, semester: Semester, data_source: str):
         """Converts csv input to dictionary
 
         Args:
@@ -91,7 +121,7 @@ class GpaFetcher:
         Returns:
             _type_: _description_
         """
-        data = {}
+        data = []
 
         # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
         # splitlines() was absolutely necessary
@@ -99,17 +129,17 @@ class GpaFetcher:
 
         # Convert each row into a dictionary
         # and add it to data
-        for rows in csvReader:
-            key = rows["CRN"]  # primary key (group by)
-            data[key] = rows
-
+        for row in csvReader:
+            if str(year) == row["Year"]:
+                row["ID"] = self._build_id(row)
+                data.append(row)
+                write_to_file(row)
         return data
 
     # def validate_input(self, semester, year):
     #     self.Semester(semester)
-
-    def get_gpas(self, year, semester):
-        """Given a semester and year, return information about classes for the year
+    def get_gpas(self, year, semester: Semester):
+        """Used to get GPA information
 
         Args:
             semester (Semester): semester
@@ -122,13 +152,12 @@ class GpaFetcher:
         # self.validate_input(semester, year)
 
         semester_text = semester.value
+        url = self.url_cleaned_data
 
-        url = self._get_github_link(
-            semester=semester_text, year=year, *self._GPA.values()
-        )
         headers = self._get_github_headers_json()
 
         response = requests.get(url, headers=headers)
 
-        data = self._class_csv_to_dict(response.text)
+        data = self._class_csv_to_dict(year, semester, response.text)
+
         return data
