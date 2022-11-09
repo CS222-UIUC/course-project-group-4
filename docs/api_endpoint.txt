@@ -10,7 +10,9 @@ Can use postman to get / send requests
 https://www.postman.com/downloads/postman-agent/
 
 Navigate to the api_endpoint_py folder, then
-docker build -t gpa_disparity_py .
+docker build -t api_endpoint .
 docker run --rm -it -p 8080:8080 --env-file .env --name api_endpoint api_endpoint
 
-
+http://127.0.0.1:8080/all-subjects/
+http://127.0.0.1:8080/course-info/?subject=ABE&number=498
+http://127.0.0.1:8080/gpa-info/?subject=ECE
