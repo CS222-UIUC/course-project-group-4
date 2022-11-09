@@ -18,8 +18,6 @@ class CourseInfoFetcher:
         "path": "course-catalog/data",
     }
 
-    # def __init__(self):
-
     def _get_github_link(
         self,
         semester: str,
@@ -47,7 +45,6 @@ class CourseInfoFetcher:
         Returns:
             _type_: dictionary of headers to use as request parameter
         """
-        # ensure json response
         github_header = {"Accept": "application/vnd.github+json"}
 
         if config.github_access_token:
@@ -66,15 +63,11 @@ class CourseInfoFetcher:
         """
         data = []
 
-        # THANK GOD: https://stackoverflow.com/questions/46591535/read-csv-file-directly-from-a-website-in-python-3
-        # splitlines() was absolutely necessary
+        # splitlines() is necessary
         csvReader = csv.DictReader(data_source.splitlines())
 
-        # Convert each row into a dictionary
-        # and add it to data
         for row in csvReader:
             data.append(row)
-
         return data
 
     def get_course_info(self, year, semester: Semester):
@@ -87,8 +80,6 @@ class CourseInfoFetcher:
         Returns:
             _type_: json of classes
         """
-
-        # self.validate_input(semester, year)
 
         semester_text = semester.value
         url = self._get_github_link(semester_text, year)
