@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from typing import Optional
 
 from database.repository.course_info import CourseInfoRepository
-from file_writer import write_to_file
 
 
 def pivot_dict(course: dict) -> dict:

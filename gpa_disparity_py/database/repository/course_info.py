@@ -1,7 +1,6 @@
 from botocore.exceptions import ClientError
 from boto3.resources.base import ServiceResource
 
-from file_writer import write_to_file
 
 COURSE_TABLE_NAME = "course_final"
 
@@ -12,7 +11,6 @@ class CourseInfoRepository:
 
     def create_course_info(self, course_info: dict):
         table = self.__db.Table(COURSE_TABLE_NAME)
-        write_to_file(course_info)
         response = table.put_item(Item=course_info)
         return response
 
