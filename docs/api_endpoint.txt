@@ -1,5 +1,6 @@
 You can host a local version of the api at 127.0.0.1:8000  You can see the results in a web browser.
 `source ./venv/bin/activate` to change to the venv
+`cd src`
 `uvicorn main:app --reload` to host on local
 Then try the following web addresses in the web browser.
 http://127.0.0.1:8000/all-subjects/
