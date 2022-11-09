@@ -1,7 +1,6 @@
 from boto3.resources.base import ServiceResource
 from database.PartiSqlWrapper import PartiQLWrapper
 from database.db import initialize_db
-from filewriter import write_to_file
 
 class ApiService():
     def __init__(
@@ -28,7 +27,6 @@ class ApiService():
             f"SELECT * FROM course_final WHERE subject = ? AND number = ?", [subject, str(course_number)]
         )
         course_info_list = query_results["Items"]
-        write_to_file(course_info_list)
         most_recent_course_info = {}
         if course_info_list:
             # https://stackoverflow.com/questions/72899/how-do-i-sort-a-list-of-dictionaries-by-a-value-of-the-dictionary
