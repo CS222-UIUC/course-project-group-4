@@ -1,11 +1,5 @@
-import io
-import os
 from enum import Enum
-from textwrap import indent
-import pandas as pd
-import json
 import csv
-from urllib import request
 from config import config
 import requests
 
@@ -53,8 +47,29 @@ class GpaFetcher:
             str: URL
         """
 
-        if semester == Semester.WINTER.value:
-            year = self._fix_year_winter_semester(year)
+    def get_gpas(self, year, semester: Semester):
+        """Used to get GPA information
+
+        Args:
+            semester (Semester): semester
+            year (int): year of semester
+
+        Returns:
+            _type_: json of classes
+        """
+
+        # self.validate_input(semester, year)
+
+        semester_text = semester.value
+        url = self.url_cleaned_data
+
+        headers = self._get_github_headers_json()
+
+        response = requests.get(url, headers=headers)
+
+        data = self._class_csv_to_dict(year, semester, response.text)
+
+        return data
 
         return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{semester}{year}.csv"
 
@@ -118,7 +133,7 @@ class GpaFetcher:
         # and add it to data
         for row in csvReader:
             if str(year) == row["Year"]:
-                if row["Subject"] == "CS":
+                if row["Subject"] == "ECE":
                     row["ID"] = self._build_id(row)
                     data.append(row)
         return data
