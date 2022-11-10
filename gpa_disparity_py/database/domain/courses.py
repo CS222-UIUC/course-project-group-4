@@ -8,6 +8,7 @@ from typing import List, Optional
 
 from database.repository.courses import CoursesRepository
 
+
 def pivot_dict(course: dict) -> dict:
     return {  # values defined in here will get injected to update expression
         "id": course.get("ID"),
@@ -35,7 +36,6 @@ def pivot_dict(course: dict) -> dict:
         "f": course.get("F"),
         "w": course.get("W"),
         "avg": course.get("Average Grade"),
-        "std": course.get("Standard Deviation"),
         "percent_4": course.get("% 4.0's"),
     }
 
@@ -65,7 +65,6 @@ class CoursesModel(BaseModel):
     f: Optional[str] = Field(...)
     w: Optional[str] = Field(...)
     avg: Optional[str] = Field(...)
-    std: Optional[str] = Field(...)
     percent_4: Optional[str] = Field(...)
 
 
