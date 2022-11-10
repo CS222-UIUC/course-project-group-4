@@ -13,7 +13,7 @@ class CoursesRepository:
         response = table.scan()
         return response.get("Items", [])
 
-    def get_course(self, crn: str, semester: str):
+    def get_course(self, id: str, subject: str):
         try:
             table = self.__db.Table(COURSE_TABLE_NAME)
             response = table.get_item(Key={"id": id, "subject": subject})
