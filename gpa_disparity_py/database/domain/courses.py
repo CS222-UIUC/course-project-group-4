@@ -8,7 +8,6 @@ from typing import List, Optional
 
 from database.repository.courses import CoursesRepository
 
-
 def pivot_dict(course: dict) -> dict:
     return {  # values defined in here will get injected to update expression
         "id": course.get("ID"),
@@ -93,5 +92,5 @@ class CoursesDomain:
         return self.__repository.delete_course(id, subject)
 
     def get_all_majors(self):
-        items = self.get_all()  # FIXME not efficient - scans entire table
-        return set([d.get("subject", None) for d in items])
+        items = self.__repository.get_majors()
+        return [d.get("Major", None) for d in items]
