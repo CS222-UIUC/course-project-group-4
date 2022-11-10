@@ -1,13 +1,9 @@
-from tokenize import Number
-from uuid import uuid4
-from xmlrpc.client import Boolean
 from pydantic import Field
-from decimal import Decimal
 from pydantic import BaseModel
-from pydantic.types import UUID4
-from typing import List, Optional
+from typing import List
 
 from repository.ciscourses import CISCoursesRepository
+
 
 class Parent(BaseModel):
     calendaryear: int = Field(...)
@@ -27,7 +23,7 @@ class CISCoursesModel(BaseModel):
     termsoffered: List[str] = Field(...)
 
 
-class CoursesDomain():
+class CoursesDomain:
     def __init__(self, repository: CISCoursesRepository) -> None:
         self.__repository = repository
 
