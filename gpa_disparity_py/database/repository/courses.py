@@ -1,9 +1,7 @@
 from botocore.exceptions import ClientError
 from boto3.resources.base import ServiceResource
 
-from filewriter import write_to_file
-
-COURSE_TABLE_NAME = "testcourse"
+COURSE_TABLE_NAME = "gpa_final"
 
 
 class CoursesRepository:
@@ -18,7 +16,6 @@ class CoursesRepository:
     def get_course(self, crn: str, semester: str):
         try:
             table = self.__db.Table(COURSE_TABLE_NAME)
-
             response = table.get_item(Key={"id": id, "subject": subject})
             return response.get("Items", [])
         except ClientError as e:
@@ -26,7 +23,6 @@ class CoursesRepository:
 
     def create_course(self, course: dict):
         table = self.__db.Table(COURSE_TABLE_NAME)
-        write_to_file(course)
         major_table = self.__db.Table("Majors")
         major_table.put_item(Item={"Major": course.get("subject")})
         response = table.put_item(Item=course)
@@ -41,17 +37,17 @@ class CoursesRepository:
             },
             UpdateExpression="""
                 set
-                    id=id
-                    year=year,
-                    term=:term,
-                    subject=:subject,
-                    number=:number,
-                    title=:title,
-                    section=:section,
-                    schedule_type=:schedule_type,
-                    term=:term,
-                    primary_instructor=:primary_instructor,
-                    a_plus =:a_plus,
+                    id = :id
+                    year = :year,
+                    term = :term,
+                    subject = :subject,
+                    number = :number,
+                    title = :title,
+                    section = :section,
+                    schedule_type = :schedule_type,
+                    term = :term,
+                    primary_instructor = :primary_instructor,
+                    a_plus = :a_plus,
                     a = :a,
                     a_minus = :a_minus,
                     b_plus = :b_plus,
