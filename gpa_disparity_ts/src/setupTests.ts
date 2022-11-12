@@ -89,5 +89,5 @@ const ECE110 = [
     },
   ]
 
-
+expect(response_from_your_function).toEqual(expected_response);
 AggregateGPA.processCalculations(ECE110);

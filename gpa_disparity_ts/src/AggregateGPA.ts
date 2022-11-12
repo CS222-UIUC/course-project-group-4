@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
 import ClassInfo from "./ClassInfo";
 import * as lo from "lodash";
-import { sample_classes } from "./sample_class_list";
 
 interface ClassList {
   classes: ClassInfo[];
 }
-
 export interface AggregateInfo {
   subject: string;
   class_number: string;
   average_gpa: number;
   average_class_size: number;
 }
+
 // calculates data for each specific course
 function processCalculations(props: ClassInfo[]) {
     var total_count = 0;
