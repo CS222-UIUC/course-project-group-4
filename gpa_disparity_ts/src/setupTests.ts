@@ -2,8 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import { processCalculations } from "./AggregateGPA";
-import ClassInfo from "./ClassInfo";
+import { processCalculations } from "./AggregateGPA"
 
 const ECE110 = [
   {
@@ -89,5 +88,13 @@ const ECE110 = [
   },
 ];
 
-expect(response_from_your_function).toEqual(expected_response);
-AggregateGPA.processCalculations(ECE110);
+var subject = processCalculations(ECE110).subject;
+var number = processCalculations(ECE110).class_number;
+var avg_gpa = processCalculations(ECE110).average_gpa;
+var class_size = processCalculations(ECE110).average_class_size;
+
+expect(subject).toEqual("ECE");
+expect(number).toEqual("110");
+expect(avg_gpa).toEqual(3.0665012406947882);
+expect(class_size).toEqual(134.33333333333334);
+
