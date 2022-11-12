@@ -1,8 +1,8 @@
 import BackButton from "../components/BackButton";
 import CourseInformation from "../components/CourseInformation";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { RequestGPAInformationFromPythonAPI } from "../utility/MockData";
+import { useParams } from "react-router-dom";
+import { fetchCourseInfo } from "../network/DataFetcher";
 
 // information for course info
 // Assume Existing Function
@@ -10,12 +10,13 @@ import { RequestGPAInformationFromPythonAPI } from "../utility/MockData";
 // need to make it passable rather than set
 
 function CourseInfoPage() {
+  const { subj, num } = useParams();
   // subjects and info set
-  const [subject] = useState<string | number>("CS");
-  const [course_number] = useState(0);
+  const subject = subj!;
   const navigate = useNavigate();
 
   return (
+    // where_react_page_is_hosted/courseinfo/ECE/
     <div className="course-info-page">
       {/* Holds our page component*/}
       <BackButton
@@ -24,9 +25,9 @@ function CourseInfoPage() {
         }}
       />
       <CourseInformation
-        subject={subject as string}
-        course_number={course_number}
-        requestCourseInfo={RequestGPAInformationFromPythonAPI}
+        subject={subject}
+        course_number={Number(num)}
+        requestCourseInfo={fetchCourseInfo}
       />
     </div>
   );
