@@ -5,6 +5,7 @@ import {
   retrieveSubjectsFromApi,
 } from "../utility/MockData";
 import BubbleChart from "../components/BubbleChart";
+import { fetchGPAInfo } from "../network/DataFetcher";
 
 function Root() {
   const [subject, setSubject] = useState<string | number>("CS");
@@ -20,7 +21,8 @@ function Root() {
       />
       <BubbleChart
         subject={subject as string}
-        retrieveGpasFromDb={retrieveGpasFromApi}
+        retrieveGpasFromDb={fetchGPAInfo}
+        
       />{" "}
     </div>
   );
