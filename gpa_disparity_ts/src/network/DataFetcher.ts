@@ -13,6 +13,13 @@ export const fetchGPAInfo = async (subject:string) => {
   return response.json();
 };
 
+export const fetchSubjects = async () => {
+  const url = new URL(`${BASE_URL}/all-subjects/`);
+  const response = await fetch(url.toString());
+  return response.json();
+};
+
+
 
 
 // allows viewing response when run from commandline

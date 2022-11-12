@@ -5,7 +5,7 @@ import {
   retrieveSubjectsFromApi,
 } from "../utility/MockData";
 import BubbleChart from "../components/BubbleChart";
-import { fetchGPAInfo } from "../network/DataFetcher";
+import { fetchGPAInfo, fetchSubjects } from "../network/DataFetcher";
 
 function Root() {
   const [subject, setSubject] = useState<string | number>("CS");
@@ -14,7 +14,7 @@ function Root() {
     <div className="root">
       {/* Holds our root component*/}
       <DropDown
-        retrieveMenuItems={retrieveSubjectsFromApi}
+        retrieveMenuItems={fetchSubjects}
         value={subject}
         setValue={setSubject}
         label="Subject"
