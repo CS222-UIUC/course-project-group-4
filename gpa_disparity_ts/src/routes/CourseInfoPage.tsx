@@ -1,9 +1,8 @@
 import BackButton from "../components/BackButton";
 import CourseInformation from "../components/CourseInformation";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { fetchCourseInfo, fetchGPAInfo } from "../network/DataFetcher";
-import { PrepareGpaInformationForChart } from "../utility/BubbleChartUtility";
+import { RequestGPAInformationFromPythonAPI } from "../utility/MockData";
 
 // information for course info
 // Assume Existing Function
@@ -12,12 +11,11 @@ import { PrepareGpaInformationForChart } from "../utility/BubbleChartUtility";
 
 function CourseInfoPage() {
   // subjects and info set
-  const { subj, num } = useParams();
-  const subject = subj!;
+  const [subject] = useState<string | number>("CS");
+  const [course_number] = useState(0);
   const navigate = useNavigate();
 
   return (
-    // where_react_page_is_hosted/courseinfo/ECE/
     <div className="course-info-page">
       {/* Holds our page component*/}
       <BackButton
@@ -26,17 +24,9 @@ function CourseInfoPage() {
         }}
       />
       <CourseInformation
-        subject={subject}
-        course_number={Number(num)}
-        requestCourseInfo={fetchCourseInfo}
-      />
-    </div>
-    <div className="gpa-info-page">
-      {/*holds gpa component */}
-      <PrepareGpaInformationForChart
-        gpa = {gpa}
-        gpa_number = {Number(num)}
-        requestGPAInfo = {fetchGPAInfo}
+        subject={subject as string}
+        course_number={course_number}
+        requestCourseInfo={RequestGPAInformationFromPythonAPI}
       />
     </div>
   );
