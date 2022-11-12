@@ -1,31 +1,31 @@
 export default interface ClassInfo {
-    // the inputs
-    // data: {
-    a: string; 
-    subject: string; 
-    b: string; 
-    c: string; 
-    d: string; 
-    c_minus: string; 
-    f: string; 
-    b_plus: string; 
-    percent_4: string; 
-    section: string; 
-    w: string; 
-    a_minus: string; 
-    id: string; 
-    schedule_type: string; 
-    a_plus: string; 
-    b_minus: string; 
-    term: string; 
-    d_minus: string; 
-    d_plus: string; 
-    avg: string; 
-    c_plus: string; 
-    number: string; 
-    year: string; 
-    primary_instructor: string; 
-    title: string; 
+  // the inputs
+  // data: {
+  a: string;
+  subject: string;
+  b: string;
+  c: string;
+  d: string;
+  c_minus: string;
+  f: string;
+  b_plus: string;
+  percent_4: string;
+  section?: string | null;
+  w: string;
+  a_minus: string;
+  id: string;
+  schedule_type: string;
+  a_plus: string;
+  b_minus: string;
+  term: string;
+  d_minus: string;
+  d_plus: string;
+  avg: string;
+  c_plus: string;
+  number: string;
+  year: string;
+  primary_instructor: string;
+  title: string;
 }
 
 // wanted to try and make an interface with the correct data type and information already set, not sure how
