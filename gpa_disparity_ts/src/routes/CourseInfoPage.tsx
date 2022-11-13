@@ -1,4 +1,4 @@
-import BackButton from "../components/BackButton";
+import BackButton from "../components/BubbleChart/BackButton";
 import CourseInformation from "../components/CourseInformation";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";

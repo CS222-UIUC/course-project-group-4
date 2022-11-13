@@ -2,7 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import { processCalculations } from "./AggregateGPA"
+import { processCalculations } from "./components/BubbleChart/AggregateGPA"
 
 const ECE110 = [
   {

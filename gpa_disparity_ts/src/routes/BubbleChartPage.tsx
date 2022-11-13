@@ -1,13 +1,9 @@
-import DropDown from "../dropdown";
+import DropDown from "../components/Dropdown";
 import { useState } from "react";
-import {
-  retrieveGpasFromApi,
-  retrieveSubjectsFromApi,
-} from "../utility/MockData";
-import BubbleChart from "../components/BubbleChart";
+import BubbleChart from "../components/BubbleChart/BubbleChart";
 import { fetchGPAInfo, fetchSubjects } from "../network/DataFetcher";
 
-function Root() {
+const BubbleChartPage = () => {
   const [subject, setSubject] = useState<string | number>("CS");
 
   return (
@@ -22,10 +18,9 @@ function Root() {
       <BubbleChart
         subject={subject as string}
         retrieveGpasFromDb={fetchGPAInfo}
-        
       />{" "}
     </div>
   );
-}
+};
 
-export default Root;
+export default BubbleChartPage;

@@ -7,12 +7,12 @@ import {
   Title,
 } from "chart.js";
 import { Bubble } from "react-chartjs-2";
-import { GpaInformation } from "../interfaces/GpaInformation";
+import { GpaInformation } from "../../interfaces/GpaInformation";
 import {
   processGpaInformation,
   options,
   mock_bubble_chart_data,
-} from "../utility/BubbleChartUtility";
+} from "../../utility/BubbleChartUtility";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
