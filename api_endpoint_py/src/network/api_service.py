@@ -20,7 +20,8 @@ class ApiService:
     def get_majors(self):
         major_table = self.dyn_res.Table("Majors")
         response = major_table.scan()
-        return response.get("Items", [])
+        formatted_results = [row["Major"] for row in response["Items"]]
+        return formatted_results
 
     def query_course_info(self, subject: str, course_number: str):
         parti_wrapper = PartiQLWrapper(self.dyn_res)
