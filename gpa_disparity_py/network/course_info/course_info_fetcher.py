@@ -67,7 +67,8 @@ class CourseInfoFetcher:
         csvReader = csv.DictReader(data_source.splitlines())
 
         for row in csvReader:
-            data.append(row)
+            if row["Subject"] == "ECE":
+                data.append(row)
         return data
 
     def get_course_info(self, year, semester: Semester):

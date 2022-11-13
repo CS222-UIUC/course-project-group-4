@@ -62,7 +62,6 @@ class CoursesRepository:
                     f = :f,
                     w = :w,
                     avg = :avg,
-                    std = :std,
                     percent_4 = :percent_4
             """,
             ExpressionAttributeValues={  # values defined in here will get injected to update expression
@@ -88,6 +87,8 @@ class CoursesRepository:
                 ":f": course.get("F"),
                 ":w": course.get("W"),
                 ":primary_instructor": course.get("Primary Instructor"),
+                ":avg": course.get("Average Grade"),
+                ":percent_4": course.get("% 4.0's"),
             },
             ReturnValues="UPDATED_NEW",  # return the newly updated data point
         )

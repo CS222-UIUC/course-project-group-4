@@ -3,6 +3,11 @@ import csv
 from config import config
 import requests
 
+from network.gpa.gpa_utility import (
+    calculate_average_gpa,
+    calculate_percent_four_point_zero,
+)
+
 
 class Semester(Enum):
     SPRING = "sp"
@@ -135,6 +140,8 @@ class GpaFetcher:
             if str(year) == row["Year"]:
                 if row["Subject"] == "ECE":
                     row["ID"] = self._build_id(row)
+                    row["% 4.0's"] = calculate_percent_four_point_zero(row)
+                    row["Average Grade"] = calculate_average_gpa(row)
                     data.append(row)
         return data
 
