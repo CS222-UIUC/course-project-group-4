@@ -5,7 +5,7 @@ import "./App.css";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import CourseInfoPage from "./routes/CourseInfoPage";
-import Root from "./routes/Root";
+import BubbleChartPage from "./routes/BubbleChartPage";
 
 function PageNotFound() {
   return (
@@ -18,7 +18,7 @@ function PageNotFound() {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <BubbleChartPage />,
   },
 
   {

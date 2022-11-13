@@ -1,4 +1,4 @@
-import ClassInfo from "./ClassInfo";
+import ClassInfo from "../../interfaces/GpaInfo";
 import * as lo from "lodash";
 
 interface ClassList {
