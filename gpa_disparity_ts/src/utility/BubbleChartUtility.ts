@@ -1,6 +1,7 @@
+import { TooltipItem } from "chart.js";
 import { GpaColor } from "../GpaColor";
 import { GpaInformation, GpaInformationChart } from "../interfaces/GpaInformation";
-
+import {Link} from "react-router-dom";
 const min_point_radius = 5;
 const max_point_radius = 20;
 
@@ -9,8 +10,8 @@ const kLabelPercent = "Percent: ";
 export interface Dataset {
   label: string;
   data: {
-    y: number;
-    x: number;
+    percent_four_point_zero: number;
+    averageGpa: number;
     r: number;
     percent: string;
   }[];
@@ -94,8 +95,8 @@ export const processGpaInformation = (
       label: gpaInfo.subject + " " + gpaInfo.course_number,
       data: [
         {
-          y: gpaInfo.percent_four_point_zero,
-          x: gpaInfo.average_gpa,
+          percent_four_point_zero: gpaInfo.percent_four_point_zero,
+          averageGpa: gpaInfo.average_gpa,
           r: 20, // FIXME should call function to calculate
           percent: kLabelPercent,
         },
@@ -106,6 +107,17 @@ export const processGpaInformation = (
     data.push(dataset);
   }
   return { datasets: data };
+};
+
+const footer = (tooltipItems: any) => {
+
+  // tooltipItems.forEach(function(tooltipItem: any) {
+  //   sum += tooltipItem.parsed.y;
+  // });
+  let subject: string =  tooltipItems[0].label.split(" ")[0]
+  let num: string =  tooltipItems[0].label.split(" ")[1]
+  return `courseinfo/${subject}/${num}`;
+  // return "label" + Object.getOwnPropertyNames(tooltipItems[0].parsed);
 };
 
 export const options = {
@@ -156,7 +168,9 @@ export const options = {
       callbacks: {
         //specific labels for hover-over here, yet to be implemented
         //context throwing error for some reason
+        footer: footer,
       },
     },
   },
 };
+
