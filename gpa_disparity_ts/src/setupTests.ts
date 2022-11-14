@@ -2,7 +2,7 @@
 // allows you to do things like:
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
-import { processCalculations } from "./components/BubbleChart/AggregateGPA"
+import { calculateGpaInformation } from "./components/GpaChart/utility/GpaApiUtility";
 
 const ECE110 = [
   {
@@ -88,13 +88,12 @@ const ECE110 = [
   },
 ];
 
-var subject = processCalculations(ECE110).subject;
-var number = processCalculations(ECE110).class_number;
-var avg_gpa = processCalculations(ECE110).average_gpa;
-var class_size = processCalculations(ECE110).average_class_size;
+var subject = calculateGpaInformation(ECE110).subject;
+var number = calculateGpaInformation(ECE110).course_number;
+var avg_gpa = calculateGpaInformation(ECE110).average_gpa;
+var class_size = calculateGpaInformation(ECE110).class_size;
 
 expect(subject).toEqual("ECE");
 expect(number).toEqual("110");
 expect(avg_gpa).toEqual(3.0665012406947882);
 expect(class_size).toEqual(134.33333333333334);
-

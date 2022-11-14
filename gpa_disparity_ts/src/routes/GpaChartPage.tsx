@@ -1,10 +1,10 @@
 import DropDown from "../components/Dropdown";
 import { useState } from "react";
-import BubbleChart from "../components/BubbleChart/BubbleChart";
+import GpaChart from "../components/GpaChart/GpaChart";
 import { fetchGPAInfo, fetchSubjects } from "../network/DataFetcher";
 
-const BubbleChartPage = () => {
-  const [subject, setSubject] = useState<string | number>("CS");
+const GpaChartPage = () => {
+  const [subject, setSubject] = useState<string | number>("");
 
   return (
     <div className="root">
@@ -15,12 +15,9 @@ const BubbleChartPage = () => {
         setValue={setSubject}
         label="Subject"
       />
-      <BubbleChart
-        subject={subject as string}
-        retrieveGpasFromDb={fetchGPAInfo}
-      />{" "}
+      <GpaChart subject={subject as string} retrieveGpasFromDb={fetchGPAInfo} />{" "}
     </div>
   );
 };
 
-export default BubbleChartPage;
+export default GpaChartPage;

@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import CourseInfoPage from "./routes/CourseInfoPage";
-import BubbleChartPage from "./routes/BubbleChartPage";
+import GpaChartPage from "./routes/GpaChartPage";
 
 function PageNotFound() {
   return (
@@ -18,7 +17,7 @@ function PageNotFound() {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <BubbleChartPage />,
+    element: <GpaChartPage />,
   },
 
   {

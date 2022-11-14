@@ -1,4 +1,4 @@
-export interface GpaInfo {
+export interface ApiGpaInfo {
   a_plus: string;
   a: string;
   a_minus: string;
@@ -13,7 +13,7 @@ export interface GpaInfo {
   d_minus: string;
   f: string;
 }
-export interface ClassInfo extends GpaInfo {
+export interface ApiClassInfo extends ApiGpaInfo {
   id: string;
   number: string;
   percent_4: string;

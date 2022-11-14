@@ -1,14 +1,11 @@
-const BASE_URL = "https://api-endpoint-jmjeluvcva-uc.a.run.app";
-export default class DataFetcher {
-  async fetchGpaInformation() {
-    const url = "https://github.com/wadefagen/datasets/tree/master/gpa";
-    const response = await fetch(url);
-    return response;
-  }
-}
+import processApiClassInfo from "../components/GpaChart/utility/GpaApiUtility";
+import { processApiGpaInformation } from "../components/GpaChart/utility/GpaChartUtility";
+import { ApiClassInfo } from "../interfaces/API_ClassInfo";
 
-export const fetchGPAInfo = async (subject:string) => {
-  const url = new URL(`${BASE_URL}/gpa-info/?${subject}`);
+const BASE_URL = "https://api-endpoint-jmjeluvcva-uc.a.run.app";
+
+export const fetchGPAInfo = async (subject: string) => {
+  const url = new URL(`${BASE_URL}/gpa-info/?subject=${subject}`);
   const response = await fetch(url.toString());
   return response.json();
 };
@@ -19,11 +16,6 @@ export const fetchSubjects = async () => {
   return response.json();
 };
 
-
-// allows viewing response when run from commandline
-const df = new DataFetcher();
-df.fetchGpaInformation().then(console.log);
-
 export const fetchCourseInfo = async (subj: string, num: any) => {
   const params = { subject: subj, number: num };
   const encoded_params = new URLSearchParams(params).toString();
@@ -31,3 +23,9 @@ export const fetchCourseInfo = async (subj: string, num: any) => {
   const response = await fetch(url);
   return response.json();
 };
+
+fetchGPAInfo("ECE").then((api_gpa_response: ApiClassInfo[]) => {
+  const gpas = processApiClassInfo(api_gpa_response);
+  const chart_data = processApiGpaInformation(gpas);
+  console.log(chart_data.datasets[0].data);
+});

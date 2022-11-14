@@ -1,4 +1,4 @@
-import { GpaColor } from "../GpaColor";
+import { GpaColor } from "../components/GpaChart/utility/GpaColor";
 
 export interface GpaInformation {
   subject: string;
