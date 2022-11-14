@@ -45,7 +45,7 @@ const retrieveGpasFromApi = async (
   return [cs125, cs225];
 };
 
-export const mock_gpa_chart_data = {
+const mock_gpa_chart_data = {
   datasets: [
     {
       label: "CS 125",
