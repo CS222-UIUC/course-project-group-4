@@ -15,8 +15,6 @@ function BackButton(props: ButtonProps) {
   const { onClick = default_onClick } = props;
   return (
     <div className="back-button">
-      {/* using stack just to adjust the position of button,
-      especially if we add forward button or others in future */}
       <Stack
         direction="row"
         justifyContent="flex-start"

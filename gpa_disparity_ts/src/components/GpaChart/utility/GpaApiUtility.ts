@@ -1,15 +1,8 @@
 import lo from "lodash";
-import { ClassInfo, GpaInfo } from "../../interfaces/API_ClassInfo";
+import { ApiClassInfo, ApiGpaInfo } from "../../../interfaces/API_ClassInfo";
+import { GpaInformation } from "../../../interfaces/GpaInformation";
 
-export interface AggregateInfo {
-  subject: string;
-  class_number: string;
-  average_gpa: number;
-  average_class_size: number;
-  percent_four_point_zero: number;
-}
-
-const get_num_students_in_class = (class_instance: GpaInfo) => {
+const get_num_students_in_class = (class_instance: ApiGpaInfo) => {
   const num_students_in_class =
     Number(class_instance.a_plus) +
     Number(class_instance.a) +
@@ -27,7 +20,7 @@ const get_num_students_in_class = (class_instance: GpaInfo) => {
   return num_students_in_class;
 };
 
-const get_gpa_sum = (class_instance: GpaInfo) => {
+const get_gpa_sum = (class_instance: ApiGpaInfo) => {
   const gpa_sum =
     4 * Number(class_instance.a_plus) +
     4 * Number(class_instance.a) +
@@ -45,12 +38,12 @@ const get_gpa_sum = (class_instance: GpaInfo) => {
   return gpa_sum;
 };
 
-const get_four_point_zero_sum = (class_instance: GpaInfo) => {
+const get_four_point_zero_sum = (class_instance: ApiGpaInfo) => {
   return Number(class_instance.a_plus) + Number(class_instance.a);
 };
 
 // calculates data for each specific course
-export function processCalculations(props: ClassInfo[]) {
+export function calculateGpaInformation(props: ApiClassInfo[]) {
   var num_classes_in_list = props.length;
   var total_number_of_students = 0;
   var gpa_total = 0;
@@ -74,23 +67,23 @@ export function processCalculations(props: ClassInfo[]) {
   var avg_size = total_number_of_students / num_classes_in_list;
   var percent_four_point_zero =
     four_point_zero_total / total_number_of_students;
-  const info: AggregateInfo = {
+  const info: GpaInformation = {
     subject: props[0].subject,
-    class_number: props[0].number,
-    average_gpa: avg_gpa,
-    average_class_size: avg_size,
+    course_number: Number(props[0].number),
     percent_four_point_zero: percent_four_point_zero,
+    class_size: avg_size,
+    average_gpa: avg_gpa,
   };
   return info;
 }
 
-const AggregateGPA = (props: ClassInfo[]): AggregateInfo[] => {
+const processApiClassInfo = (props: ApiClassInfo[]): GpaInformation[] => {
   const classes = lo.groupBy(props, "number");
-  const classes_data: AggregateInfo[] = [];
+  const classes_data: GpaInformation[] = [];
   for (const course_number in classes) {
-    classes_data.push(processCalculations(classes[course_number]));
+    classes_data.push(calculateGpaInformation(classes[course_number]));
   }
   return classes_data;
 };
 
-export default AggregateGPA;
+export default processApiClassInfo;

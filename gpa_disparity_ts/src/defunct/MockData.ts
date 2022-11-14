@@ -1,14 +1,14 @@
 import CourseInfo from "../interfaces/CourseInfo";
 import { GpaInformation } from "../interfaces/GpaInformation";
 
-export const retrieveSubjectsFromApi = async (): Promise<string[]> => [
+const retrieveSubjectsFromApi = async (): Promise<string[]> => [
   "CS",
   "ECE",
   "ME",
   "MEB",
 ];
 
-export const RequestGPAInformationFromPythonAPI = async (
+const RequestGPAInformationFromPythonAPI = async (
   subject: string,
   course_number: number
 ) => {
@@ -25,7 +25,7 @@ export const RequestGPAInformationFromPythonAPI = async (
   return sample_class;
 };
 
-export const retrieveGpasFromApi = async (
+const retrieveGpasFromApi = async (
   subject: string
 ): Promise<GpaInformation[]> => {
   const cs125: GpaInformation = {
@@ -43,4 +43,36 @@ export const retrieveGpasFromApi = async (
     average_gpa: 2.5,
   };
   return [cs125, cs225];
+};
+
+export const mock_gpa_chart_data = {
+  datasets: [
+    {
+      label: "CS 125",
+      data: [
+        //datapoints
+
+        {
+          //datapoint
+          y: 95, // Percent 4.0
+          x: 3.7, // Average GPA
+          r: 20,
+          percent: "Percent: ",
+        },
+      ],
+      backgroundColor: "rgba(75, 161, 200, 0.8)",
+    },
+    {
+      label: "CS 225",
+      data: [
+        {
+          y: 80,
+          x: 2.5,
+          r: 15,
+          percent: "Percent: ",
+        },
+      ],
+      backgroundColor: "rgba(204, 99, 173, 0.8)",
+    },
+  ],
 };

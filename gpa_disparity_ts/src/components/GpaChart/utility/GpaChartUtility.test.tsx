@@ -1,8 +1,8 @@
-import { GpaInformation } from "../interfaces/GpaInformation";
+import { GpaInformation } from "../../../interfaces/GpaInformation";
 import {
   PrepareGpaInformationForChart,
-  processGpaInformation,
-} from "./BubbleChartUtility";
+  processApiGpaInformation,
+} from "./GpaChartUtility";
 
 const retrieveGpasFromApi = async (
   subject: string
@@ -27,7 +27,7 @@ const retrieveGpasFromApi = async (
 test("PrepareGpaInformationForChart properly formats data", async () => {
   const gpas = await retrieveGpasFromApi("CS");
   const prepared_data = PrepareGpaInformationForChart(gpas);
-  const data_to_render = processGpaInformation(prepared_data);
+  const data_to_render = processApiGpaInformation(prepared_data);
   expect(data_to_render).toEqual({
     datasets: [
       {
