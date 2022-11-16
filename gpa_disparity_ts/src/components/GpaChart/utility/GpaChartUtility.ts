@@ -26,7 +26,7 @@ export interface GpaChartData {
 }
 
 // https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
-export const PrepareGpaInformationForChart = (
+export const CalculateClassRadiusColor = (
   gpas: GpaInformation[]
 ): GpaInformationChart[] => {
   const gpa_with_min_class_size = gpas.reduce((prev, curr) =>
@@ -49,6 +49,7 @@ export const PrepareGpaInformationForChart = (
     );
 
     const class_gpa_color = new GpaColor(gpa.average_gpa);
+
     return {
       ...gpa,
       class_size_radius: class_size_radius,
@@ -57,25 +58,31 @@ export const PrepareGpaInformationForChart = (
   });
 };
 
-export const processApiGpaInformation = (
-  gpaInformationList: GpaInformation[]
-): GpaChartData => {
+const BuildChartDataset = (gpa_info: GpaInformationChart[]) => {
   const data: Dataset[] = [] as Dataset[];
-  for (const gpaInfo of gpaInformationList) {
+  for (const gpaInfo of gpa_info) {
     const dataset: Dataset = {
       label: gpaInfo.subject + " " + gpaInfo.course_number,
       data: [
         {
           y: gpaInfo.percent_four_point_zero,
           x: gpaInfo.average_gpa,
-          r: 20, // FIXME should call function to calculate
+          r: gpaInfo.class_size_radius, // FIXME should call function to calculate
           percent: kLabelPercent,
         },
       ],
-      backgroundColor: "rgba(75, 161, 200, 0.8)", // FIXME should call function to calculate
+      backgroundColor: gpaInfo.gpa_color.toString(), // FIXME should call function to calculate
     };
 
     data.push(dataset);
   }
   return { datasets: data };
+};
+
+export const FormatDataForChart = (
+  gpaInformationList: GpaInformation[]
+): GpaChartData => {
+  const gpa_information = CalculateClassRadiusColor(gpaInformationList);
+  const chart_info = BuildChartDataset(gpa_information);
+  return chart_info;
 };

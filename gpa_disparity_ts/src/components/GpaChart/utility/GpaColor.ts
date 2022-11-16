@@ -12,6 +12,10 @@ export class Color {
   getRed = () => this.red;
   getGreen = () => this.green;
   getBlue = () => this.blue;
+
+  public toString = (): string => {
+    return `rgba(${this.red}, ${this.green}, ${this.blue}, 0.8)`;
+  };
 }
 
 const GOOD_GRADE_COLOR = new Color(75, 161, 200);
