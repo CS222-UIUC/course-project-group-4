@@ -66,7 +66,7 @@ export function calculateGpaInformation(props: ApiClassInfo[]) {
   var avg_gpa = gpa_total / total_number_of_students;
   var avg_size = total_number_of_students / num_classes_in_list;
   var percent_four_point_zero =
-    four_point_zero_total / total_number_of_students;
+    (four_point_zero_total / total_number_of_students) * 100;
   const info: GpaInformation = {
     subject: props[0].subject,
     course_number: Number(props[0].number),

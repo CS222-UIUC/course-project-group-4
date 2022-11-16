@@ -8,13 +8,12 @@ import {
 } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import {
-  processApiGpaInformation,
+  FormatDataForChart as FormatGpaForChart,
   GpaChartData,
 } from "./utility/GpaChartUtility";
-import processApiClassInfo from "./utility/GpaApiUtility";
+import AggregateApiGpa from "./utility/GpaApiUtility";
 import { ApiClassInfo } from "../../interfaces/API_ClassInfo";
 import { options } from "./utility/GpaChartOptions";
-import { mock_gpa_chart_data } from "../../defunct/MockData";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
@@ -43,8 +42,8 @@ const GpaChart = (props: GpaChartProps) => {
 
   useEffect(() => {
     retrieveGpasFromDb(subject).then((api_gpa_response: ApiClassInfo[]) => {
-      const gpas = processApiClassInfo(api_gpa_response);
-      const chart_data = processApiGpaInformation(gpas);
+      const gpas = AggregateApiGpa(api_gpa_response);
+      const chart_data = FormatGpaForChart(gpas);
       setGpaInformationList(chart_data);
     });
   }, [subject, retrieveGpasFromDb]);

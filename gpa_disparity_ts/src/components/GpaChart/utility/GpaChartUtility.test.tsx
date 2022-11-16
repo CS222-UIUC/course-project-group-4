@@ -1,7 +1,7 @@
 import { GpaInformation } from "../../../interfaces/GpaInformation";
 import {
-  PrepareGpaInformationForChart,
-  processApiGpaInformation,
+  CalculateClassRadiusColor,
+  FormatDataForChart,
 } from "./GpaChartUtility";
 
 const retrieveGpasFromApi = async (
@@ -26,8 +26,8 @@ const retrieveGpasFromApi = async (
 
 test("PrepareGpaInformationForChart properly formats data", async () => {
   const gpas = await retrieveGpasFromApi("CS");
-  const prepared_data = PrepareGpaInformationForChart(gpas);
-  const data_to_render = processApiGpaInformation(prepared_data);
+  const prepared_data = CalculateClassRadiusColor(gpas);
+  const data_to_render = FormatDataForChart(prepared_data);
   expect(data_to_render).toEqual({
     datasets: [
       {
