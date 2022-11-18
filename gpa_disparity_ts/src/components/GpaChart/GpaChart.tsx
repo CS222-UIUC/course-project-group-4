@@ -14,6 +14,7 @@ import {
 import AggregateApiGpa from "./utility/GpaApiUtility";
 import { ApiClassInfo } from "../../interfaces/API_ClassInfo";
 import { options } from "./utility/GpaChartOptions";
+import { useNavigate } from "react-router-dom";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
@@ -35,6 +36,24 @@ export interface GpaChartProps {
 
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
 const GpaChart = (props: GpaChartProps) => {
+  const navigate = useNavigate();
+  const ClickHandler = (e: any) => {
+  
+  const points = e.chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+  if (points.length) {
+    const firstPoint = points[0];
+
+    const data = e.chart.data.datasets[firstPoint.datasetIndex];
+
+    let subject: string = data.label.split(" ")[0];
+    let num: string = data.label.split(" ")[1];
+    
+    // navigate(`/`)
+    navigate(`courseinfo/${subject}/${num}`)
+
+}
+}
+
   const { subject, retrieveGpasFromDb } = props;
 
   const [gpaInformationList, setGpaInformationList] =
@@ -47,7 +66,7 @@ const GpaChart = (props: GpaChartProps) => {
       setGpaInformationList(chart_data);
     });
   }, [subject, retrieveGpasFromDb]);
-
+  options.onClick = ClickHandler
   return (
     <div className="chart-wrapper">
       {gpaInformationList !== null ? (

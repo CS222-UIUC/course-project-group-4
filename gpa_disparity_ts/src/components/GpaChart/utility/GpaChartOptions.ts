@@ -1,3 +1,8 @@
+import {
+  Chart as ChartJS,
+} from "chart.js";
+import { useNavigate } from "react-router-dom";
+
 const footer = (tooltipItems: any) => {
   // tooltipItems.forEach(function(tooltipItem: any) {
   //   sum += tooltipItem.parsed.y;
@@ -8,6 +13,9 @@ const footer = (tooltipItems: any) => {
   // return "label" + Object.getOwnPropertyNames(tooltipItems[0].parsed);
 };
 
+const ClickHandler = (e: any) => {
+  //placeholder
+}
 export const options = {
   scales: {
     y: {
@@ -58,6 +66,8 @@ export const options = {
         //context throwing error for some reason
         footer: footer,
       },
-    },
+    }
   },
+  onClick: ClickHandler
 };
+
