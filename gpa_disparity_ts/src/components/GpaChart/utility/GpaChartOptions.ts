@@ -9,6 +9,7 @@ const footer = (tooltipItems: any) => {
 };
 
 export const options = {
+  maintainAspectRatio: true,
   scales: {
     y: {
       ticks: {
