@@ -5,8 +5,6 @@ import dotenv
 class Config(BaseSettings):
     aws_access_key_id: str = ""
     aws_secret_key: str = ""
-    github_access_token: str = ""
-
 
 dotenv.load_dotenv()
 
