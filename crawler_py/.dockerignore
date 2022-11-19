@@ -1,0 +1,11 @@
+/.pytes_cache/
+*/cache/*
+/venv/
+/env/
+
+__pycache__
+tmp
+
+.env
+
+.git
