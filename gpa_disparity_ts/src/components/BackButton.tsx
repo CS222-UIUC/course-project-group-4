@@ -14,25 +14,18 @@ function BackButton(props: ButtonProps) {
   };
   const { onClick = default_onClick } = props;
   return (
-    <div className="back-button">
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        spacing={1}
-      >
-        <Button
-          onClick={onClick}
-          variant="contained"
-          startIcon={<ArrowBackIcon />}
-          color="primary"
-          size="medium"
-        >
-          {" "}
-          Back{" "}
-        </Button>
-      </Stack>
-    </div>
+    // <div className="back-button">
+    //   <Stack
+    //     direction="row"
+    //     justifyContent="flex-start"
+    //     alignItems="flex-start"
+    //     spacing={1}
+    //   >
+    <Button onClick={onClick} variant="contained" color="primary">
+      <ArrowBackIcon />
+    </Button>
+    //   </Stack>
+    // </div>
   );
 }
 
