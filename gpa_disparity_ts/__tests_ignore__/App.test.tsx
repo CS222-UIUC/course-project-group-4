@@ -1,16 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from '@testing-library/user-event'
+import '@testing-library/jest-dom'
+//find the right location for App
 import App from "../src/App";
-//where did App.tsx go?
+import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+//https://testing-library.com/docs/example-react-router/
 
-test("renders title text", () => {
-  render(<App />);
-  const title = screen.getByText(/gpa info/i);
-  expect(title).toBeInTheDocument();
-});
 
-//from testing library for react router
-//was not able to get to this this week, will finish by next week
+//testing what's expected for the three known routes
 test('landing on a bad page', () => {
   const badRoute = '/some/bad/route'
 
@@ -24,3 +22,22 @@ test('landing on a bad page', () => {
   // verify navigation to "no match" route
   expect(screen.getByText(/no match/i)).toBeInTheDocument()
 })
+
+//testing back button navigation
+test('back button navigation', async () => {
+  const history = '/some/history'
+
+  render(
+    <MemoryRouter initialEntries={[history]}>
+      <Root />
+    </MemoryRouter>,
+  )
+  
+  //check to see if CourseInfoPage rendered properly
+  render(<App />, {wrapper: BrowserRouter})
+  const user = userEvent
+
+  //verify CourseInfoPage
+  expect(screen.getByText(/course-information-display/i).toBeInDocument())
+})
+
