@@ -53,7 +53,7 @@ function CourseInfoPage() {
             flexDirection: "row",
           }}
         >
-          <h3>Class Information</h3>
+          <h3>Course Information</h3>
         </div>
 
         <div
