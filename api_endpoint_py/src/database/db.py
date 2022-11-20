@@ -12,3 +12,4 @@ def initialize_db() -> ServiceResource:
     )
 
     return ddb
+
