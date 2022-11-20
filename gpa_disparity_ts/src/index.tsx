@@ -5,36 +5,11 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import CourseInfoPage from "./routes/CourseInfoPage";
 import GpaChartPage from "./routes/GpaChartPage";
+import routesConfig from "./routesConfig";
 
-function PageNotFound() {
-  return (
-    <div>
-      <h2>404 Page not found</h2>
-    </div>
-  );
-}
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <GpaChartPage />,
-  },
 
-  {
-    path: "/courseinfo",
-    element: <CourseInfoPage />,
-  },
-
-  {
-    path: "/courseinfo/:subj/:num",
-    element: <CourseInfoPage />,
-  },
-
-  {
-    path: "*",
-    element: <PageNotFound />,
-  },
-]);
+const router = createBrowserRouter(routesConfig);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
