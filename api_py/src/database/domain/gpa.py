@@ -1,12 +1,8 @@
-from uuid import uuid4
-from xmlrpc.client import Boolean
 from pydantic import Field
-from decimal import Decimal
 from pydantic import BaseModel
-from pydantic.types import UUID4
-from typing import List, Optional
+from typing import Optional
 
-from database.repository.gpa import CoursesRepository
+from database.repository.gpa import GpaRepository
 
 
 def pivot_dict(course: dict) -> dict:
@@ -38,7 +34,7 @@ def pivot_dict(course: dict) -> dict:
     }
 
 
-class CoursesModel(BaseModel):
+class GpaModel(BaseModel):
     id: Optional[str] = Field(...)
     year: Optional[str] = Field(...)
     term: Optional[str] = Field(...)
@@ -64,15 +60,15 @@ class CoursesModel(BaseModel):
     w: Optional[str] = Field(...)
 
 
-class CoursesDomain:
-    def __init__(self, repository: CoursesRepository) -> None:
+class GpaDomain:
+    def __init__(self, repository: GpaRepository) -> None:
         self.__repository = repository
 
-    def create_course_json(self, course):
-        return self.__repository.create_course(pivot_dict(course))
+    def create_gpa_json(self, course):
+        return self.__repository.create_gpa(pivot_dict(course))
 
-    def create_course(self, course: CoursesModel):
-        return self.__repository.create_course(course.dict())
+    def create_gpa(self, course: GpaModel):
+        return self.__repository.create_gpa(course.dict())
 
-    def update_course(self, course: CoursesModel):
+    def update_gpa(self, course: GpaModel):
         return self.__repository.update_recipe(course.dict())

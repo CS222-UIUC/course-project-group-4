@@ -1,7 +1,10 @@
 import json
 from fastapi import FastAPI
-from network.api_service import ApiService
 from fastapi.middleware.cors import CORSMiddleware
+
+from api_get_endpoint_py.api_get_service import ApiGetService
+from database.domain.course_info import CourseInfoModel
+from database.domain.gpa import GpaModel
 
 app = FastAPI()
 
@@ -16,7 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-api_service = ApiService()
+api_service = ApiGetService()
 
 
 @app.get("/gpa-info/")
@@ -33,10 +36,12 @@ async def read_all_subjects():
 async def read_course_info(subject: str, number: str):
     return api_service.query_course_info(subject, str(number))
 
+
 @app.post("/write-gpa")
-async def write_gpa_info(data: json):
+async def write_gpa_info(data: GpaModel):
     pass
 
+
 @app.post("/write-course-info")
-async def write_course_info(data: json):
+async def write_course_info(data: CourseInfoModel):
     pass

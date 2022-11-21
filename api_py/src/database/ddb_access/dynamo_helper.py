@@ -1,6 +1,5 @@
 import boto3
-import os
-from GPA import GPA, GPARequest
+from GPA import GPA
 from config import config
 
 
