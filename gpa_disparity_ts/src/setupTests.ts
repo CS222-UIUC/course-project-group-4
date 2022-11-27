@@ -94,6 +94,6 @@ var avg_gpa = calculateGpaInformation(ECE110).average_gpa;
 var class_size = calculateGpaInformation(ECE110).class_size;
 
 expect(subject).toEqual("ECE");
-expect(number).toEqual("110");
+expect(number).toEqual(110);
 expect(avg_gpa).toEqual(3.0665012406947882);
 expect(class_size).toEqual(134.33333333333334);
