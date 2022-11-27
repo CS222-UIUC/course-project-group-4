@@ -7,8 +7,6 @@ import CourseInfoPage from "./routes/CourseInfoPage";
 import GpaChartPage from "./routes/GpaChartPage";
 import routesConfig from "./routesConfig";
 
-
-
 const router = createBrowserRouter(routesConfig);
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

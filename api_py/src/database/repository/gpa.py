@@ -1,22 +1,21 @@
-from botocore.exceptions import ClientError
 from boto3.resources.base import ServiceResource
 
-COURSE_TABLE_NAME = "gpa_final"
+GPA_TABLE_NAME = "gpa_final"
 
 
-class CoursesRepository:
+class GpaRepository:
     def __init__(self, db: ServiceResource) -> None:
         self.__db = db
 
-    def create_course(self, course: dict):
-        table = self.__db.Table(COURSE_TABLE_NAME)
+    def create_gpa(self, course: dict):
+        table = self.__db.Table(GPA_TABLE_NAME)
         major_table = self.__db.Table("Majors")
         major_table.put_item(Item={"Major": course.get("subject")})
         response = table.put_item(Item=course)
         return response
 
-    def update_course(self, course: dict):
-        table = self.__db.Table(COURSE_TABLE_NAME)
+    def update_gpa(self, course: dict):
+        table = self.__db.Table(GPA_TABLE_NAME)
         response = table.update_item(
             Key={
                 "id": course.get("ID"),
@@ -32,7 +31,6 @@ class CoursesRepository:
                     title = :title,
                     section = :section,
                     schedule_type = :schedule_type,
-                    term = :term,
                     primary_instructor = :primary_instructor,
                     a_plus = :a_plus,
                     a = :a,

@@ -8,7 +8,6 @@ from network.course.course_schedule_fetcher import (
 )
 import pytest
 
-
 class TestGpaFetcher(unittest.TestCase):
     """tests CatalogFetcher Class"""
 
