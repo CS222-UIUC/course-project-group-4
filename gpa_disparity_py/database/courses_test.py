@@ -11,7 +11,7 @@ logging.basicConfig(filename="gpa_disparity_py\database\logs\initialization_run.
 logger = logging.getLogger()
 class TestCourses(unittest.TestCase):
     def test_set_mode_to_links(self):
-        
+
         df = pd.read_csv("test_files/fa2014.csv", dtype=str)
         # checking if initialize database can call properly
         try:

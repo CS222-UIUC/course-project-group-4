@@ -11,4 +11,5 @@ tmp
 filewriter.py
 gpa_disparity_py\database\logs
 
+venv
 .env

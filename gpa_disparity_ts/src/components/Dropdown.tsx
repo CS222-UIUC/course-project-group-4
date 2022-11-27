@@ -16,9 +16,9 @@ interface dropdownProps {
 export default function DropDown(props: dropdownProps) {
   // unpack props
   const { retrieveMenuItems, value, setValue, label } = props;
-  const [valueList, setValueList] = useState<string[] | number[]>(
-    [] as string[]
-  );
+  const [valueList, setValueList] = useState<string[] | number[]>([
+    value,
+  ] as string[]);
 
   useEffect(() => {
     retrieveMenuItems().then((menuItems: string[] | number[]) => {
@@ -36,7 +36,7 @@ export default function DropDown(props: dropdownProps) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          // value={value}
+          value={`${value}`}
           label={label}
           onChange={handleChange}
         >

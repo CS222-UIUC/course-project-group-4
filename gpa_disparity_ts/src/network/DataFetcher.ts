@@ -28,3 +28,7 @@ export const fetchCourseInfo = async (subj: string, num: any) => {
 //   const gpas = processApiClassInfo(api_gpa_response);
 //   const chart_data = processApiGpaInformation(gpas);
 // });
+
+export const dummyFetchCourseNumbers = (subject: String) => {
+  return async () => ["120", "130", "140"];
+};

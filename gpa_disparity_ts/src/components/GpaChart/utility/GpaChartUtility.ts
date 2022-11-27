@@ -5,8 +5,8 @@ import {
   GpaInformationChart,
 } from "../../../interfaces/GpaInformation";
 import { Link } from "react-router-dom";
-const min_point_radius = 5;
-const max_point_radius = 20;
+const min_point_radius = 20;
+const max_point_radius = 40;
 
 const kLabelPercent = "Percent: ";
 

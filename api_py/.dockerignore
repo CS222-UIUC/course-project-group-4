@@ -1,0 +1,16 @@
+.coverage
+*.html
+/htmlcov/
+/.pytes_cache/
+*/cache/*
+/venv/
+/env/
+
+__pycache__
+tmp
+filewriter.py
+
+venv
+.env
+
+.git
