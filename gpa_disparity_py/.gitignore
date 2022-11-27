@@ -14,3 +14,5 @@ tmp
 filewriter.py
 
 .env
+
+gpa_disparity_py/database/logs

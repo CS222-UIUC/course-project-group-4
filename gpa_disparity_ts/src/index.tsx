@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import CourseInfoPage from "./routes/CourseInfoPage";
 import GpaChartPage from "./routes/GpaChartPage";
 
+
 function PageNotFound() {
   return (
     <div>
