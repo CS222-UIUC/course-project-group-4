@@ -31,7 +31,6 @@ class GpaRepository:
                     title = :title,
                     section = :section,
                     schedule_type = :schedule_type,
-                    term = :term,
                     primary_instructor = :primary_instructor,
                     a_plus = :a_plus,
                     a = :a,

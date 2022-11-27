@@ -5,6 +5,7 @@ import dotenv
 class Config(BaseSettings):
     aws_access_key_id: str = ""
     aws_secret_key: str = ""
+    log_level: str = "WARN"
 
 
 dotenv.load_dotenv()

@@ -2,8 +2,6 @@ import boto3
 from boto3.resources.base import ServiceResource
 from config import config
 
-from config import Config
-
 # https://realpython.com/primer-on-python-decorators/
 def once(func):
     return_val = None
@@ -23,6 +21,6 @@ def initialize_db() -> ServiceResource:
     return boto3.resource(
         service_name="dynamodb",
         region_name="us-east-1",
-        aws_access_key_id=Config.aws_access_key_id,
+        aws_access_key_id=config.aws_access_key_id,
         aws_secret_access_key=config.aws_secret_key,
     )
