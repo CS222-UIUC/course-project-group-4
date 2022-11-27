@@ -1,9 +1,8 @@
 from boto3.resources.base import ServiceResource
-from database.PartiSqlWrapper import PartiQLWrapper
 from database.db import initialize_db
+from database.PartiSqlWrapper import PartiQLWrapper
 
-
-class ApiService:
+class ApiGetService:
     def __init__(
         self,
         dyn_res: ServiceResource = initialize_db(),
