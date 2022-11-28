@@ -44,9 +44,7 @@ async def read_all_subjects():
 
 @app.get("/course-info/")
 async def read_course_info(subject: str, number: str):
-    response = api_service.query_course_info(subject, str(number))
-    logging.info(response)
-    return response
+    return api_service.query_course_info(subject, str(number))
 
 
 @app.post("/write-gpa", response_model=GpaPostResponse)
