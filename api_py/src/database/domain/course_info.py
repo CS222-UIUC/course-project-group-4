@@ -49,6 +49,3 @@ class CourseInfoDomain:
         logging.info(response)
         response_code = response["ResponseMetadata"]["HTTPStatusCode"]
         return CourseInfoPostResponse(code=response_code)
-
-    def update_course(self, course_info: CourseInfoModel):
-        return self.__repository.update_recipe(course_info.dict())
