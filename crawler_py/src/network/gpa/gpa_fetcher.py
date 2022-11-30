@@ -78,7 +78,8 @@ class GpaFetcher:
         # and add it to data
         for row in csvReader:
             if (
-                row["Year"] == config.year_to_load
+                row["Year"] >= config.start_year
+                and row["Year"] <= config.end_year
                 and row["Subject"] == config.subject_to_load
             ):
                 row["ID"] = self._build_id(row)
