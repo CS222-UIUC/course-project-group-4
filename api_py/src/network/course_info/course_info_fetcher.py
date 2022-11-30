@@ -2,7 +2,6 @@ import csv
 from enum import Enum
 import logging
 import requests
-import datetime
 
 from network.utilitiy.utility import get_github_headers_json
 
