@@ -15,6 +15,9 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
 
   useEffect(() => {
     requestCourseInfo(subject, course_number).then((course_info_from_api) => {
+      console.log(course_info_from_api);
+    });
+    requestCourseInfo(subject, course_number).then((course_info_from_api) => {
       setCourseInfo(course_info_from_api);
     });
   }, [course_number, requestCourseInfo, subject]);
