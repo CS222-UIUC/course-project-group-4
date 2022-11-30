@@ -23,8 +23,9 @@ export default function DropDown(props: dropdownProps) {
   useEffect(() => {
     retrieveMenuItems().then((menuItems: string[] | number[]) => {
       setValueList(menuItems);
+      setValue(menuItems[0]);
     });
-  }, [retrieveMenuItems]);
+  }, [retrieveMenuItems, setValue]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value);
