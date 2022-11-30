@@ -8,7 +8,7 @@ import asyncio
 async def write_gpas_to_api(gpas):
     headers = {"key": config.write_endpoint_key}
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(verify=False, timeout=60) as client:
         for course in gpas:
             r = await client.post(
                 config.write_endpoint,
