@@ -15,6 +15,10 @@ import AggregateApiGpa from "./utility/GpaApiUtility";
 import { ApiClassInfo } from "../../interfaces/API_ClassInfo";
 import { options } from "./utility/GpaChartOptions";
 import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
+import CourseInformation from "../CourseInformation";
+import { fetchCourseInfo } from "../../network/DataFetcher";
+import { Button } from "@mui/material";
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
 // inspired by Wade's GPA chart - https://waf.cs.illinois.edu/discovery/every_gen_ed_at_uiuc_by_gpa/
@@ -29,6 +33,9 @@ ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 -custom html legend for the chart - needed?
 */
 
+// Modal Code based on:
+// https://github.com/reactjs/react-modal
+
 export interface GpaChartProps {
   subject: string;
   retrieveGpasFromDb: (subject: string) => Promise<ApiClassInfo[]>;
@@ -37,22 +44,37 @@ export interface GpaChartProps {
 // https://github.com/reactchartjs/react-chartjs-2/issues/155
 const GpaChart = (props: GpaChartProps) => {
   const navigate = useNavigate();
+
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalSubject, setModalSubject] = useState<string>("");
+  const [modalCourseNumber, setModalCourseNumber] = useState<string>("");
+
   const ClickHandler = (e: any) => {
-  
-  const points = e.chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
-  if (points.length) {
-    const firstPoint = points[0];
+    const points = e.chart.getElementsAtEventForMode(
+      e,
+      "nearest",
+      { intersect: true },
+      true
+    );
+    if (points.length) {
+      const firstPoint = points[0];
 
-    const data = e.chart.data.datasets[firstPoint.datasetIndex];
+      const data = e.chart.data.datasets[firstPoint.datasetIndex];
 
-    let subject: string = data.label.split(" ")[0];
-    let num: string = data.label.split(" ")[1];
-    
-    // navigate(`/`)
-    navigate(`courseinfo/${subject}/${num}`)
+      let subject: string = data.label.split(" ")[0];
+      let num: string = data.label.split(" ")[1];
 
-}
-}
+      // navigate(`/`)
+      //   navigate(`courseinfo/${subject}/${num}`);
+      setModalSubject(subject);
+      setModalCourseNumber(num);
+      setModalIsOpen(true);
+    }
+  };
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   const { subject, retrieveGpasFromDb } = props;
 
@@ -66,7 +88,7 @@ const GpaChart = (props: GpaChartProps) => {
       setGpaInformationList(chart_data);
     });
   }, [subject, retrieveGpasFromDb]);
-  options.onClick = ClickHandler
+  options.onClick = ClickHandler;
   return (
     <div className="chart-wrapper">
       {gpaInformationList !== null ? (
@@ -74,6 +96,26 @@ const GpaChart = (props: GpaChartProps) => {
       ) : (
         <div />
       )}
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+        <div style={{ marginLeft: "8rem", marginRight: "8rem" }}>
+          <Button
+            onClick={() => {
+              closeModal();
+            }}
+            variant="contained"
+            //   startIcon={<ArrowBackIcon />}
+            color="primary"
+            size="medium"
+          >
+            Back To GPA Graph
+          </Button>
+          <CourseInformation
+            subject={String(modalSubject)}
+            course_number={Number(modalCourseNumber)}
+            requestCourseInfo={fetchCourseInfo}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };
