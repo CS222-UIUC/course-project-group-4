@@ -25,7 +25,7 @@ const GpaChartPage = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           flexDirection: "row",
           marginTop: "2rem",
         }}
@@ -36,7 +36,7 @@ const GpaChartPage = () => {
           setValue={setSubject}
           label="Subject"
         />
-        <Button
+        {/* <Button
           onClick={() => {
             navigate("/courseinfo");
           }}
@@ -46,7 +46,7 @@ const GpaChartPage = () => {
           size="medium"
         >
           Course Information
-        </Button>
+        </Button> */}
       </Box>
       <GpaChart subject={subject as string} retrieveGpasFromDb={fetchGPAInfo} />
     </div>
