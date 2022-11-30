@@ -1,14 +1,7 @@
-from enum import Enum
 import csv
 from config import config
 import requests
-
-
-class Semester(Enum):
-    SPRING = "sp"
-    SUMMER = "su"
-    FALL = "fa"
-    WINTER = "wi"
+from network.utility import get_github_headers_json
 
 
 class GpaFetcher:
@@ -18,7 +11,7 @@ class GpaFetcher:
         self._GPA = {"owner": "wadefagen", "repo": "datasets", "path": "gpa/raw"}
         self.url_cleaned_data = "https://raw.githubusercontent.com/wadefagen/datasets/master/gpa/uiuc-gpa-dataset.csv"
 
-    def get_gpas(self, year, semester: Semester):
+    def get_gpas(self):
         """Used to get GPA information
 
         Args:
@@ -29,15 +22,13 @@ class GpaFetcher:
             _type_: json of classes
         """
 
-        # self.validate_input(semester, year)
-
         url = self.url_cleaned_data
 
-        headers = self._get_github_headers_json()
+        headers = get_github_headers_json()
 
         response = requests.get(url, headers=headers)
 
-        data = self._class_csv_to_dict(year, semester, response.text)
+        data = self._class_csv_to_dict(response.text)
 
         return data
 
@@ -68,7 +59,7 @@ class GpaFetcher:
 
         return id
 
-    def _class_csv_to_dict(self, year, semester: Semester, data_source: str):
+    def _class_csv_to_dict(self, data_source: str):
         """Converts csv input to dictionary
 
         Args:
@@ -86,24 +77,10 @@ class GpaFetcher:
         # Convert each row into a dictionary
         # and add it to data
         for row in csvReader:
-            if str(year) == row["Year"]:
+            if (
+                row["Year"] == config.year_to_load
+                and row["Subject"] == config.subject_to_load
+            ):
                 row["ID"] = self._build_id(row)
                 data.append(row)
-        return data
-
-    def get_gpas(self, year, semester: Semester):
-        """Used to get GPA information
-
-        Args:
-            semester (Semester): semester
-            year (int): year of semester
-
-        Returns:
-            _type_: json of classes
-        """
-        url = self.url_cleaned_data
-        headers = self._get_github_headers_json()
-        response = requests.get(url, headers=headers)
-        data = self._class_csv_to_dict(year, semester, response.text)
-
         return data

@@ -1,14 +1,7 @@
-from distutils import config
+from config import config
 
 
-_GPA = {
-    "owner": "wadefagen",
-    "repo": "datasets",
-    "path": "course-catalog/data",
-}
-
-
-def get_github_headers_json(self) -> dict[str, str]:
+def get_github_headers_json() -> dict[str, str]:
     """Generates headers for Github json request
 
     Returns:
