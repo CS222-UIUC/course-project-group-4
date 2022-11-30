@@ -54,10 +54,3 @@ async def write_gpa_info(data: GpaModel):
     gpa_domain = GpaDomain(GpaRepository(resource))
     response = gpa_domain.create_gpa(data)
     return response
-
-
-@app.post("/write-course-info")
-async def write_course_info(data: CourseInfoModel):
-    course_info_domain = CourseInfoDomain(CourseInfoRepository(resource))
-    response = course_info_domain.create_course_info(data)
-    return response

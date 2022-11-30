@@ -1,0 +1,2 @@
+docker build -t crawler .
+docker run --rm -it -p 8080:8080 --env-file src/.env --name crawler crawler

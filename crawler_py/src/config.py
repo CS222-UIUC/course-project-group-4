@@ -3,9 +3,12 @@ import dotenv
 
 
 class Config(BaseSettings):
-    aws_access_key_id: str = ""
-    aws_secret_key: str = ""
+    write_endpoint = ""
+    write_endpoint_key = ""
     github_access_token: str = ""
+    subject_to_load = ""
+    year_to_load = ""
+    log_level: str = "WARN"
 
 
 dotenv.load_dotenv()
