@@ -97,22 +97,24 @@ const GpaChart = (props: GpaChartProps) => {
         <div />
       )}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
-        <Button
-          onClick={() => {
-            closeModal();
-          }}
-          variant="contained"
-          //   startIcon={<ArrowBackIcon />}
-          color="primary"
-          size="medium"
-        >
-          Back To GPA Graph
-        </Button>
-        <CourseInformation
-          subject={String(modalSubject)}
-          course_number={Number(modalCourseNumber)}
-          requestCourseInfo={fetchCourseInfo}
-        />
+        <div style={{ marginLeft: "8rem", marginRight: "8rem" }}>
+          <Button
+            onClick={() => {
+              closeModal();
+            }}
+            variant="contained"
+            //   startIcon={<ArrowBackIcon />}
+            color="primary"
+            size="medium"
+          >
+            Back To GPA Graph
+          </Button>
+          <CourseInformation
+            subject={String(modalSubject)}
+            course_number={Number(modalCourseNumber)}
+            requestCourseInfo={fetchCourseInfo}
+          />
+        </div>
       </Modal>
     </div>
   );
