@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header
 from fastapi.middleware.cors import CORSMiddleware
 
 from api_get_endpoint_py.api_get_service import ApiGetService
@@ -50,7 +50,10 @@ async def read_course_info(subject: str, number: str):
 
 
 @app.post("/write-gpa", response_model=GpaPostResponse)
-async def write_gpa_info(data: GpaModel):
-    gpa_domain = GpaDomain(GpaRepository(resource))
-    response = gpa_domain.create_gpa(data)
-    return response
+async def write_gpa_info(data: GpaModel, key=Header()):
+    if key == config.write_endpoint_key:
+        gpa_domain = GpaDomain(GpaRepository(resource))
+        response = gpa_domain.create_gpa(data)
+        return response
+    else:
+        return GpaPostResponse(code=400)
