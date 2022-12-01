@@ -7,3 +7,7 @@ class GpaPostResponse(BaseModel):
 
 class CourseInfoPostResponse(BaseModel):
     code: int
+
+
+class CourseInfoGetResponse(BaseModel):
+    code: int

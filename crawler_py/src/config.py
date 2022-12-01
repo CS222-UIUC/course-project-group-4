@@ -4,7 +4,8 @@ import datetime
 
 
 class Config(BaseSettings):
-    write_endpoint = ""
+    write_gpa_endpoint = ""
+    write_ci_endpoint = ""
     write_endpoint_key = ""
     github_access_token: str = ""
     subject_to_load = ""
