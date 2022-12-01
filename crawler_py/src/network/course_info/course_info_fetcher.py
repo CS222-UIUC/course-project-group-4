@@ -4,7 +4,7 @@ import logging
 import requests
 from config import config
 
-from network.utilitiy import get_github_headers_json
+from network.utility import get_github_headers_json
 
 
 class Semester(Enum):
@@ -88,7 +88,7 @@ class CourseInfoFetcher:
             _type_: _description_
         """
         course_info = []
-        for year in list(range(self._MAX_YEAR, self._MIN_YEAR, -1)):
+        for year in list(range(int(self._MAX_YEAR), int(self._MIN_YEAR), -1)):
             for semester in [Semester.FALL, Semester.SPRING]:
                 course_info_append = self.get_course_info_helper(year, semester)
                 logging.info(f"retrieved (${year}, ${semester}): ${course_info_append}")
