@@ -43,7 +43,10 @@ class CourseInfoFetcher:
             str: URL
         """
 
-        return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{year}-{semester}.csv"
+        if year == 2021 and semester == "fa":
+            return "https://raw.githubusercontent.com/wadefagen/datasets/master/course-catalog/data/2021-fall.csv"
+        else:
+            return f"https://raw.githubusercontent.com/{owner}/{repo}/master/{path}/{year}-{semester}.csv"
 
     def _class_csv_to_dict(
         self,
