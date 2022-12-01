@@ -81,6 +81,7 @@ class GpaFetcher:
                 row["Year"] >= config.start_year
                 and row["Year"] <= config.end_year
                 and row["Subject"] == config.subject_to_load
+                and (row["Term"] == "Fall" or row["Term"] == "Spring")
             ):
                 row["ID"] = self._build_id(row)
                 data.append(row)

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api_get_endpoint_py.api_get_service import ApiGetService
 from config import config
 from database.db import initialize_db
-from database.domain.endpoint_response import GpaPostResponse
+from database.domain.endpoint_response import GpaPostResponse, CourseInfoPostResponse
 from database.repository.course_info import CourseInfoRepository
 from database.repository.gpa import GpaRepository
 from database.domain.course_info import CourseInfoDomain, CourseInfoModel
@@ -57,3 +57,13 @@ async def write_gpa_info(data: GpaModel, key=Header()):
         return response
     else:
         return GpaPostResponse(code=400)
+
+
+@app.post("/write-course-info")
+async def write_course_info(data: CourseInfoModel, key=Header()):
+    if key == config.write_endpoint_key:
+        course_info_domain = CourseInfoDomain(CourseInfoRepository(resource))
+        response = course_info_domain.create_course_info(data)
+        return response
+    else:
+        return CourseInfoPostResponse(code=400)

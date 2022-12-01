@@ -2,9 +2,8 @@ import logging
 from boto3.resources.base import ServiceResource
 from database.db import initialize_db
 from database.PartiSqlWrapper import PartiQLWrapper
-from database.domain.course_info import CourseInfoDomain, CourseInfoModel
-from database.repository.course_info import CourseInfoRepository
-from network.course_info.course_info_fetcher import CourseInfoFetcher
+from database.domain.course_info import CourseInfoModel
+from database.domain.endpoint_response import CourseInfoGetResponse
 
 
 class ApiGetService:
@@ -45,15 +44,7 @@ class ApiGetService:
                 )
                 most_recent_course_info = sorted_results[0]
             return most_recent_course_info
+
         else:
             logging.info("CourseInfo not in DB")
-            fetcher = CourseInfoFetcher()
-            course_info = fetcher.get_course_info(subject, course_number)
-            if course_info:
-                course_info_domain = CourseInfoDomain(
-                    CourseInfoRepository(initialize_db())
-                )
-                course_info_model = CourseInfoModel(**course_info)
-                course_info_domain.create_course_info(course_info_model)
-
-            return course_info
+            return CourseInfoGetResponse(code=400)
