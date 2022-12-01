@@ -4,7 +4,7 @@ import logging
 import requests
 from config import config
 
-from network.utilitiy.utility import get_github_headers_json
+from network.utilitiy import get_github_headers_json
 
 
 class Semester(Enum):
@@ -23,9 +23,8 @@ class CourseInfoFetcher:
 
     def __init__(self):
         self._TIMEOUT = 500
-        self._MIN_YEAR = 2016
-        # self._MAX_YEAR = datetime.date.today.year
-        self._MAX_YEAR = 2023
+        self._MIN_YEAR = config.start_year
+        self._MAX_YEAR = config.end_year
 
     def _get_github_link(
         self,
