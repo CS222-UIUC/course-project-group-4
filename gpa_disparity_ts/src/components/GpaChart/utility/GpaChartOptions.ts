@@ -9,7 +9,10 @@ const footer = (tooltipItems: any) => {
   // });
   let subject: string = tooltipItems[0].label.split(" ")[0];
   let num: string = tooltipItems[0].label.split(" ")[1];
-  return `courseinfo/${subject}/${num}`;
+  console.log(tooltipItems[0])
+  // return `courseinfo/${subject}/${num}`;
+  return `GPA: ${tooltipItems[0].parsed.x.toPrecision(3)}\n` + 
+          `Percent 4.0: ${tooltipItems[0].parsed.y.toPrecision(3)}`;
   // return "label" + Object.getOwnPropertyNames(tooltipItems[0].parsed);
 };
 
