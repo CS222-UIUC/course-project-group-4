@@ -96,6 +96,15 @@ const GpaChart = (props: GpaChartProps) => {
       ) : (
         <div />
       )}
+      <div>
+        Circle size represents relative class size <br />
+        min class size of "X" <br />
+        max class size of "Y" <br />
+        4.0 GPA <br />
+        3.0 GPA <br />
+        2.0 GPA <br />
+        1.0 GPA <br />
+    </div>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <div style={{ marginLeft: "8rem", marginRight: "8rem" }}>
           <Button
