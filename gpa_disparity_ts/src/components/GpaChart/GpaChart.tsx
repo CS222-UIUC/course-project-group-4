@@ -30,13 +30,6 @@ import { Circle } from "react-konva"
 //hover-over feature?
 ChartJS.register(Title, LinearScale, PointElement, Tooltip /*, Legend,*/);
 
-/* 4 things to fix:
--axis names for graph
--name of variables (r) changed to be (class_size)
--hover-over points list actual properties before values (Percent 4.0, GPA: 94, class size: 108)
--custom html legend for the chart - needed?
-*/
-
 // Modal Code based on:
 // https://github.com/reactjs/react-modal
 
