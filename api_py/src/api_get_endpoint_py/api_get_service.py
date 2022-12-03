@@ -4,6 +4,7 @@ from database.db import initialize_db
 from database.PartiSqlWrapper import PartiQLWrapper
 from database.domain.course_info import CourseInfoModel
 from database.domain.endpoint_response import CourseInfoGetResponse
+from boto3.dynamodb.conditions import Key
 
 
 class ApiGetService:
@@ -27,10 +28,11 @@ class ApiGetService:
         return formatted_results
 
     def query_course_info(self, subject: str, course_number: str) -> CourseInfoModel:
-        parti_wrapper = PartiQLWrapper(self.dyn_res)
-        query_results = parti_wrapper.run_partiql(
-            f"SELECT * FROM course_final WHERE subject = ? AND number = ?",
-            [subject, str(course_number)],
+        table = self.dyn_res.Table("course_final")
+        query_results = table.query(
+            IndexName="subject-number-index",
+            KeyConditionExpression=Key("subject").eq(subject)
+            & Key("number").eq(str(course_number)),
         )
         logging.info(f"retrieved from DB: ${query_results}")
 
