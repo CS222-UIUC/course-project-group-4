@@ -21,6 +21,7 @@ import { fetchCourseInfo } from "../../network/DataFetcher";
 import { Button } from "@mui/material";
 import { GpaInformation } from "../../interfaces/GpaInformation";
 import { Stack } from "@mui/system";
+import { Circle } from "react-konva"
 //import { StyleSheet } from 'react-native'
 
 // This file modeled after: https://react-chartjs-2.js.org/examples/bubble-chart and
@@ -164,10 +165,10 @@ const GpaChart = (props: GpaChartProps) => {
             Circle size represents relative class size <br />
             
             <br />
-            min class size of {vals.min_size} <br />
-            max class size of {vals.max_size} <br />
+            <Circle radius={20} /*fill="red"*/ /> min class size of {vals.min_size} <br />
+            <Circle radius={40}/> max class size of {vals.max_size} <br />
             4.0 GPA <br />
-            3.0 GPA <br />
+            3.0 GPA <br />  
             2.0 GPA <br />
             1.0 GPA <br />
             <div style={{
