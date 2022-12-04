@@ -4,9 +4,8 @@ import {
   GpaInformation,
   GpaInformationChart,
 } from "../../../interfaces/GpaInformation";
-import { Link } from "react-router-dom";
-const min_point_radius = 20;
-const max_point_radius = 40;
+export const min_point_radius = 20;
+export const max_point_radius = 40;
 
 const kLabelPercent = "Percent: ";
 
@@ -25,19 +24,41 @@ export interface GpaChartData {
   datasets: Dataset[];
 }
 
-// https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
-export const CalculateClassRadiusColor = (
-  gpas: GpaInformation[]
-): GpaInformationChart[] => {
+export const findMinClassSize = (gpas: GpaInformation[]): number => {
   const gpa_with_min_class_size = gpas.reduce((prev, curr) =>
     prev.class_size < curr.class_size ? prev : curr
   );
   const min_class_size = gpa_with_min_class_size.class_size;
+  return min_class_size;
+};
 
+export const findMaxClassSize = (gpas: GpaInformation[]): number => {
   const gpa_with_max_class_size = gpas.reduce((prev, curr) =>
     prev.class_size > curr.class_size ? prev : curr
   );
   const max_class_size = gpa_with_max_class_size.class_size;
+  return max_class_size;
+};
+
+export interface ClassVals {
+  min_size: number;
+  max_size: number;
+}
+export function CalculateClassExtrema(gpas: GpaInformation[]) {
+  const size_data: ClassVals = {
+    min_size: findMinClassSize(gpas),
+    max_size: findMaxClassSize(gpas),
+  };
+  return size_data;
+}
+
+// https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
+export const CalculateClassRadiusColor = (
+  gpas: GpaInformation[]
+): GpaInformationChart[] => {
+  const min_class_size = findMinClassSize(gpas);
+
+  const max_class_size = findMaxClassSize(gpas);
 
   return gpas.map((gpa): GpaInformationChart => {
     const scalable_part_of_radius = max_point_radius - min_point_radius;
