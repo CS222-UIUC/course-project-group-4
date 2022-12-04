@@ -33,12 +33,12 @@ export const Legend = (props: LegendProps) => {
       Circle size represents relative class size <br />
       <LegendLineSize
         circle_size={min_point_radius * 2}
-        label={`min class size of ${extrema.min_size}`}
+        label={`min class size of ${Math.round(extrema.min_size)}`}
         color="#5D98C4"
       />
       <LegendLineSize
         circle_size={max_point_radius * 2}
-        label={`max class size of ${extrema.max_size}`}
+        label={`max class size of ${Math.round(extrema.max_size)}`}
         color="#CC63AD"
       />
       <LegendLineGpa
