@@ -1,7 +1,7 @@
-import Modal from "react-modal";
-import { Button } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 import CourseInformation from "../CourseInformation";
 import { fetchCourseInfo } from "../../network/DataFetcher";
+import React from "react";
 
 interface CourseInfoModalProps {
   isOpen: any;
@@ -18,8 +18,21 @@ export const CourseInfoModal = (props: CourseInfoModalProps) => {
     closeModal,
   } = props;
   return (
-    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
-      <div style={{ marginLeft: "8rem", marginRight: "8rem" }}>
+    <Modal
+      open={modalIsOpen}
+      onClose={() => closeModal()}
+      aria-labelledby="course-information"
+      aria-describedby="displays-course-information"
+    >
+      <div
+        style={{
+          marginLeft: "8rem",
+          marginRight: "8rem",
+          marginTop: "8rem",
+          backgroundColor: "white",
+          padding: "4rem",
+        }}
+      >
         <Button
           onClick={() => {
             closeModal();

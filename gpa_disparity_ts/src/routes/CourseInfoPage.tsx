@@ -2,11 +2,7 @@ import BackButton from "../components/BackButton";
 import CourseInformation from "../components/CourseInformation";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import {
-  dummyFetchCourseNumbers,
-  fetchCourseInfo,
-  fetchSubjects,
-} from "../network/DataFetcher";
+import { fetchCourseInfo, fetchSubjects } from "../network/DataFetcher";
 import DropDown from "../components/Dropdown";
 import { useState } from "react";
 import { Button } from "@mui/material";
@@ -23,8 +19,10 @@ function CourseInfoPage() {
 
   const [subject, setSubject] = useState<string | number>(subj!);
   const [courseNumber, setCourseNum] = useState<string | number>(num!);
-  console.log(courseNumber);
-  //   TODO remove labels of "Subject", "Title", etc
+
+  const initDropdown = (subject: String) => {
+    return async () => ["120", "130", "140"];
+  };
 
   return (
     // where_react_page_is_hosted/courseinfo/ECE/
@@ -71,7 +69,7 @@ function CourseInfoPage() {
             label="Subject"
           />
           <DropDown
-            retrieveMenuItems={dummyFetchCourseNumbers(`${subject}`)}
+            retrieveMenuItems={initDropdown(`${subject}`)}
             value={courseNumber}
             setValue={setCourseNum}
             label="CourseNumber"

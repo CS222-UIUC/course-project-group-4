@@ -1,18 +1,14 @@
-import { Chart as ChartJS } from "chart.js";
-import { useNavigate } from "react-router-dom";
-
 const footer = (tooltipItems: any) => {
-  // tooltipItems.forEach(function(tooltipItem: any) {
-  //   sum += tooltipItem.parsed.y;
-  // });
   let subject: string = tooltipItems[0].label.split(" ")[0];
   let num: string = tooltipItems[0].label.split(" ")[1];
-  // return `courseinfo/${subject}/${num}`;
+
   return (
     `GPA: ${tooltipItems[0].parsed.x.toPrecision(3)}\n` +
-    `Percent 4.0: ${tooltipItems[0].parsed.y.toPrecision(3)}`
+    `Percent 4.0: ${tooltipItems[0].parsed.y.toPrecision(3)}\n` +
+    `Average Class Size: ${Math.round(
+      tooltipItems[0].dataset.data[0].class_size
+    )}`
   );
-  // return "label" + Object.getOwnPropertyNames(tooltipItems[0].parsed);
 };
 
 const ClickHandler = (e: any) => {
@@ -34,7 +30,6 @@ export const options = {
         display: true,
         text: "Percentage of 4.0 GPAs",
       },
-      //title: 'Percentage of 4.0 GPAs'
       //   beginAtZero: true,
     },
     x: {
@@ -65,8 +60,9 @@ export const options = {
     },
     tooltip: {
       callbacks: {
-        //specific labels for hover-over here, yet to be implemented
-        //context throwing error for some reason
+        label: function (context: any) {
+          return context.label;
+        },
         footer: footer,
       },
     },
