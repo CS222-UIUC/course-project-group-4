@@ -21,20 +21,22 @@ const GpaChartPage = () => {
         paddingLeft: "4rem",
         paddingRight: "4rem",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
       }}
     >
-      <GpaChart
-        subject={subject as string}
-        retrieveGpasFromDb={fetchGPAInfo}
-        setExtrema={setExtrema}
-      />
+      <div style={{ flexGrow: 1 }}>
+        <GpaChart
+          subject={subject as string}
+          retrieveGpasFromDb={fetchGPAInfo}
+          setExtrema={setExtrema}
+        />
+      </div>
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-end",
-          flexDirection: "row",
-          marginTop: "2rem",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "3.3rem",
         }}
       >
         <DropDown
@@ -43,8 +45,8 @@ const GpaChartPage = () => {
           setValue={setSubject}
           label="Subject"
         />
+        <Legend extrema={extrema} />
       </div>
-      <Legend extrema={extrema} />
     </div>
   );
 };
