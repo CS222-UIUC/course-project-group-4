@@ -1,0 +1,15 @@
+.coverage
+*.html
+/htmlcov/
+/.pytes_cache/
+*/cache/*
+/venv/
+/env/
+
+__pycache__
+tmp
+filewriter.py
+gpa_disparity_py\database\logs
+
+venv
+.env

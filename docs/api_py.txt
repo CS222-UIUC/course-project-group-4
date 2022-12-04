@@ -1,0 +1,19 @@
+You can host a local version of the api at 127.0.0.1:8000  You can see the results in a web browser.
+`source ./venv/bin/activate` to change to the venv
+`cd src`
+`uvicorn main:app --reload` to host on local
+Then try the following web addresses in the web browser.
+http://127.0.0.1:8000/all-subjects/
+http://127.0.0.1:8000/course-info/?subject=ABE&number=498
+http://127.0.0.1:8000/gpa-info/?subject=ECE
+
+Can use postman to get / send requests
+https://www.postman.com/downloads/postman-agent/
+
+Navigate to the api_endpoint_py folder, then
+docker build -t api_py .
+docker run --rm -it -p 8080:8080 --env-file src/.env --name api_py api_py
+
+http://127.0.0.1:8080/all-subjects/
+http://127.0.0.1:8080/course-info/?subject=ABE&number=498
+http://127.0.0.1:8080/gpa-info/?subject=ECE

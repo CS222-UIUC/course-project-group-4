@@ -1,0 +1,113 @@
+import { TooltipItem } from "chart.js";
+import { GpaColor } from "./GpaColor";
+import {
+  GpaInformation,
+  GpaInformationChart,
+} from "../../../interfaces/GpaInformation";
+export const min_point_radius = 20;
+export const max_point_radius = 40;
+
+const kLabelPercent = "Percent: ";
+
+export interface Dataset {
+  label: string;
+  data: {
+    y: number;
+    x: number;
+    r: number;
+    percent: string;
+    class_size: number;
+  }[];
+  backgroundColor: string;
+}
+
+export interface GpaChartData {
+  datasets: Dataset[];
+}
+
+export const findMinClassSize = (gpas: GpaInformation[]): number => {
+  if (gpas.length === 0) return 0;
+  const gpa_with_min_class_size = gpas.reduce((prev, curr) =>
+    prev.class_size < curr.class_size ? prev : curr
+  );
+  const min_class_size = gpa_with_min_class_size.class_size;
+  return min_class_size;
+};
+
+export const findMaxClassSize = (gpas: GpaInformation[]): number => {
+  if (gpas.length === 0) return 0;
+  const gpa_with_max_class_size = gpas.reduce((prev, curr) =>
+    prev.class_size > curr.class_size ? prev : curr
+  );
+  const max_class_size = gpa_with_max_class_size.class_size;
+  return max_class_size;
+};
+
+export interface ClassVals {
+  min_size: number;
+  max_size: number;
+}
+export function CalculateClassExtrema(gpas: GpaInformation[]) {
+  const size_data: ClassVals = {
+    min_size: findMinClassSize(gpas),
+    max_size: findMaxClassSize(gpas),
+  };
+  return size_data;
+}
+
+// https://stackoverflow.com/questions/8864430/compare-javascript-array-of-objects-to-get-min-max
+export const CalculateClassRadiusColor = (
+  gpas: GpaInformation[]
+): GpaInformationChart[] => {
+  const min_class_size = findMinClassSize(gpas);
+
+  const max_class_size = findMaxClassSize(gpas);
+
+  return gpas.map((gpa): GpaInformationChart => {
+    const scalable_part_of_radius = max_point_radius - min_point_radius;
+    const scaled_class_size =
+      (gpa.class_size - min_class_size) / (max_class_size - min_class_size);
+
+    const class_size_radius = Math.round(
+      min_point_radius + scaled_class_size * scalable_part_of_radius
+    );
+
+    const class_gpa_color = new GpaColor(gpa.average_gpa);
+
+    return {
+      ...gpa,
+      class_size_radius: class_size_radius,
+      gpa_color: class_gpa_color,
+    };
+  });
+};
+
+const BuildChartDataset = (gpa_info: GpaInformationChart[]) => {
+  const data: Dataset[] = [] as Dataset[];
+  for (const gpaInfo of gpa_info) {
+    const dataset: Dataset = {
+      label: gpaInfo.subject + " " + gpaInfo.course_number,
+      data: [
+        {
+          y: gpaInfo.percent_four_point_zero,
+          x: gpaInfo.average_gpa,
+          r: gpaInfo.class_size_radius,
+          percent: kLabelPercent,
+          class_size: gpaInfo.class_size,
+        },
+      ],
+      backgroundColor: gpaInfo.gpa_color.toString(),
+    };
+
+    data.push(dataset);
+  }
+  return { datasets: data };
+};
+
+export const FormatDataForChart = (
+  gpaInformationList: GpaInformation[]
+): GpaChartData => {
+  const gpa_information = CalculateClassRadiusColor(gpaInformationList);
+  const chart_info = BuildChartDataset(gpa_information);
+  return chart_info;
+};

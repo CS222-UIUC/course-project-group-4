@@ -1,0 +1,24 @@
+Alex - CS 222 CA
+"one fair warning is the same course can change their crn every semester so u prob dont want to aggregate ur data on CRN (one mistake i made :/)"
+
+Chron job to schedule pull updates via Github / API.
+
+Merge main into current branch
+git remote update
+git merge remotes/origin/main
+git status
+
+git add _changed_file_
+
+test that it builds
+(git add _changed_file_ again if need after fixing)
+git merge --continue
+
+git log will show that the remotes/origin/main has merged into current branch
+
+When creating a new branch each week:
+git checkout main
+git pull
+git checkout -b _new_branch_name_
+
+I finally looked at Wade's scraping script.  Now that I think about it, though his data was a couple years out of date, possibly could have just ran his scraper locally.
