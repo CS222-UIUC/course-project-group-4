@@ -26,31 +26,27 @@ const CourseInfoDisplay = (props: CourseInfoDisplayProps) => {
 
   return (
     <div className="course-information-display">
-      <p>
+      <p style={{ paddingTop: "1rem" }}>
         <b>
           {course_info.subject} {course_info.number} {course_info.name}
         </b>
-        <br />
-        <br />
-        {course_info.description}
-        <br />
-        <br />
+      </p>
+      <p style={{ lineHeight: "1.5rem" }}>{course_info.description}</p>
+      <p style={{ paddingTop: "1rem" }}>
         <b>Credit Hours: </b>
         {course_info.credit_hours}
-        <br />
-        <br />
-
-        {course_info.degree_attributes !== "" ? (
-          <div>
-            <b>Degree Attributes: </b>
-            {course_info.degree_attributes}
-          </div>
-        ) : (
-          <div />
-        )}
-
-        <br />
       </p>
+
+      {course_info.degree_attributes !== "" ? (
+        <p style={{ paddingTop: "1rem" }}>
+          <b>Degree Attributes: </b>
+          {course_info.degree_attributes}
+        </p>
+      ) : (
+        <div />
+      )}
+
+      <br />
     </div>
   );
 };

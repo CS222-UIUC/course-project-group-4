@@ -18,7 +18,7 @@ export const CourseInfoModal = (props: CourseInfoModalProps) => {
     closeModal,
   } = props;
   return (
-    <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+    <Modal isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
       <div style={{ marginLeft: "8rem", marginRight: "8rem" }}>
         <Button
           onClick={() => {
