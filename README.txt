@@ -7,11 +7,11 @@ Professor Fagen’s GitHub Datasets -> Python Crawlers -> Python API <-> DynamoD
 Install Instructions:
 =================
 create AWS DynamoDB tables:
-- course_final (PartitionKey: crn, SortKey: yearterm)
-  - Index: 'subject-number-index' (PartitionKey: subject, SortKey: number)
-- gpa_final (PartitionKey: id, SortKey: subject)
-  - Index: 'subject-index' (PartitionKey: subject)
-- Majors (PartitionKey: Majors)  
+course_final (PartitionKey: crn, SortKey: yearterm)
+  Index: 'subject-number-index' (PartitionKey: subject, SortKey: number)
+gpa_final (PartitionKey: id, SortKey: subject)
+  Index: 'subject-index' (PartitionKey: subject)
+Majors (PartitionKey: Majors)  
 =================
 API:
 cd api_py/src
