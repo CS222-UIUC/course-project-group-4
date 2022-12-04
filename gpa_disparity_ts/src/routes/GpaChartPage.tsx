@@ -2,12 +2,15 @@ import DropDown from "../components/Dropdown";
 import { useState } from "react";
 import GpaChart from "../components/GpaChart/GpaChart";
 import { fetchGPAInfo, fetchSubjects } from "../network/DataFetcher";
-import { Box, Button } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
+import { ClassVals } from "../components/GpaChart/utility/GpaChartUtility";
+import { Legend } from "../components/Legend";
 
 const GpaChartPage = () => {
   const [subject, setSubject] = useState<string | number>("");
-  const navigate = useNavigate();
+  const [extrema, setExtrema] = useState<ClassVals>({
+    min_size: 0,
+    max_size: 0,
+  });
 
   return (
     <div
@@ -21,9 +24,13 @@ const GpaChartPage = () => {
         flexDirection: "column",
       }}
     >
-      {/* Holds our root component*/}
-      <Box
-        sx={{
+      <GpaChart
+        subject={subject as string}
+        retrieveGpasFromDb={fetchGPAInfo}
+        setExtrema={setExtrema}
+      />
+      <div
+        style={{
           display: "flex",
           justifyContent: "flex-end",
           flexDirection: "row",
@@ -36,19 +43,8 @@ const GpaChartPage = () => {
           setValue={setSubject}
           label="Subject"
         />
-        {/* <Button
-          onClick={() => {
-            navigate("/courseinfo");
-          }}
-          variant="contained"
-          //   startIcon={<ArrowBackIcon />}
-          color="primary"
-          size="medium"
-        >
-          Course Information
-        </Button> */}
-      </Box>
-      <GpaChart subject={subject as string} retrieveGpasFromDb={fetchGPAInfo} />
+      </div>
+      <Legend extrema={extrema} />
     </div>
   );
 };
