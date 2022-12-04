@@ -63,10 +63,12 @@ export function calculateGpaInformation(props: ApiClassInfo[]) {
     var sum_gpa_four_point_zero = get_four_point_zero_sum(class_instance);
     four_point_zero_total += sum_gpa_four_point_zero;
   });
+
   var avg_gpa = gpa_total / total_number_of_students;
   var avg_size = total_number_of_students / num_classes_in_list;
   var percent_four_point_zero =
     (four_point_zero_total / total_number_of_students) * 100;
+
   const info: GpaInformation = {
     subject: props[0].subject,
     course_number: Number(props[0].number),
@@ -74,6 +76,7 @@ export function calculateGpaInformation(props: ApiClassInfo[]) {
     class_size: avg_size,
     average_gpa: avg_gpa,
   };
+
   return info;
 }
 

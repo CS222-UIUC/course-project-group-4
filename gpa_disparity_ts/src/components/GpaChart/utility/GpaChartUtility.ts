@@ -16,6 +16,7 @@ export interface Dataset {
     x: number;
     r: number;
     percent: string;
+    class_size: number;
   }[];
   backgroundColor: string;
 }
@@ -90,11 +91,12 @@ const BuildChartDataset = (gpa_info: GpaInformationChart[]) => {
         {
           y: gpaInfo.percent_four_point_zero,
           x: gpaInfo.average_gpa,
-          r: gpaInfo.class_size_radius, // FIXME should call function to calculate
+          r: gpaInfo.class_size_radius,
           percent: kLabelPercent,
+          class_size: gpaInfo.class_size,
         },
       ],
-      backgroundColor: gpaInfo.gpa_color.toString(), // FIXME should call function to calculate
+      backgroundColor: gpaInfo.gpa_color.toString(),
     };
 
     data.push(dataset);
