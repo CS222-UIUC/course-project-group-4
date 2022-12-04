@@ -1,5 +1,3 @@
-import { Circle } from "@mui/icons-material";
-
 interface LegendLineProps {
   circle_size: number;
   label: string;

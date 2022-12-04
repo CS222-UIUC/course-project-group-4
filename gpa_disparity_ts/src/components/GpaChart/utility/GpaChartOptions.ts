@@ -1,6 +1,4 @@
-import {
-  Chart as ChartJS,
-} from "chart.js";
+import { Chart as ChartJS } from "chart.js";
 import { useNavigate } from "react-router-dom";
 
 const footer = (tooltipItems: any) => {
@@ -9,16 +7,17 @@ const footer = (tooltipItems: any) => {
   // });
   let subject: string = tooltipItems[0].label.split(" ")[0];
   let num: string = tooltipItems[0].label.split(" ")[1];
-  console.log(tooltipItems[0])
   // return `courseinfo/${subject}/${num}`;
-  return `GPA: ${tooltipItems[0].parsed.x.toPrecision(3)}\n` + 
-          `Percent 4.0: ${tooltipItems[0].parsed.y.toPrecision(3)}`;
+  return (
+    `GPA: ${tooltipItems[0].parsed.x.toPrecision(3)}\n` +
+    `Percent 4.0: ${tooltipItems[0].parsed.y.toPrecision(3)}`
+  );
   // return "label" + Object.getOwnPropertyNames(tooltipItems[0].parsed);
 };
 
 const ClickHandler = (e: any) => {
   //placeholder
-}
+};
 export const options = {
   maintainAspectRatio: true,
   scales: {
@@ -70,8 +69,7 @@ export const options = {
         //context throwing error for some reason
         footer: footer,
       },
-    }
+    },
   },
-  onClick: ClickHandler
+  onClick: ClickHandler,
 };
-

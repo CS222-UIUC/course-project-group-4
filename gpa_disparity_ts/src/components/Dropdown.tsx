@@ -44,7 +44,9 @@ export default function DropDown(props: dropdownProps) {
           {
             // https://stackoverflow.com/questions/46908480/how-do-i-use-for-loops-with-react/46908649#46908649
             valueList.map((value, i) => (
-              <MenuItem value={value}>{value}</MenuItem>
+              <MenuItem value={value} key={`${value}`}>
+                {value}
+              </MenuItem>
             ))
           }
         </Select>

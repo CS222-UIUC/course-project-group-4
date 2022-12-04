@@ -25,6 +25,7 @@ export interface GpaChartData {
 }
 
 export const findMinClassSize = (gpas: GpaInformation[]): number => {
+  if (gpas.length === 0) return 0;
   const gpa_with_min_class_size = gpas.reduce((prev, curr) =>
     prev.class_size < curr.class_size ? prev : curr
   );
@@ -33,6 +34,7 @@ export const findMinClassSize = (gpas: GpaInformation[]): number => {
 };
 
 export const findMaxClassSize = (gpas: GpaInformation[]): number => {
+  if (gpas.length === 0) return 0;
   const gpa_with_max_class_size = gpas.reduce((prev, curr) =>
     prev.class_size > curr.class_size ? prev : curr
   );
