@@ -31,6 +31,7 @@ pip install -r requirements.txt
 python3 main.py
 =================
 Frontend
+In /gpa_disparity_ts/src/network/DataFetcher.ts configure the configure BaseURL string to that of where the API is hosted
 cd gpa_disparity_ts
 npm install
 npm start
